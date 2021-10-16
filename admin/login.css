@@ -1,0 +1,93 @@
+body {
+    background-color: rgb(91, 183, 219);
+}
+
+p {
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 46px;
+    color: red;
+    font-size: 14px;
+    visibility: hidden;
+}
+
+#divcenter {
+    width: 500px;
+    height: 300px;
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    margin-left: 35%;
+}
+
+table {
+    background-color: white;
+    width: 500px;
+    height: 250px;
+}
+
+td {
+    position: absolute;
+    margin-top: 30px;
+    padding: 0px;
+}
+
+.input {
+    margin-left: 45px;
+    margin-bottom: 0px;
+    width: 400px;
+    height: 35px;
+}
+
+#submit {
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 46px;
+}
+
+#dangnhap,
+#reset {
+    background-color: rgb(49, 102, 182);
+    border: 0px;
+    width: 100px;
+    height: 40px;
+}
+
+#dangnhap:hover,
+#reset:hover,
+#bt:hover {
+    border: 2px solid black;
+}
+
+#divreport {
+    position: fixed;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 200px;
+    background-color: aquamarine;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    border-radius: 10px;
+    visibility: hidden;
+    transition: 0.5s;
+}
+
+h3 {
+    color: rgb(129, 21, 93);
+    margin-top: 40px;
+    margin-left: 70px;
+}
+
+#bt {
+    margin-top: 30px;
+    margin-left: 250px;
+    width: 100px;
+    height: 40px;
+    background-color: rgb(49, 102, 182);
+    border: 0px;
+}
