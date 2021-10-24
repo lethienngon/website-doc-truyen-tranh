@@ -59,3 +59,63 @@ body {
     margin-left: 40px;
     transition: 0.5;
 }
+
+.div02_title {
+    position: absolute;
+    font-size: 20px;
+    left: 10px;
+    top: 10px;
+}
+
+#div02_thongtincanhan_lienhe table {
+    background-color: rgb(152, 212, 214);
+    position: absolute;
+    top: 50px;
+    left: 20px;
+    width: 500px;
+    height: 220px;
+}
+
+#div02_thongtincanhan_lienhe table tr th {
+    padding-left: 10px;
+    text-align: left;
+    line-height: 50px;
+    width: 150px;
+}
+
+#div02_thongtincanhan_lienhe table tr td {
+    text-align: left;
+    line-height: 50px;
+    width: 350px;
+}
+
+#div02_thanhvien_add {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_thanhvien_add:hover {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+#form_add_user {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 200px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    border-radius: 10px;
+    visibility: hidden;
+    transition: 0.5s;
+}

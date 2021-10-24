@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="ckeditor/ckeditor.js"></script>
+</head>
+
+<body>
+
+    <form action="them-bai-viet-ck.php" method="post">
+        <textarea name="description" id="editor1" rows="10" cols="80">This is my textarea to be replaced with CKEditor.</textarea>
+
+    </form>
+    <script>
+        // Thay thế <textarea id="post_content"> với CKEditor
+        CKEDITOR.replace('editor1'); // tham số là biến name của textarea
+    </script>
+</body>
+
+</html>

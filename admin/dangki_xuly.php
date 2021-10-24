@@ -5,15 +5,15 @@
   $passcon = $_POST['passagain'];
   if($tendangnhap != '' && $password != '' && $passcon != ''){
       if($password==$passcon){
-          $conn = new mysqli("localhost","root","","web_truyen_tranh");
+          $conn = new mysqli("localhost","root","","db_web_truyen_tranh");
 	      $conn->set_charset("utf8");
 	      //Ma hoa chuoi bang md5
-	      $SQL = "Select tendangnhap from nguoidung where tendangnhap='$tendangnhap'";
+	      $SQL = "Select ADMIN_USERNAME from admin where ADMIN_USERNAME='$tendangnhap'";
 	      $RESULT = $conn->query($SQL);
 	      //echo $RESULT->num_rows;
 	      if($RESULT->num_rows == 0 /*&& $RESULT != false*/){
 	          $password = md5($password);
-	          $sql = "INSERT INTO nguoidung(tendangnhap,matkhau) values('$tendangnhap','$password')";
+	          $sql = "INSERT INTO admin(ADMIN_USERNAME,ADMIN_MATKHAU) values('$tendangnhap','$password')";
 	          $result = $conn->query($sql);
 	          $conn->close();
 		      header('location:login.php');
