@@ -135,15 +135,15 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         </div>
     </div>
     <div id="form_add_user">
-        <table border="0" width="500px" height="350px" bgcolor="#f7b7f3">
-            <form action="#" method="POST" enctype='multipart/form-data' autocomplete="off">
+        <table border="0">
+            <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
                 <tr>
                     <th align="left">Tên đăng nhập</th>
-                    <td><input type="text" name="username"></td>
+                    <td><input id="user" type="text" name="username"></td>
                 </tr>
                 <tr>
                     <th align="left">Mật khẩu</th>
-                    <td><input type="password" name="pass"></td>
+                    <td><input id="pass" type="password" name="pass"></td>
                 </tr>
                 <tr>
                     <th align="left">Gõ lại mật khẩu</th>
@@ -162,20 +162,27 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     <td><input type="file" id="anhdaidien" name="anhdaidien"></td>
                 </tr>
                 <tr>
-                    <th align="left"><label for="gender">Giới tính</label></th>
-                    <td><input type="radio" id="male" name="gender" value="Nam">
-                        <label for="male">Nam</label>
-                        <input type="radio" id="female" name="gender" value="Nữ">
-                        <label for="female">Nữ</label>
-                        <input type="radio" id="orther" name="gender" value="Khác">
-                        <label for="orther">Khác</label>
+                    <th align="left">Quyền</th>
+                    <td><select name="level">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left">Trạng thái</th>
+                    <td><select name="status">
+                            <option value="0">Khóa</option>
+                            <option value="1">Đang hoạt động</option>
+                        </select>
                     </td>
                 </tr>
                 <tr>
                     <th> </th>
-                    <td><input type="submit" value="Đăng kí" name="submit">
-                        <input type="reset" value="Làm lại">
-                        <a id="form_add_user_exit" onclick="click_add_user_exit()" href="#">Thoát</a>
+                    <td><input id="form_add_user_submit" type="submit" value="Đăng kí" name="submit">
+                        <input id="form_add_user_reset" type="reset" value="Làm lại">
+                        <input id="form_add_user_exit" type="button" value="Thoát" onclick="click_add_user_exit()">
                     </td>
                 </tr>
             </form>
@@ -222,7 +229,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('content').style.filter = "blur(10px)";
             document.getElementById('content').style.pointerEvents = "none";
             document.getElementById('content').style.userSelect = "none";
-            document.getElementById('form_add_user').style.top = "40%";
+            document.getElementById('form_add_user').style.top = "50%";
             document.getElementById('form_add_user').style.transition = "0.5s";
         }
 
@@ -232,8 +239,28 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('form_add_user').style.transition = "0s";
-            document.getElementById('form_add_user').style.top = "20%";
+            document.getElementById('form_add_user').style.top = "30%";
         }
+    </script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(e){
+            $('#form_add_user_form').on('submit', function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: "add_user_xuly.php",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success:function(data){
+                        alert("Loi");
+                        click_add_user_exit();
+                    }
+                });
+            });
+        });
     </script>
 </body>
 

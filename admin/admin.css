@@ -112,10 +112,47 @@ body {
     left: 50%;
     top: 30%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    height: 200px;
+    width: 500px;
+    height: 500px;
+    background-color: rgb(121, 193, 241);
     box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
     border-radius: 10px;
     visibility: hidden;
     transition: 0.5s;
+}
+
+#form_add_user table tr th {
+    position: relative;
+    padding: 15px;
+    padding-left: 50px;
+}
+
+#form_add_user_submit {
+    background-color: rgb(49, 102, 182);
+    margin-top: 20px;
+    border: 0px;
+    width: 80px;
+    height: 30px;
+}
+
+#form_add_user_reset {
+    background-color: rgb(180, 182, 49);
+    margin-top: 20px;
+    border: 0px;
+    width: 80px;
+    height: 30px;
+}
+
+#form_add_user_exit {
+    background-color: rgb(83, 83, 83);
+    margin-top: 20px;
+    border: 0px;
+    width: 80px;
+    height: 30px;
+}
+
+#form_add_user_submit:hover,
+#form_add_user_reset:hover,
+#form_add_user_exit:hover {
+    border: 2px solid rgb(255, 255, 255);
 }
