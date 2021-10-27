@@ -135,34 +135,38 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         </div>
     </div>
     <div id="form_add_user">
-        <table border="0">
-            <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+        <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table border="0">
                 <tr>
-                    <th align="left">Tên đăng nhập</th>
+                    <th align="left"><label>Tên đăng nhập</label></th>
                     <td><input id="user" type="text" name="username"></td>
                 </tr>
                 <tr>
-                    <th align="left">Mật khẩu</th>
+                    <th align="left"><label>Mật khẩu</label></th>
                     <td><input id="pass" type="password" name="pass"></td>
                 </tr>
                 <tr>
-                    <th align="left">Gõ lại mật khẩu</th>
+                    <th align="left"><label>Gõ lại mật khẩu</label></th>
                     <td><input type="password" name="passagain"></td>
                 </tr>
                 <tr>
-                    <th align="left">Email</th>
+                    <th align="left"><label>Họ và tên</label></th>
+                    <td><input type="text" name="hoten"></td>
+                </tr>
+                <tr>
+                    <th align="left"><label>Email</label></th>
                     <td><input type="text" name="email"></td>
                 </tr>
                 <tr>
-                    <th align="left">Số điện thoại</th>
+                    <th align="left"><label>Số điện thoại</label></th>
                     <td><input type="text" name="sdt"></td>
                 </tr>
                 <tr>
-                    <th align="left">Hình đại diện</th>
+                    <th align="left"><label>Hình đại diện</label></th>
                     <td><input type="file" id="anhdaidien" name="anhdaidien"></td>
                 </tr>
                 <tr>
-                    <th align="left">Quyền</th>
+                    <th align="left"><label>Quyền</label></th>
                     <td><select name="level">
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -171,7 +175,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     </td>
                 </tr>
                 <tr>
-                    <th align="left">Trạng thái</th>
+                    <th align="left"><label>Trạng thái</label></th>
                     <td><select name="status">
                             <option value="0">Khóa</option>
                             <option value="1">Đang hoạt động</option>
@@ -185,8 +189,9 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                         <input id="form_add_user_exit" type="button" value="Thoát" onclick="click_add_user_exit()">
                     </td>
                 </tr>
-            </form>
-        </table>
+            </table>
+        </form>
+
     </div>
     <script>
         function click_ttcn() {
@@ -243,22 +248,76 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function(e){
-            $('#form_add_user_form').on('submit', function(e){
-                e.preventDefault();
-                $.ajax({
-                    url: "add_user_xuly.php",
-                    method: "POST",
-                    data: new FormData(this),
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success:function(data){
-                        alert("Loi");
-                        click_add_user_exit();
+    <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form_add_user_form").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        minlength: 8 , 
+                        remote: "check_username_exit.php"
+                    },
+                    pass: {
+                        required: true,
+                        minlength: 8
+                    },
+                    passagain: {
+                        equalTo: "#pass"
+                    },
+                    hoten: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    sdt: {
+                        required: true,
+                        number: true
                     }
-                });
+                },
+                messages: {
+                    username: {
+                        required: "Bạn chưa nhập tên đăng nhập",
+                        minlength: "Username phải có ít nhất 8 kí tự",
+                        remote: "Username đã tồn tại"
+                    },
+                    pass: {
+                        required: "Bạn chưa nhập mật khẩu",
+                        minlength: "Mật khẩu phải có ít nhất 8 kí tự"
+                    },
+                    passagain: {
+                        equalTo: "Mật khẩu không khớp"
+                    },
+                    hoten: {
+                        required: "Bạn chưa nhập họ và tên"
+                    },
+                    email: {
+                        required: "Bạn chưa nhập email",
+                        email: "Chưa đúng định dạng email"
+                    },
+                    sdt: {
+                        required: "Bạn chưa nhập số điện thoại",
+                        number: "Bạn chỉ được nhập kí tự số"
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#form_add_user_form').on('submit', function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: "add_user_xuly.php",
+                            method: "POST",
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                click_add_user_exit();
+                            }
+                        });
+                    });
+                }
             });
         });
     </script>

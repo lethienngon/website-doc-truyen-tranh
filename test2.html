@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jQuery Validation - ThienAnBlog.com</title>
+    <style type="text/css">
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            display: inline-block;
+            width: 200px;
+        }
+        
+        label.error {
+            display: inline-block;
+            color: red;
+            width: 200px;
+        }
+    </style>
+    <!-- Load Thư viện jQuery vào trước khi load jQuery Validate-->
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="admin/lib/jquery.validate.min.js"></script>
+</head>
+
+<body>
+    <form method="post" accept-charset="utf-8" style="width:600px;margin: 0px auto;" id="formDemo">
+        <legend>Demo jQuery Validate - ThienAnBlog.com</legend>
+        <table>
+            <tr>
+
+                <label>Họ</label>
+                <input name="ho" type="text" placeholder="Vui lòng nhập họ">
+
+            </tr>
+            <tr>
+
+                <label>Tên</label>
+                <td><input name="ten" type="text" placeholder="Vui lòng nhập tên"></td>
+
+            </tr>
+            <tr>
+
+                <label>Địa chỉ</label>
+                <input name="diachi" type="text" placeholder="Vui lòng nhập địa chỉ">
+
+            </tr>
+            <button type="submit">Gửi</button>
+        </table>
+    </form>
+    <div id="form_add_user">
+        <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table>
+                <input type="text" name="hoten">
+                <input id="form_add_user_submit" type="submit" value="Đăng kí" name="submit">
+            </table>
+        </form>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            //Khi bàn phím được nhấn và thả ra thì sẽ chạy phương thức này
+            $("#formDemo").validate({
+                rules: {
+                    ho: "required",
+                    ten: "required",
+                    diachi: {
+                        required: true,
+                        minlength: 2
+                    }
+                },
+                messages: {
+                    ho: "Vui lòng nhập họ",
+                    ten: "Vui lòng nhập tên",
+                    diachi: {
+                        required: "Vui lòng nhập địa chỉ",
+                        minlength: "Địa chỉ ngắn vậy, chém gió ah?"
+                    }
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form_add_user_form").validate({
+                rules: {
+                    hoten: "required"
+                },
+                messages: {
+                    hoten: "Vui lòng nhập họ"
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
