@@ -168,3 +168,69 @@ body {
     color: red;
     font-size: 14px;
 }
+
+#search_hoten_input {
+    position: absolute;
+    left: 300px;
+    top: 12px;
+    width: 400px;
+    height: 38px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#list_user_name {
+    border-radius: 5px;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+#table_list_user {
+    border: 1px solid rgb(216, 216, 216);
+    font-size: 15px;
+    text-align: center;
+    width: 1050px;
+}
+
+#table_list_user th {
+    height: 30px;
+}
+
+#table_list_user td {
+    border-top: 1px solid rgb(240, 240, 240);
+    height: 80px;
+}
+
+#pick_page {
+    position: relative;
+    top: 20px;
+}
+
+.pages {
+    display: inline-block;
+    color: black;
+    border: 2px solid rgb(190, 190, 190);
+    text-align: center;
+    line-height: 25px;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.pages_tool {
+    display: inline-block;
+    color: black;
+    border: 2px solid rgb(190, 190, 190);
+    text-align: center;
+    line-height: 25px;
+    margin-left: 5px;
+    width: 50px;
+    height: 30px;
+}
+
+.pages:hover,
+.pages_tool:hover {
+    border: 2px solid rgb(0, 0, 0);
+}

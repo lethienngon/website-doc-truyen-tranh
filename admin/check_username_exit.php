@@ -2,7 +2,7 @@
 $username = $_GET['username'];
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
-$sql = "SELECT * FROM admin where ADMIN_USERNAME like '$username'";
+$sql = "SELECT ADMIN_USERNAME FROM admin where ADMIN_USERNAME like '$username'";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 if($result->num_rows > 0 ){

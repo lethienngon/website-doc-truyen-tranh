@@ -129,6 +129,10 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             <div id="div02_thanhvien">
                 <p class="div02_title">Thành viên</p>
                 <a id="div02_thanhvien_add" onclick="click_add_user()" href="#"><img src="user_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
+                <form id="form_search_hoten">
+                    <input id="search_hoten_input" type="text" name="hoten" onkeyup=list_user(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
+                </form>
+                <div id="list_user_name"></div>
             </div>
             <div></div>
             <div></div>
@@ -217,6 +221,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         function click_thanhvien() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
+            list_user("",1);
         }
 
         function click_baoloi() {
@@ -246,6 +251,22 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('form_add_user').style.transition = "0s";
             document.getElementById('form_add_user').style.top = "30%";
         }
+        function list_user(value, page){
+			var xmlhttp;
+			if(window.XMLHttpRequest) {
+                xmlhttp=new XMLHttpRequest();
+            } 
+			else{
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function() {
+                                                  if(xmlhttp.readyState==4 && xmlhttp.status==200) {
+                                                       document.getElementById("list_user_name").innerHTML=xmlhttp.responseText;
+                                                  }
+                                                  }
+            xmlhttp.open("GET","list_user.php?hoten="+value+"&page="+page,true);
+            xmlhttp.send();
+		}
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
