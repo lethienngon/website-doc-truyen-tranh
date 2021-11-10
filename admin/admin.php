@@ -195,7 +195,57 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 </tr>
             </table>
         </form>
-
+    </div>
+    <div id="form_edit_user">
+        <!-- <form id="form_edit_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table border="0">
+                <tr>
+                    <th align="left"><label>Họ và tên</label></th>
+                    <td><input type="text" name="hoten"></td>
+                </tr>
+                <tr>
+                    <th align="left"><label>Email</label></th>
+                    <td><input type="text" name="email"></td>
+                </tr>
+                <tr>
+                    <th align="left"><label>Số điện thoại</label></th>
+                    <td><input type="text" name="sdt"></td>
+                </tr>
+                <tr>
+                    <th align="left"><label>Hình đại diện</label></th>
+                    <td><input type="file" id="edit_anhdaidien" name="anhdaidien" onchange="chooesFile()"></td>
+                    <img src="" alt="Chưa có hình" id="edit_image" width="200" height="200">
+                </tr>
+                <tr>
+                    <th align="left"><label>Quyền</label></th>
+                    <td><select name="level">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th align="left"><label>Trạng thái</label></th>
+                    <td><select name="status">
+                            <option value="0">Khóa</option>
+                            <option value="1">Đang hoạt động</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th> </th>
+                    <td><input id="form_edit_user_submit" type="submit" value="Chỉnh sửa" name="submit">
+                        <input id="form_edit_user_exit" type="button" value="Thoát" onclick="click_edit_user_exit()">
+                    </td>
+                </tr>
+            </table>
+        </form> -->
+    </div>
+    <div id="divreport_del_user">
+        <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
+        <button id="del_user_yes" type="button" onclick="return del_yes();">Có</button>
+        <button id="del_user_no" type="button" onclick="return del_no();">Không</button>
     </div>
     <script>
         function click_ttcn() {
@@ -221,7 +271,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         function click_thanhvien() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
-            list_user("",1);
+            list_user("", 1);
         }
 
         function click_baoloi() {
@@ -251,22 +301,97 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('form_add_user').style.transition = "0s";
             document.getElementById('form_add_user').style.top = "30%";
         }
-        function list_user(value, page){
-			var xmlhttp;
-			if(window.XMLHttpRequest) {
-                xmlhttp=new XMLHttpRequest();
-            } 
-			else{
-                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+
+        function list_user(value, page) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
             }
-            xmlhttp.onreadystatechange=function() {
-                                                  if(xmlhttp.readyState==4 && xmlhttp.status==200) {
-                                                       document.getElementById("list_user_name").innerHTML=xmlhttp.responseText;
-                                                  }
-                                                  }
-            xmlhttp.open("GET","list_user.php?hoten="+value+"&page="+page,true);
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("list_user_name").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "list_user.php?hoten=" + value + "&page=" + page, true);
             xmlhttp.send();
-		}
+        }
+        var idtv = "";
+
+        function del_user(value) {
+            document.getElementById('divreport_del_user').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_del_user').style.transition = "0.5s";
+            document.getElementById('divreport_del_user').style.top = "30%";
+            idtv = value;
+        }
+
+        function del_yes() {
+            document.getElementById('divreport_del_user').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_del_user').style.transition = "0s";
+            document.getElementById('divreport_del_user').style.top = "10%";
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    list_user("", 1);
+                }
+            }
+            xmlhttp.open("GET", "delete_user.php?id=" + idtv, true);
+            xmlhttp.send();
+        }
+
+        function del_no() {
+            document.getElementById('divreport_del_user').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_del_user').style.transition = "0s";
+            document.getElementById('divreport_del_user').style.top = "10%";
+        }
+
+        function edit_user(value) {
+            document.getElementById('form_edit_user').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('form_edit_user').style.top = "50%";
+            document.getElementById('form_edit_user').style.transition = "0.5s";
+            idtv = value;
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById('form_edit_user').innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "edit_user.php?id=" + idtv, true);
+            xmlhttp.send();
+        }
+
+        function click_edit_user_exit() {
+            document.getElementById('form_edit_user').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('form_edit_user').style.transition = "0s";
+            document.getElementById('form_edit_user').style.top = "30%";
+        }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
@@ -276,7 +401,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 rules: {
                     username: {
                         required: true,
-                        minlength: 8 , 
+                        minlength: 8,
                         remote: "check_username_exit.php"
                     },
                     pass: {
@@ -341,6 +466,64 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 }
             });
         });
+    </script>
+    <script type="text/javascript">
+        /* Kiểm tra thông tin nhập vào form edit user và gửi data đến file edit_user_xuly.php*/
+        $(document).ready(function() {
+            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            $("#form_edit_user").on("click", "#form_edit_user_form", function() {
+                $("#form_edit_user_form").validate({
+                rules: {
+                    hoten: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    sdt: {
+                        required: true,
+                        number: true
+                    }
+                },
+                messages: {
+                    hoten: {
+                        required: "Bạn chưa nhập họ và tên"
+                    },
+                    email: {
+                        required: "Bạn chưa nhập email",
+                        email: "Chưa đúng định dạng email"
+                    },
+                    sdt: {
+                        required: "Bạn chưa nhập số điện thoại",
+                        number: "Bạn chỉ được nhập kí tự số"
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#form_edit_user_form').on('submit', function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: "edit_user_xuly.php?id=" + idtv,
+                            method: "POST",
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                click_edit_user_exit();
+                                list_user("", 1);
+                            }
+                        });
+                    });
+                }
+            });
+            });
+        });
+        /* Hiển thị ảnh khi chọn ảnh trong form edit user */
+        function chooesFile() {
+            edit_image.src = "";
+            edit_image.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 </body>
 

@@ -9,7 +9,7 @@ $idtv = $_COOKIE['id'];
 $username = $_COOKIE['username'];
 $pass = $_COOKIE['pass'];
 $hoten = $_GET['hoten'];
-$item_per_page = 1;
+$item_per_page = 5;
 $current_page = $_GET['page'];
 $offset = ($current_page - 1) * $item_per_page;
 
@@ -50,8 +50,8 @@ if ($result->num_rows > 0) {
                  <td>" . $row['ADMIN_LEVEL'] . "</td>
                  <td>" . $row['ADMIN_STATUS'] . "</td>
                  <td>" . $row['ADMIN_NGAYTAO'] . "</td>
-                 <td><a href='suasp.php?id=" . $row['ADMIN_ID'] . "'><img src='edit.ico' width='20px;' height='20px'></a>
-			         <a href='xoasp.php?id=" . $row['ADMIN_ID'] . "'><img src='delete.ico' width='20px' height='20px'></a></td>
+                 <td><a href='#' id='id_edit_user' onclick='edit_user(" . $row['ADMIN_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
+			         <a href='#' id='id_del_user' onclick='del_user(" . $row['ADMIN_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
                  </tr>";
         }
         echo "</table>";
