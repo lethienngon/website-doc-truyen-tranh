@@ -18,11 +18,9 @@ $conn->set_charset("utf8");
 $sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$idtv' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass') and ADMIN_LEVEL=0";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-    $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
-    $conn->set_charset("utf8");
-    $sql_count = "select * from admin where ADMIN_HOTEN like '%$hoten%'";
+    $sql_count = "select * from admin where ADMIN_LEVEL!=0 and ADMIN_HOTEN like '%$hoten%'";
     $result_count = $conn->query($sql_count);
-    $sql_kq = "select * from admin where ADMIN_HOTEN like '%$hoten%' LIMIT $item_per_page OFFSET $offset";
+    $sql_kq = "select * from admin where ADMIN_LEVEL!=0 and ADMIN_HOTEN like '%$hoten%' LIMIT $item_per_page OFFSET $offset";
     $result_kq = $conn->query($sql_kq);
     if ($result_kq->num_rows > 0) {
         $total_page = ceil($result_count->num_rows / $item_per_page);
@@ -38,15 +36,15 @@ if ($result->num_rows > 0) {
               <th>Ngày tham gia</th>
               <th>Công cụ</th>
           </tr>";
-        $stt = 0;
+        $stt = $offset;
         while ($row = $result_kq->fetch_assoc()) {
             $stt = $stt + 1;
             echo "<tr>
                  <td>" . $stt . "</td>
-                 <td>" . $row['ADMIN_HOTEN'] . "</td>
-                 <td><img src=" . $row['ADMIN_HINHANH'] . " width='100px' height='80px'></td>
-                 <td>" . $row['ADMIN_EMAIL'] . "</td>
-                 <td>" . $row['ADMIN_SDT'] . "</td>
+                 <td width='220px'>" . $row['ADMIN_HOTEN'] . "</td>
+                 <td width='100px'><img src=" . $row['ADMIN_HINHANH'] . " width='100px' height='80px'></td>
+                 <td width='200px'>" . $row['ADMIN_EMAIL'] . "</td>
+                 <td width='110px'>" . $row['ADMIN_SDT'] . "</td>
                  <td>" . $row['ADMIN_LEVEL'] . "</td>
                  <td>" . $row['ADMIN_STATUS'] . "</td>
                  <td>" . $row['ADMIN_NGAYTAO'] . "</td>

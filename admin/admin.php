@@ -77,11 +77,6 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     </a>
                 </li>
                 <li>
-                    <a href="#" onclick="click_dieukhoan()">
-                        <p>Chỉnh sửa điều khoản</p>
-                    </a>
-                </li>
-                <li>
                     <a href="dangxuat.php">
                         <p>Đăng xuất</p>
                     </a>
@@ -103,22 +98,22 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                         $result = $conn->query($sql);
                         $row = $result->fetch_assoc();
                         echo "
-                    <tr>
-                        <th>Username:</th>
-                        <td>" . $row['ADMIN_USERNAME'] . "</td>
-                    </tr>
-                    <tr>
-                        <th>Email:</th>
-                        <td>" . $row['ADMIN_EMAIL'] . "</td>
-                    </tr>
-                    <tr>
-                        <th>SĐT:</th>
-                        <td>" . $row['ADMIN_SDT'] . "</td>
-                    </tr>
-                    <tr>
-                        <th>Ngày tham gia:</th>
-                        <td>" . $row['ADMIN_NGAYTAO'] . "</td>
-                    </tr>";
+                        <tr>
+                            <th>Username:</th>
+                            <td>" . $row['ADMIN_USERNAME'] . "</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>" . $row['ADMIN_EMAIL'] . "</td>
+                        </tr>
+                        <tr>
+                            <th>SĐT:</th>
+                            <td>" . $row['ADMIN_SDT'] . "</td>
+                        </tr>
+                        <tr>
+                            <th>Ngày tham gia:</th>
+                            <td>" . $row['ADMIN_NGAYTAO'] . "</td>
+                        </tr>";
                         ?>
                     </table>
                 </div>
@@ -133,6 +128,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     <input id="search_hoten_input" type="text" name="hoten" onkeyup=list_user(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
                 </form>
                 <div id="list_user_name"></div>
+                <div id="form_edit_user"></div>
             </div>
             <div></div>
             <div></div>
@@ -143,11 +139,11 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             <table border="0">
                 <tr>
                     <th align="left"><label>Tên đăng nhập</label></th>
-                    <td><input id="user" type="text" name="username"></td>
+                    <td><input type="text" name="username"></td>
                 </tr>
                 <tr>
                     <th align="left"><label>Mật khẩu</label></th>
-                    <td><input id="pass" type="password" name="pass"></td>
+                    <td><input id="pass_add_user" type="password" name="pass"></td>
                 </tr>
                 <tr>
                     <th align="left"><label>Gõ lại mật khẩu</label></th>
@@ -167,7 +163,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 </tr>
                 <tr>
                     <th align="left"><label>Hình đại diện</label></th>
-                    <td><input type="file" id="anhdaidien" name="anhdaidien"></td>
+                    <td><input type="file" id="anhdaidien" name="anhdaidien" accept=".jpg, .jpeg, .png"></td>
                 </tr>
                 <tr>
                     <th align="left"><label>Quyền</label></th>
@@ -195,52 +191,6 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 </tr>
             </table>
         </form>
-    </div>
-    <div id="form_edit_user">
-        <!-- <form id="form_edit_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
-            <table border="0">
-                <tr>
-                    <th align="left"><label>Họ và tên</label></th>
-                    <td><input type="text" name="hoten"></td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Email</label></th>
-                    <td><input type="text" name="email"></td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Số điện thoại</label></th>
-                    <td><input type="text" name="sdt"></td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Hình đại diện</label></th>
-                    <td><input type="file" id="edit_anhdaidien" name="anhdaidien" onchange="chooesFile()"></td>
-                    <img src="" alt="Chưa có hình" id="edit_image" width="200" height="200">
-                </tr>
-                <tr>
-                    <th align="left"><label>Quyền</label></th>
-                    <td><select name="level">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Trạng thái</label></th>
-                    <td><select name="status">
-                            <option value="0">Khóa</option>
-                            <option value="1">Đang hoạt động</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th> </th>
-                    <td><input id="form_edit_user_submit" type="submit" value="Chỉnh sửa" name="submit">
-                        <input id="form_edit_user_exit" type="button" value="Thoát" onclick="click_edit_user_exit()">
-                    </td>
-                </tr>
-            </table>
-        </form> -->
     </div>
     <div id="divreport_del_user">
         <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
@@ -362,11 +312,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
 
         function edit_user(value) {
             document.getElementById('form_edit_user').style.visibility = "visible";
-            document.getElementById('content').style.filter = "blur(10px)";
-            document.getElementById('content').style.pointerEvents = "none";
-            document.getElementById('content').style.userSelect = "none";
-            document.getElementById('form_edit_user').style.top = "50%";
-            document.getElementById('form_edit_user').style.transition = "0.5s";
+            document.getElementById('list_user_name').style.visibility = "hidden";
             idtv = value;
 
             var xmlhttp;
@@ -386,11 +332,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
 
         function click_edit_user_exit() {
             document.getElementById('form_edit_user').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('form_edit_user').style.transition = "0s";
-            document.getElementById('form_edit_user').style.top = "30%";
+            document.getElementById('list_user_name').style.visibility = "visible";
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -409,7 +351,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                         minlength: 8
                     },
                     passagain: {
-                        equalTo: "#pass"
+                        equalTo: "#pass_add_user"
                     },
                     hoten: {
                         required: true

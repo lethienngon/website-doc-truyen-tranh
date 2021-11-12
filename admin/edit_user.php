@@ -21,21 +21,21 @@ if ($result->num_rows > 0) {
     echo '<form id="form_edit_user_form" method="POST" enctype="multipart/form-data" autocomplete="off">
     <table border="0">
         <tr>
+            <th rowspan="7"><img src="'.$row['ADMIN_HINHANH'].'" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="edit_image" width="450" height="450"></th>
             <th align="left"><label>Họ và tên</label></th>
-            <td><input type="text" name="hoten" value="'.$row['ADMIN_HOTEN'].'"></td>
+            <td><input class="edit_user_input" type="text" name="hoten" value="'.$row['ADMIN_HOTEN'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Email</label></th>
-            <td><input type="text" name="email" value="'.$row['ADMIN_EMAIL'].'"></td>
+            <td><input class="edit_user_input" type="text" name="email" value="'.$row['ADMIN_EMAIL'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Số điện thoại</label></th>
-            <td><input type="text" name="sdt" value="'.$row['ADMIN_SDT'].'"></td>
+            <td><input class="edit_user_input" type="text" name="sdt" value="'.$row['ADMIN_SDT'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Hình đại diện</label></th>
-            <td><input type="file" id="edit_anhdaidien" name="anhdaidien" onchange="chooesFile()"></td>
-            <img src="'.$row['ADMIN_HINHANH'].'" alt="Chưa có hình" id="edit_image" width="200" height="200">
+            <td><input type="file" id="edit_anhdaidien" name="anhdaidien" onchange="chooesFile()" accept=".jpg, .jpeg, .png"></td>
         </tr>
         <tr>
             <th align="left"><label>Quyền</label></th>
@@ -57,7 +57,7 @@ if ($result->num_rows > 0) {
         <tr>
             <th> </th>
             <td><input id="form_edit_user_submit" type="submit" value="Chỉnh sửa" name="submit">
-                <input id="form_edit_user_exit" type="button" value="Thoát" onclick="click_edit_user_exit()">
+                <input id="form_edit_user_exit" type="button" value="Trở về" onclick="click_edit_user_exit()">
             </td>
         </tr>
     </table>
