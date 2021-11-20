@@ -3,6 +3,7 @@ header('Cache-Control: no-cache, no-store, must-revalidate'); //HTTP 1.1
 header('Pragma: no-cache'); //HTTP 1.0
 header('Expires: 0'); // Date in the past
 session_start();
+// Check Cookie
 if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     $tendangnhap_cook = $_COOKIE['username'];
     $pass_cook = $_COOKIE['pass'];
@@ -15,7 +16,9 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     } else {
         header('location:login.php');
     }
-} else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
+} 
+// Check Session
+else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
     $tendangnhap_sess = $_SESSION['username'];
     $pass_sess = $_SESSION['pass'];
 
@@ -42,7 +45,9 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
 </head>
 
 <body onload="click_ttcn()">
+    <!-- Thẻ bao trọn hết phần body (có thể dùng để định dạnh khi click thêm hoặc sửa) -->
     <div id="content">
+        <!-- 1)Menu lựa chọn -->
         <div id="div01">
             <header id="ad_name">Admin</header>
             <ul>
@@ -83,7 +88,9 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 </li>
             </ul>
         </div>
+        <!-- 2)Phần nội dung khi chọn một mục trong Menu lực chọn -->
         <div id="div02">
+            <!-- 2.1)Phần nội dung Thông tin cá nhân của Username đang đăng nhập -->
             <div id="div02_thongtincanhan">
                 <p class="div02_title">Thông tin cá nhân</p>
                 <div id="div02_thongtincanhan_lienhe">
@@ -118,22 +125,69 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     </table>
                 </div>
             </div>
+            <!-- 2.2)Phần nội dung Thể loại -->
             <div></div>
+            <!-- 2.3)Phần nội dung Tác giả -->
+            <div id="div02_tacgia">
+                <!-- 2.3.1)Title Tác giả -->
+                <p class="div02_title">Tác giả</p>
+                <!-- 2.3.2)Thêm tác giả -->
+                <a id="div02_tacgia_add" onclick="click_add_tacgia()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
+                <!-- 2.3.3)Tìm kiếm tác giả -->
+                <form id="form_search_tacgia">
+                    <input id="search_tacgia_input" type="text" name="hoten" onkeyup=list_tacgia(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
+                </form>
+                <!-- 2.3.4)Danh sách tác giả -->
+                <div id="list_tacgia_name"></div>
+                <!-- 2.3.5)Chỉnh sửa tác giả -->
+                <div id="form_edit_tacgia"></div>
+            </div>
+            <!-- 2.4)Phần nội dung Truyện -->
             <div></div>
-            <div></div>
+            <!-- 2.5)Phần nội dung Thành viên -->
             <div id="div02_thanhvien">
+                <!-- 2.5.1)Title Thành viên -->
                 <p class="div02_title">Thành viên</p>
+                <!-- 2.5.2)Thêm Thành viên -->
                 <a id="div02_thanhvien_add" onclick="click_add_user()" href="#"><img src="user_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
+                <!-- 2.5.3)Tìm kiếm thành viên -->
                 <form id="form_search_hoten">
                     <input id="search_hoten_input" type="text" name="hoten" onkeyup=list_user(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
                 </form>
+                <!-- 2.5.4)Danh sách thành viên -->
                 <div id="list_user_name"></div>
+                <!-- 2.5.5)Chỉnh sửa thành viên -->
                 <div id="form_edit_user"></div>
             </div>
-            <div></div>
+            <!-- 2.6)Phần nội dung Báo lỗi -->
             <div></div>
         </div>
     </div>
+    <!-- 3)Form ẩn : Thêm Tác giả -->
+    <div id="form_add_tacgia">
+        <form id="form_add_tacgia_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table border="0">
+                <tr>
+                    <td rowspan="4"><label for="tacgia_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="tacgia_add_image" width="450" height="450"></label>
+                        <input type="file" id="tacgia_hinhanh" name="tacgia_hinhanh" onchange="tacgia_chooesFile()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
+                    <td><input type="text" class="tacgia_add_input" name="tacgia_hoten" placeholder="Nhập Họ và tên tác giả"></td>
+                </tr>
+                <tr>
+                    <td><input type="date" class="tacgia_add_input" name="tacgia_ngaysinh" placeholder="Nhập ngày sinh tác giả"></td>
+                </tr>
+                <tr>
+                    <td><textarea rows="20" cols="65" style="padding: 5px;" name="tacgia_tieusu" placeholder="Nhập tiểu sử tác giả"></textarea> </td>
+                </tr>
+                <tr>
+                    <td><input id="form_add_tacgia_submit" type="submit" value="Đăng kí" name="submit">
+                        <input id="form_add_tacgia_reset" type="reset" value="Làm lại">
+                        <input id="form_add_tacgia_exit" type="button" value="Thoát" onclick="click_add_tacgia_exit()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <!-- 4)Form ẩn : Thêm Thành viên -->
     <div id="form_add_user">
         <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -192,6 +246,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             </table>
         </form>
     </div>
+    <!-- 5)Form ẩn : Xác nhận muốn xóa Thành viên -->
     <div id="divreport_del_user">
         <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
         <button id="del_user_yes" type="button" onclick="return del_yes();">Có</button>
@@ -200,37 +255,38 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     <script>
         function click_ttcn() {
             document.getElementById('div02_thongtincanhan').style.visibility = "visible";
+            document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
         function click_theloai() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
+            document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
         function click_tacgia() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
+            document.getElementById('div02_tacgia').style.visibility = "visible";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
         function click_truyen() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
+            document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
         function click_thanhvien() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
+            document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
             list_user("", 1);
         }
 
         function click_baoloi() {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
-            document.getElementById('div02_thanhvien').style.visibility = "hidden";
-        }
-
-        function click_dieukhoan() {
-            document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
+            document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -334,9 +390,28 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('form_edit_user').style.visibility = "hidden";
             document.getElementById('list_user_name').style.visibility = "visible";
         }
+
+        //2.Tác giả
+        function click_add_tacgia() {
+            document.getElementById('form_add_tacgia').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('form_add_tacgia').style.top = "50%";
+            document.getElementById('form_add_tacgia').style.transition = "0.5s";
+        }
+        function click_add_tacgia_exit() {
+            document.getElementById('form_add_tacgia').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('form_add_tacgia').style.transition = "0s";
+            document.getElementById('form_add_tacgia').style.top = "30%";
+        }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
+    <!-- Thành viên -->
     <script type="text/javascript">
         $(document).ready(function() {
             $("#form_add_user_form").validate({
@@ -415,50 +490,50 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
             $("#form_edit_user").on("click", "#form_edit_user_form", function() {
                 $("#form_edit_user_form").validate({
-                rules: {
-                    hoten: {
-                        required: true
+                    rules: {
+                        hoten: {
+                            required: true
+                        },
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        sdt: {
+                            required: true,
+                            number: true
+                        }
                     },
-                    email: {
-                        required: true,
-                        email: true
+                    messages: {
+                        hoten: {
+                            required: "Bạn chưa nhập họ và tên"
+                        },
+                        email: {
+                            required: "Bạn chưa nhập email",
+                            email: "Chưa đúng định dạng email"
+                        },
+                        sdt: {
+                            required: "Bạn chưa nhập số điện thoại",
+                            number: "Bạn chỉ được nhập kí tự số"
+                        }
                     },
-                    sdt: {
-                        required: true,
-                        number: true
-                    }
-                },
-                messages: {
-                    hoten: {
-                        required: "Bạn chưa nhập họ và tên"
-                    },
-                    email: {
-                        required: "Bạn chưa nhập email",
-                        email: "Chưa đúng định dạng email"
-                    },
-                    sdt: {
-                        required: "Bạn chưa nhập số điện thoại",
-                        number: "Bạn chỉ được nhập kí tự số"
-                    }
-                },
-                submitHandler: function(form) {
-                    $('#form_edit_user_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "edit_user_xuly.php?id=" + idtv,
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                click_edit_user_exit();
-                                list_user("", 1);
-                            }
+                    submitHandler: function(form) {
+                        $('#form_edit_user_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "edit_user_xuly.php?id=" + idtv,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    click_edit_user_exit();
+                                    list_user("", 1);
+                                }
+                            });
                         });
-                    });
-                }
-            });
+                    }
+                });
             });
         });
         /* Hiển thị ảnh khi chọn ảnh trong form edit user */
@@ -466,6 +541,53 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             edit_image.src = "";
             edit_image.src = URL.createObjectURL(event.target.files[0]);
         }
+        /* Hiển thị ảnh khi chọn ảnh trong form add tacgia */
+        function tacgia_chooesFile() {
+            tacgia_add_image.src = "";
+            tacgia_add_image.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <!-- Tác giả -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form_add_tacgia_form").validate({
+                rules: {
+                    tacgia_hoten: {
+                        required: true
+                    },
+                    tacgia_ngaysinh: {
+                        required: true,
+                        date: true
+                    }
+                },
+                messages: {
+                    tacgia_hoten: {
+                        required: "Bạn chưa nhập họ và tên tác giả"
+                    },
+                    tacgia_ngaysinh: {
+                        required: "Bạn chưa nhập ngày sinh tác giả",
+                        date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)"
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#form_add_tacgia_form').on('submit', function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: "add_tacgia_xuly.php",
+                            method: "POST",
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                click_add_tacgia_exit();
+                            }
+                        });
+                    });
+                }
+            });
+        });
     </script>
 </body>
 

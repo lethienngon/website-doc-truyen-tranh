@@ -17,21 +17,3 @@
 </body>
 
 </html>
-<script>
-    $(document).ready(function(e) {
-        $('#form_add_user_form').on('submit', function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "add_user_xuly.php",
-                method: "POST",
-                data: new FormData(this),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    //click_add_user_exit();
-                }
-            });
-        });
-    });
-</script>
