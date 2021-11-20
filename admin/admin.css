@@ -162,7 +162,7 @@ body {
 
 #form_add_user_submit,
 #form_edit_user_submit,
-#form_add_tacgia_submit {
+#div02_tacgia_form_add_form_submit {
     background-color: rgb(49, 102, 182);
     margin-top: 10px;
     border: 0px;
@@ -171,7 +171,7 @@ body {
 }
 
 #form_add_user_reset,
-#form_add_tacgia_reset {
+#div02_tacgia_form_add_form_reset {
     background-color: rgb(180, 182, 49);
     margin-top: 10px;
     border: 0px;
@@ -181,7 +181,7 @@ body {
 
 #form_add_user_exit,
 #form_edit_user_exit,
-#form_add_tacgia_exit {
+#div02_tacgia_form_add_form_exit {
     background-color: rgb(83, 83, 83);
     margin-top: 10px;
     border: 0px;
@@ -194,9 +194,9 @@ body {
 #form_add_user_exit:hover,
 #form_edit_user_submit:hover,
 #form_edit_user_exit:hover,
-#form_add_tacgia_submit:hover,
-#form_add_tacgia_reset:hover,
-#form_add_tacgia_exit:hover {
+#div02_tacgia_form_add_form_submit:hover,
+#div02_tacgia_form_add_form_reset:hover,
+#div02_tacgia_form_add_form_exit:hover {
     border: 2px solid rgb(255, 255, 255);
 }
 
@@ -249,9 +249,9 @@ body {
     height: 80px;
 }
 
-#pick_page {
+.pick_page {
     position: relative;
-    top: 20px;
+    top: 10px;
 }
 
 .pages {
@@ -338,7 +338,11 @@ body {
     text-align: center;
 }
 
-#search_tacgia_input {
+#div02_tacgia_add:hover {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+#div02_tacgia_form_search_input {
     position: absolute;
     left: 300px;
     top: 12px;
@@ -349,11 +353,7 @@ body {
     padding-left: 10px;
 }
 
-#div02_tacgia_add:hover {
-    border: 1px solid rgb(0, 0, 0);
-}
-
-#form_add_tacgia {
+#div02_tacgia_form_add {
     position: fixed;
     left: 50%;
     top: 30%;
@@ -370,25 +370,51 @@ body {
 
 /*2 input của form add tacgia*/
 
-.tacgia_add_input {
-    margin-top: 10px;
+.div02_tacgia_form_add_form_input {
+    margin-top: 20px;
     padding-left: 5px;
     width: 500px;
     height: 35px;
 }
 
-#form_add_tacgia table tr td {
+#div02_tacgia_form_add_form table tr td {
     position: relative;
     padding-right: 20px;
 }
 
-#tacgia_add_image {
+#div02_tacgia_form_add_form_hinhanh_img {
     border: 1px solid white;
     margin-top: 20px;
     margin-left: 20px;
 }
 
-#tacgia_add_image:hover {
+#div02_tacgia_form_add_form_hinhanh_img:hover {
     border: 1px solid black;
     color: red;
+}
+
+
+/* Bảng danh sách tác giả*/
+
+#div02_tacgia_list {
+    border-radius: 5px;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+#div02_tacgia_list_table {
+    border: 1px solid rgb(216, 216, 216);
+    font-size: 15px;
+    text-align: center;
+    width: 1050px;
+}
+
+#div02_tacgia_list_table th {
+    height: 30px;
+}
+
+#div02_tacgia_list_table td {
+    border-top: 1px solid rgb(240, 240, 240);
+    height: 80px;
 }

@@ -132,15 +132,15 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 <!-- 2.3.1)Title Tác giả -->
                 <p class="div02_title">Tác giả</p>
                 <!-- 2.3.2)Thêm tác giả -->
-                <a id="div02_tacgia_add" onclick="click_add_tacgia()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
+                <a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
                 <!-- 2.3.3)Tìm kiếm tác giả -->
-                <form id="form_search_tacgia">
-                    <input id="search_tacgia_input" type="text" name="hoten" onkeyup=list_tacgia(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
+                <form id="div02_tacgia_form_search">
+                    <input id="div02_tacgia_form_search_input" type="text" name="hoten" onkeyup=div02_tacgia_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
                 </form>
                 <!-- 2.3.4)Danh sách tác giả -->
-                <div id="list_tacgia_name"></div>
+                <div id="div02_tacgia_list"></div>
                 <!-- 2.3.5)Chỉnh sửa tác giả -->
-                <div id="form_edit_tacgia"></div>
+                <div id="div02_tacgia_form_edit"></div>
             </div>
             <!-- 2.4)Phần nội dung Truyện -->
             <div></div>
@@ -164,24 +164,24 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
         </div>
     </div>
     <!-- 3)Form ẩn : Thêm Tác giả -->
-    <div id="form_add_tacgia">
-        <form id="form_add_tacgia_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+    <div id="div02_tacgia_form_add">
+        <form id="div02_tacgia_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
                 <tr>
-                    <td rowspan="4"><label for="tacgia_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="tacgia_add_image" width="450" height="450"></label>
-                        <input type="file" id="tacgia_hinhanh" name="tacgia_hinhanh" onchange="tacgia_chooesFile()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
-                    <td><input type="text" class="tacgia_add_input" name="tacgia_hoten" placeholder="Nhập Họ và tên tác giả"></td>
+                    <td rowspan="4"><label for="div02_tacgia_form_add_form_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_tacgia_form_add_form_hinhanh_img" width="450" height="450"></label>
+                        <input type="file" id="div02_tacgia_form_add_form_hinhanh" name="tacgia_hinhanh" onchange="div02_tacgia_form_add_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
+                    <td><input type="text" class="div02_tacgia_form_add_form_input" name="tacgia_hoten" placeholder="Họ và tên của tác giả"></td>
                 </tr>
                 <tr>
-                    <td><input type="date" class="tacgia_add_input" name="tacgia_ngaysinh" placeholder="Nhập ngày sinh tác giả"></td>
+                    <td><input type="date" class="div02_tacgia_form_add_form_input" name="tacgia_ngaysinh"></td>
                 </tr>
                 <tr>
-                    <td><textarea rows="20" cols="65" style="padding: 5px;" name="tacgia_tieusu" placeholder="Nhập tiểu sử tác giả"></textarea> </td>
+                    <td><textarea rows="20" cols="65" style="margin-top:20px; padding:5px;" name="tacgia_tieusu" placeholder="Tiểu sử của tác giả"></textarea> </td>
                 </tr>
                 <tr>
-                    <td><input id="form_add_tacgia_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="form_add_tacgia_reset" type="reset" value="Làm lại">
-                        <input id="form_add_tacgia_exit" type="button" value="Thoát" onclick="click_add_tacgia_exit()">
+                    <td><input id="div02_tacgia_form_add_form_submit" type="submit" value="Đăng kí" name="submit">
+                        <input id="div02_tacgia_form_add_form_reset" type="reset" value="Làm lại">
+                        <input id="div02_tacgia_form_add_form_exit" type="button" value="Thoát" onclick="div02_tacgia_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
@@ -269,6 +269,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "visible";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
+            div02_tacgia_form_search_input_keyup("", 1);
         }
 
         function click_truyen() {
@@ -392,21 +393,36 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
         }
 
         //2.Tác giả
-        function click_add_tacgia() {
-            document.getElementById('form_add_tacgia').style.visibility = "visible";
+        function div02_tacgia_add_click() {
+            document.getElementById('div02_tacgia_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
             document.getElementById('content').style.pointerEvents = "none";
             document.getElementById('content').style.userSelect = "none";
-            document.getElementById('form_add_tacgia').style.top = "50%";
-            document.getElementById('form_add_tacgia').style.transition = "0.5s";
+            document.getElementById('div02_tacgia_form_add').style.top = "50%";
+            document.getElementById('div02_tacgia_form_add').style.transition = "0.5s";
         }
-        function click_add_tacgia_exit() {
-            document.getElementById('form_add_tacgia').style.visibility = "hidden";
+        function div02_tacgia_form_add_form_exit_click() {
+            document.getElementById('div02_tacgia_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('form_add_tacgia').style.transition = "0s";
-            document.getElementById('form_add_tacgia').style.top = "30%";
+            document.getElementById('div02_tacgia_form_add').style.transition = "0s";
+            document.getElementById('div02_tacgia_form_add').style.top = "30%";
+        }
+        function div02_tacgia_form_search_input_keyup(value, page) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_tacgia_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "tacgia_xuly_list.php?tacgia_hoten=" + value + "&page=" + page, true);
+            xmlhttp.send();
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -541,17 +557,12 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             edit_image.src = "";
             edit_image.src = URL.createObjectURL(event.target.files[0]);
         }
-        /* Hiển thị ảnh khi chọn ảnh trong form add tacgia */
-        function tacgia_chooesFile() {
-            tacgia_add_image.src = "";
-            tacgia_add_image.src = URL.createObjectURL(event.target.files[0]);
-        }
     </script>
 
     <!-- Tác giả -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#form_add_tacgia_form").validate({
+            $("#div02_tacgia_form_add_form").validate({
                 rules: {
                     tacgia_hoten: {
                         required: true
@@ -571,23 +582,28 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                     }
                 },
                 submitHandler: function(form) {
-                    $('#form_add_tacgia_form').on('submit', function(e) {
+                    $('#div02_tacgia_form_add_form').on('submit', function(e) {
                         e.preventDefault();
                         $.ajax({
-                            url: "add_tacgia_xuly.php",
+                            url: "tacgia_xuly_add.php",
                             method: "POST",
                             data: new FormData(this),
                             contentType: false,
                             cache: false,
                             processData: false,
                             success: function(data) {
-                                click_add_tacgia_exit();
+                                div02_tacgia_form_add_form_exit_click();
                             }
                         });
                     });
                 }
             });
         });
+        /* Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_add */
+        function div02_tacgia_form_add_form_hinhanh_change() {
+            div02_tacgia_form_add_form_hinhanh_img.src = "";
+            div02_tacgia_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
     </script>
 </body>
 
