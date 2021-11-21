@@ -202,7 +202,9 @@ body {
 #div02_thanhvien_form_add_form_submit,
 #div02_thanhvien_form_edit_form_submit,
 #div02_tacgia_form_add_form_submit,
-#div02_tacgia_form_edit_form_submit {
+#div02_tacgia_form_edit_form_submit,
+#div02_theloai_form_add_form_submit,
+#div02_theloai_form_edit_form_submit {
     background-color: rgb(49, 102, 182);
     margin-top: 10px;
     border: 0px;
@@ -211,7 +213,8 @@ body {
 }
 
 #div02_thanhvien_form_add_form_reset,
-#div02_tacgia_form_add_form_reset {
+#div02_tacgia_form_add_form_reset,
+#div02_theloai_form_add_form_reset {
     background-color: rgb(180, 182, 49);
     margin-top: 10px;
     border: 0px;
@@ -222,7 +225,9 @@ body {
 #div02_thanhvien_form_add_form_exit,
 #div02_thanhvien_form_edit_form_exit,
 #div02_tacgia_form_add_form_exit,
-#div02_tacgia_form_edit_form_exit {
+#div02_tacgia_form_edit_form_exit,
+#div02_theloai_form_add_form_exit,
+#div02_theloai_form_edit_form_exit {
     background-color: rgb(83, 83, 83);
     margin-top: 10px;
     border: 0px;
@@ -239,7 +244,12 @@ body {
 #div02_tacgia_form_add_form_reset:hover,
 #div02_tacgia_form_add_form_exit:hover,
 #div02_tacgia_form_edit_form_submit:hover,
-#div02_tacgia_form_edit_form_exit:hover {
+#div02_tacgia_form_edit_form_exit:hover,
+#div02_theloai_form_add_form_submit:hover,
+#div02_theloai_form_add_form_reset:hover,
+#div02_theloai_form_add_form_exit:hover,
+#div02_theloai_form_edit_form_submit:hover,
+#div02_theloai_form_edit_form_exit:hover {
     border: 2px solid rgb(255, 255, 255);
 }
 
@@ -288,7 +298,8 @@ body {
 }
 
 #divreport_delete_thanhvien,
-#divreport_delete_tacgia {
+#divreport_delete_tacgia,
+#divreport_delete_theloai {
     position: fixed;
     left: 50%;
     top: 10%;
@@ -303,7 +314,8 @@ body {
 }
 
 #divreport_delete_thanhvien h3,
-#divreport_delete_tacgia h3 {
+#divreport_delete_tacgia h3,
+#divreport_delete_theloai h3 {
     color: rgb(0, 0, 0);
     margin-top: 40px;
     margin-left: 80px;
@@ -312,7 +324,9 @@ body {
 #divreport_delete_thanhvien_yes,
 #divreport_delete_thanhvien_no,
 #divreport_delete_tacgia_yes,
-#divreport_delete_tacgia_no {
+#divreport_delete_tacgia_no,
+#divreport_delete_theloai_yes,
+#divreport_delete_theloai_no {
     font-size: 15px;
     font-weight: bold;
     color: white;
@@ -329,7 +343,9 @@ body {
 #divreport_delete_thanhvien_yes:hover,
 #divreport_delete_thanhvien_no:hover,
 #divreport_delete_tacgia_yes:hover,
-#divreport_delete_tacgia_no:hover {
+#divreport_delete_tacgia_no:hover,
+#divreport_delete_theloai_yes:hover,
+#divreport_delete_theloai_no:hover {
     border: 2px solid black;
 }
 
@@ -467,6 +483,116 @@ body {
 }
 
 #div02_tacgia_list_table td {
+    border-top: 1px solid rgb(240, 240, 240);
+    height: 80px;
+}
+
+
+/* THỂ LOẠI */
+
+
+/*Button Thêm thể loại*/
+
+#div02_theloai_add {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_theloai_add:hover {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+
+/*Tìm kiếm thể loại*/
+
+#div02_theloai_form_search_input {
+    position: absolute;
+    left: 300px;
+    top: 12px;
+    width: 400px;
+    height: 38px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+/*Form Thêm thể loại và Chỉnh sửa thể loại*/
+
+#div02_theloai_form_add,
+#div02_theloai_form_edit {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    width: 540px;
+    height: 450px;
+    background-color: rgb(197, 228, 248);
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    border-radius: 10px;
+    visibility: hidden;
+    transition: 0.5s;
+    padding-left: 30px;
+}
+
+.div02_theloai_form_add_form_input,
+.div02_theloai_form_edit_form_input {
+    margin-top: 20px;
+    padding-left: 5px;
+    width: 500px;
+    height: 35px;
+}
+
+#div02_theloai_form_add_form table tr td,
+#div02_theloai_form_edit_form table tr td {
+    position: relative;
+    padding-right: 20px;
+}
+
+#div02_theloai_form_add_form_hinhanh_img,
+#div02_theloai_form_edit_form_hinhanh_img {
+    border: 1px solid white;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#div02_theloai_form_add_form_hinhanh_img:hover,
+#div02_theloai_form_edit_form_hinhanh_img:hover {
+    border: 1px solid black;
+    color: red;
+}
+
+
+/*Danh sách thể loại*/
+
+#div02_theloai_list {
+    border-radius: 5px;
+    position: absolute;
+    margin-top: 70px;
+    margin-left: 10px;
+}
+
+#div02_theloai_list_table {
+    border: 1px solid rgb(216, 216, 216);
+    font-size: 15px;
+    text-align: center;
+    width: 1050px;
+}
+
+#div02_theloai_list_table th {
+    height: 30px;
+}
+
+#div02_theloai_list_table td {
     border-top: 1px solid rgb(240, 240, 240);
     height: 80px;
 }
