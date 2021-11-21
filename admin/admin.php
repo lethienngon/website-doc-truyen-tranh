@@ -139,8 +139,6 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 </form>
                 <!-- 2.3.4)Danh sách tác giả -->
                 <div id="div02_tacgia_list"></div>
-                <!-- 2.3.5)Chỉnh sửa tác giả -->
-                <div id="div02_tacgia_form_edit"></div>
             </div>
             <!-- 2.4)Phần nội dung Truyện -->
             <div></div>
@@ -149,21 +147,19 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 <!-- 2.5.1)Title Thành viên -->
                 <p class="div02_title">Thành viên</p>
                 <!-- 2.5.2)Thêm Thành viên -->
-                <a id="div02_thanhvien_add" onclick="click_add_user()" href="#"><img src="user_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
+                <a id="div02_thanhvien_add" onclick="div02_thanhvien_add_click()" href="#"><img src="thanhvien_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
                 <!-- 2.5.3)Tìm kiếm thành viên -->
-                <form id="form_search_hoten">
-                    <input id="search_hoten_input" type="text" name="hoten" onkeyup=list_user(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
+                <form id="div02_thanhvien_form_search">
+                    <input id="div02_thanhvien_form_search_input" type="text" name="hoten" onkeyup=div02_thanhvien_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
                 </form>
                 <!-- 2.5.4)Danh sách thành viên -->
-                <div id="list_user_name"></div>
-                <!-- 2.5.5)Chỉnh sửa thành viên -->
-                <div id="form_edit_user"></div>
+                <div id="div02_thanhvien_list"></div>
             </div>
             <!-- 2.6)Phần nội dung Báo lỗi -->
             <div></div>
         </div>
     </div>
-    <!-- 3)Form ẩn : Thêm Tác giả -->
+    <!-- 4.1)Form ẩn: Thêm Tác giả -->
     <div id="div02_tacgia_form_add">
         <form id="div02_tacgia_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -187,9 +183,17 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             </table>
         </form>
     </div>
-    <!-- 4)Form ẩn : Thêm Thành viên -->
-    <div id="form_add_user">
-        <form id="form_add_user_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+    <!-- 4.2)Form ẩn: Chỉnh sửa tác giả -->
+    <div id="div02_tacgia_form_edit"></div>
+    <!-- 4.3)Form ẩn: Xác nhận muốn xóa Thành viên -->
+    <div id="divreport_delete_thanhvien">
+        <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
+        <button id="divreport_delete_thanhvien_yes" type="button" onclick="return divreport_delete_thanhvien_yes();">Có</button>
+        <button id="divreport_delete_thanhvien_no" type="button" onclick="return divreport_delete_thanhvien_no();">Không</button>
+    </div>
+    <!-- 5.1)Form ẩn: Thêm Thành viên -->
+    <div id="div02_thanhvien_form_add">
+        <form id="div02_thanhvien_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
                 <tr>
                     <th align="left"><label>Tên đăng nhập</label></th>
@@ -197,7 +201,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 </tr>
                 <tr>
                     <th align="left"><label>Mật khẩu</label></th>
-                    <td><input id="pass_add_user" type="password" name="pass"></td>
+                    <td><input id="div02_thanhvien_form_add_form_password" type="password" name="pass"></td>
                 </tr>
                 <tr>
                     <th align="left"><label>Gõ lại mật khẩu</label></th>
@@ -217,7 +221,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 </tr>
                 <tr>
                     <th align="left"><label>Hình đại diện</label></th>
-                    <td><input type="file" id="anhdaidien" name="anhdaidien" accept=".jpg, .jpeg, .png"></td>
+                    <td><input type="file" id="div02_thanhvien_form_add_form_anhdaidien" name="anhdaidien" accept=".jpg, .jpeg, .png"></td>
                 </tr>
                 <tr>
                     <th align="left"><label>Quyền</label></th>
@@ -238,19 +242,21 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 </tr>
                 <tr>
                     <th> </th>
-                    <td><input id="form_add_user_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="form_add_user_reset" type="reset" value="Làm lại">
-                        <input id="form_add_user_exit" type="button" value="Thoát" onclick="click_add_user_exit()">
+                    <td><input id="div02_thanhvien_form_add_form_submit" type="submit" value="Đăng kí" name="submit">
+                        <input id="div02_thanhvien_form_add_form_reset" type="reset" value="Làm lại">
+                        <input id="div02_thanhvien_form_add_form_exit" type="button" value="Thoát" onclick="div02_thanhvien_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
         </form>
     </div>
-    <!-- 5)Form ẩn : Xác nhận muốn xóa Thành viên -->
-    <div id="divreport_del_user">
-        <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
-        <button id="del_user_yes" type="button" onclick="return del_yes();">Có</button>
-        <button id="del_user_no" type="button" onclick="return del_no();">Không</button>
+    <!-- 5.2)Form ẩn: Chỉnh sửa thành viên -->
+    <div id="div02_thanhvien_form_edit"></div>
+    <!-- 5.3)Form ẩn: Xác nhận muốn xóa Tác giả -->
+    <div id="divreport_delete_tacgia">
+        <h3>Bạn có chắc muốn xóa tác giả này không?</h3>
+        <button id="divreport_delete_tacgia_yes" type="button" onclick="return divreport_delete_tacgia_yes();">Có</button>
+        <button id="divreport_delete_tacgia_no" type="button" onclick="return divreport_delete_tacgia_no();">Không</button>
     </div>
     <script>
         function click_ttcn() {
@@ -282,7 +288,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
-            list_user("", 1);
+            div02_thanhvien_form_search_input_keyup("", 1);
         }
 
         function click_baoloi() {
@@ -290,26 +296,27 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
-
-        function click_add_user() {
-            document.getElementById('form_add_user').style.visibility = "visible";
+        //THÀNH VIÊN
+        //Hiện form thêm thành viên 
+        function div02_thanhvien_add_click() {
+            document.getElementById('div02_thanhvien_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
             document.getElementById('content').style.pointerEvents = "none";
             document.getElementById('content').style.userSelect = "none";
-            document.getElementById('form_add_user').style.top = "50%";
-            document.getElementById('form_add_user').style.transition = "0.5s";
+            document.getElementById('div02_thanhvien_form_add').style.top = "50%";
+            document.getElementById('div02_thanhvien_form_add').style.transition = "0.5s";
         }
-
-        function click_add_user_exit() {
-            document.getElementById('form_add_user').style.visibility = "hidden";
+        //Ẩn form thêm thành viên
+        function div02_thanhvien_form_add_form_exit_click() {
+            document.getElementById('div02_thanhvien_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('form_add_user').style.transition = "0s";
-            document.getElementById('form_add_user').style.top = "30%";
+            document.getElementById('div02_thanhvien_form_add').style.transition = "0s";
+            document.getElementById('div02_thanhvien_form_add').style.top = "30%";
         }
-
-        function list_user(value, page) {
+        //Tìm kiếm thành viên
+        function div02_thanhvien_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
                 xmlhttp = new XMLHttpRequest();
@@ -318,59 +325,23 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             }
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("list_user_name").innerHTML = xmlhttp.responseText;
+                    document.getElementById("div02_thanhvien_list").innerHTML = xmlhttp.responseText;
                 }
             }
-            xmlhttp.open("GET", "list_user.php?hoten=" + value + "&page=" + page, true);
+            xmlhttp.open("GET", "thanhvien_xuly_list.php?thanhvien_hoten=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
-        var idtv = "";
-
-        function del_user(value) {
-            document.getElementById('divreport_del_user').style.visibility = "visible";
+        //Tạo thanhvien_id để sử dụng
+        var thanhvien_id = "";
+        //Hiện form chỉnh sửa thành viên
+        function div02_thanhvien_list_table_edit_click(value) {
+            document.getElementById('div02_thanhvien_form_edit').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
             document.getElementById('content').style.pointerEvents = "none";
             document.getElementById('content').style.userSelect = "none";
-            document.getElementById('divreport_del_user').style.transition = "0.5s";
-            document.getElementById('divreport_del_user').style.top = "30%";
-            idtv = value;
-        }
-
-        function del_yes() {
-            document.getElementById('divreport_del_user').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('divreport_del_user').style.transition = "0s";
-            document.getElementById('divreport_del_user').style.top = "10%";
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    list_user("", 1);
-                }
-            }
-            xmlhttp.open("GET", "delete_user.php?id=" + idtv, true);
-            xmlhttp.send();
-        }
-
-        function del_no() {
-            document.getElementById('divreport_del_user').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('divreport_del_user').style.transition = "0s";
-            document.getElementById('divreport_del_user').style.top = "10%";
-        }
-
-        function edit_user(value) {
-            document.getElementById('form_edit_user').style.visibility = "visible";
-            document.getElementById('list_user_name').style.visibility = "hidden";
-            idtv = value;
+            document.getElementById('div02_thanhvien_form_edit').style.top = "50%";
+            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
+            thanhvien_id = value;
 
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -380,19 +351,65 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             }
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById('form_edit_user').innerHTML = xmlhttp.responseText;
+                    document.getElementById('div02_thanhvien_form_edit').innerHTML = xmlhttp.responseText;
                 }
             }
-            xmlhttp.open("GET", "edit_user.php?id=" + idtv, true);
+            xmlhttp.open("GET", "thanhvien_xuly_edit_get.php?thanhvien_id=" + thanhvien_id, true);
             xmlhttp.send();
         }
-
-        function click_edit_user_exit() {
-            document.getElementById('form_edit_user').style.visibility = "hidden";
-            document.getElementById('list_user_name').style.visibility = "visible";
+        //Ẩn form chỉnh sửa thành viên
+        function div02_thanhvien_form_edit_form_exit_click() {
+            document.getElementById('div02_thanhvien_form_edit').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_thanhvien_form_edit').style.top = "30%";
+            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
+        }
+        //Hiện thông báo xóa thành viên
+        function div02_thanhvien_list_table_delete_click(value) {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0.5s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "30%";
+            thanhvien_id = value;
+        }
+        //Chọn yes để delete thành viên
+        function divreport_delete_thanhvien_yes() {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    div02_thanhvien_form_search_input_keyup("", 1);
+                }
+            }
+            xmlhttp.open("GET", "thanhvien_xuly_delete.php?thanhvien_id=" + thanhvien_id, true);
+            xmlhttp.send();
+        }
+        //Chọn no để quay lại
+        function divreport_delete_thanhvien_no() {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
         }
 
-        //2.Tác giả
+        //TÁC GIẢ
+        //Hiện form thêm tác giả
         function div02_tacgia_add_click() {
             document.getElementById('div02_tacgia_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -401,6 +418,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_tacgia_form_add').style.top = "50%";
             document.getElementById('div02_tacgia_form_add').style.transition = "0.5s";
         }
+        //Ẩn form thêm tác giả
         function div02_tacgia_form_add_form_exit_click() {
             document.getElementById('div02_tacgia_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -409,6 +427,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_tacgia_form_add').style.transition = "0s";
             document.getElementById('div02_tacgia_form_add').style.top = "30%";
         }
+        //Tìm kiếm tác giả
         function div02_tacgia_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -424,25 +443,101 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             xmlhttp.open("GET", "tacgia_xuly_list.php?tacgia_hoten=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
+        //Tạo tacgia_id để dùng
+        tacgia_id = "";
+        //Hiện form chỉnh sửa tác giả
+        function div02_tacgia_list_table_edit_click(value) {
+            document.getElementById('div02_tacgia_form_edit').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('div02_tacgia_form_edit').style.top = "50%";
+            document.getElementById('div02_tacgia_form_edit').style.transition = "0.5s";
+            tacgia_id = value;
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById('div02_tacgia_form_edit').innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "tacgia_xuly_edit_get.php?tacgia_id=" + tacgia_id, true);
+            xmlhttp.send();
+        }
+        //Ẩn form chỉnh sửa tác giả
+        function div02_tacgia_form_edit_form_exit_click() {
+            document.getElementById('div02_tacgia_form_edit').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_tacgia_form_edit').style.top = "30%";
+            document.getElementById('div02_tacgia_form_edit').style.transition = "0.5s";
+        }
+        //Hiện thông báo xóa tác giả
+        function div02_tacgia_list_table_delete_click(value) {
+            document.getElementById('divreport_delete_tacgia').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_delete_tacgia').style.transition = "0.5s";
+            document.getElementById('divreport_delete_tacgia').style.top = "30%";
+            tacgia_id = value;
+        }
+        //Chọn yes để delete tác giả
+        function divreport_delete_tacgia_yes() {
+            document.getElementById('divreport_delete_tacgia').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_tacgia').style.transition = "0s";
+            document.getElementById('divreport_delete_tacgia').style.top = "10%";
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    div02_tacgia_form_search_input_keyup("", 1);
+                }
+            }
+            xmlhttp.open("GET", "tacgia_xuly_delete.php?tacgia_id=" + tacgia_id, true);
+            xmlhttp.send();
+        }
+        //Chọn no để quay lại
+        function divreport_delete_tacgia_no() {
+            document.getElementById('divreport_delete_tacgia').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_tacgia').style.transition = "0s";
+            document.getElementById('divreport_delete_tacgia').style.top = "10%";
+        }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
-    <!-- Thành viên -->
+    <!-- THÀNH VIÊN -->
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#form_add_user_form").validate({
+            $("#div02_thanhvien_form_add_form").validate({
                 rules: {
                     username: {
                         required: true,
                         minlength: 8,
-                        remote: "check_username_exit.php"
+                        remote: "thanhvien_check_username_exit.php"
                     },
                     pass: {
                         required: true,
                         minlength: 8
                     },
                     passagain: {
-                        equalTo: "#pass_add_user"
+                        equalTo: "#div02_thanhvien_form_add_form_password"
                     },
                     hoten: {
                         required: true
@@ -482,17 +577,18 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                     }
                 },
                 submitHandler: function(form) {
-                    $('#form_add_user_form').on('submit', function(e) {
+                    $('#div02_thanhvien_form_add_form').on('submit', function(e) {
                         e.preventDefault();
                         $.ajax({
-                            url: "add_user_xuly.php",
+                            url: "thanhvien_xuly_add.php",
                             method: "POST",
                             data: new FormData(this),
                             contentType: false,
                             cache: false,
                             processData: false,
                             success: function(data) {
-                                click_add_user_exit();
+                                div02_thanhvien_form_add_form_exit_click();
+                                div02_thanhvien_form_search_input_keyup("", 1);
                             }
                         });
                     });
@@ -501,11 +597,10 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
         });
     </script>
     <script type="text/javascript">
-        /* Kiểm tra thông tin nhập vào form edit user và gửi data đến file edit_user_xuly.php*/
         $(document).ready(function() {
             /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
-            $("#form_edit_user").on("click", "#form_edit_user_form", function() {
-                $("#form_edit_user_form").validate({
+            $("#div02_thanhvien_form_edit").on("click", "#div02_thanhvien_form_edit_form", function() {
+                $("#div02_thanhvien_form_edit_form").validate({
                     rules: {
                         hoten: {
                             required: true
@@ -533,18 +628,18 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                         }
                     },
                     submitHandler: function(form) {
-                        $('#form_edit_user_form').on('submit', function(e) {
+                        $('#div02_thanhvien_form_edit_form').on('submit', function(e) {
                             e.preventDefault();
                             $.ajax({
-                                url: "edit_user_xuly.php?id=" + idtv,
+                                url: "thanhvien_xuly_edit_send.php?thanhvien_id=" + thanhvien_id,
                                 method: "POST",
                                 data: new FormData(this),
                                 contentType: false,
                                 cache: false,
                                 processData: false,
                                 success: function(data) {
-                                    click_edit_user_exit();
-                                    list_user("", 1);
+                                    div02_thanhvien_form_edit_form_exit_click();
+                                    div02_thanhvien_form_search_input_keyup("", 1);
                                 }
                             });
                         });
@@ -553,13 +648,13 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             });
         });
         /* Hiển thị ảnh khi chọn ảnh trong form edit user */
-        function chooesFile() {
-            edit_image.src = "";
-            edit_image.src = URL.createObjectURL(event.target.files[0]);
+        function div02_thanhvien_form_edit_form_hinhanh_change() {
+            div02_thanhvien_form_edit_form_hinhanh_img.src = "";
+            div02_thanhvien_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
 
-    <!-- Tác giả -->
+    <!-- TÁC GIẢ -->
     <script type="text/javascript">
         $(document).ready(function() {
             $("#div02_tacgia_form_add_form").validate({
@@ -593,6 +688,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                             processData: false,
                             success: function(data) {
                                 div02_tacgia_form_add_form_exit_click();
+                                div02_tacgia_form_search_input_keyup("", 1);
                             }
                         });
                     });
@@ -603,6 +699,53 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
         function div02_tacgia_form_add_form_hinhanh_change() {
             div02_tacgia_form_add_form_hinhanh_img.src = "";
             div02_tacgia_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+        $(document).ready(function() {
+            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            $("#div02_tacgia_form_edit").on("click", "#div02_tacgia_form_edit_form", function() {
+                $("#div02_tacgia_form_edit_form").validate({
+                    rules: {
+                    tacgia_hoten: {
+                        required: true
+                    },
+                    tacgia_ngaysinh: {
+                        required: true,
+                        date: true
+                    }
+                },
+                messages: {
+                    tacgia_hoten: {
+                        required: "Bạn chưa nhập họ và tên tác giả"
+                    },
+                    tacgia_ngaysinh: {
+                        required: "Bạn chưa nhập ngày sinh tác giả",
+                        date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)"
+                    }
+                },
+                submitHandler: function(form) {
+                    $('#div02_tacgia_form_edit_form').on('submit', function(e) {
+                        e.preventDefault();
+                        $.ajax({
+                            url: "tacgia_xuly_edit_send.php?tacgia_id="+ tacgia_id,
+                            method: "POST",
+                            data: new FormData(this),
+                            contentType: false,
+                            cache: false,
+                            processData: false,
+                            success: function(data) {
+                                div02_tacgia_form_edit_form_exit_click();
+                                div02_tacgia_form_search_input_keyup("", 1);
+                            }
+                        });
+                    });
+                }
+                });
+            });
+        });
+        /* Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_edit */
+        function div02_tacgia_form_edit_form_hinhanh_change() {
+            div02_tacgia_form_edit_form_hinhanh_img.src = "";
+            div02_tacgia_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
         }
     </script>
 </body>

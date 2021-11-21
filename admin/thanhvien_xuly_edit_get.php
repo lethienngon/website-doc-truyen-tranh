@@ -13,29 +13,26 @@ $conn->set_charset("utf8");
 $sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$id' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass') and ADMIN_LEVEL=0";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
-  $idtv = $_GET['id'];
+  $idtv = $_GET['thanhvien_id'];
   $sql_del = "SELECT ADMIN_HOTEN, ADMIN_EMAIL, ADMIN_SDT, ADMIN_LEVEL, ADMIN_STATUS, ADMIN_HINHANH FROM admin where ADMIN_ID='$idtv' and ADMIN_LEVEL!=0";
   $result_del = $conn->query($sql_del);
   $row = $result_del->fetch_assoc();
   if ($result_del->num_rows > 0) {
-    echo '<form id="form_edit_user_form" method="POST" enctype="multipart/form-data" autocomplete="off">
+    echo '<form id="div02_thanhvien_form_edit_form" method="POST" enctype="multipart/form-data" autocomplete="off">
     <table border="0">
         <tr>
-            <th rowspan="7"><img src="'.$row['ADMIN_HINHANH'].'" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="edit_image" width="450" height="450"></th>
+        <td rowspan="6"><label for="div02_thanhvien_form_edit_form_hinhanh"><img src="'.$row['ADMIN_HINHANH'].'" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_thanhvien_form_edit_form_hinhanh_img" width="450" height="450"></label>
+        <input type="file" id="div02_thanhvien_form_edit_form_hinhanh" name="anhdaidien" onchange="div02_thanhvien_form_edit_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
             <th align="left"><label>Họ và tên</label></th>
-            <td><input class="edit_user_input" type="text" name="hoten" value="'.$row['ADMIN_HOTEN'].'"></td>
+            <td><input class="div02_thanhvien_form_edit_form_input" type="text" name="hoten" value="'.$row['ADMIN_HOTEN'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Email</label></th>
-            <td><input class="edit_user_input" type="text" name="email" value="'.$row['ADMIN_EMAIL'].'"></td>
+            <td><input class="div02_thanhvien_form_edit_form_input" type="text" name="email" value="'.$row['ADMIN_EMAIL'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Số điện thoại</label></th>
-            <td><input class="edit_user_input" type="text" name="sdt" value="'.$row['ADMIN_SDT'].'"></td>
-        </tr>
-        <tr>
-            <th align="left"><label>Hình đại diện</label></th>
-            <td><input type="file" id="edit_anhdaidien" name="anhdaidien" onchange="chooesFile()" accept=".jpg, .jpeg, .png"></td>
+            <td><input class="div02_thanhvien_form_edit_form_input" type="text" name="sdt" value="'.$row['ADMIN_SDT'].'"></td>
         </tr>
         <tr>
             <th align="left"><label>Quyền</label></th>
@@ -56,8 +53,8 @@ if ($result->num_rows > 0) {
         </tr>
         <tr>
             <th> </th>
-            <td><input id="form_edit_user_submit" type="submit" value="Chỉnh sửa" name="submit">
-                <input id="form_edit_user_exit" type="button" value="Trở về" onclick="click_edit_user_exit()">
+            <td><input id="div02_thanhvien_form_edit_form_submit" type="submit" value="Chỉnh sửa" name="submit">
+                <input id="div02_thanhvien_form_edit_form_exit" type="button" value="Trở về" onclick="div02_thanhvien_form_edit_form_exit_click()">
             </td>
         </tr>
     </table>

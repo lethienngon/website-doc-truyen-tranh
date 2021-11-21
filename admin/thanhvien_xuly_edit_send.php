@@ -5,7 +5,7 @@ header('Expires: 0');
 if (!isset($_COOKIE['username']) and !isset($_COOKIE['pass'])) {
   exit();
 }
-$idtv = $_GET['id'];
+$idtv = $_GET['thanhvien_id'];
 $email = $_POST['email'];
 $hoten = $_POST['hoten'];
 $sdt = $_POST['sdt'];

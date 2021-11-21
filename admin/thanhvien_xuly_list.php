@@ -8,7 +8,7 @@ if (!isset($_COOKIE['username']) and !isset($_COOKIE['pass'])) {
 $idtv = $_COOKIE['id'];
 $username = $_COOKIE['username'];
 $pass = $_COOKIE['pass'];
-$hoten = $_GET['hoten'];
+$hoten = $_GET['thanhvien_hoten'];
 $item_per_page = 5;
 $current_page = $_GET['page'];
 $offset = ($current_page - 1) * $item_per_page;
@@ -24,10 +24,10 @@ if ($result->num_rows > 0) {
     $result_kq = $conn->query($sql_kq);
     if ($result_kq->num_rows > 0) {
         $total_page = ceil($result_count->num_rows / $item_per_page);
-        echo "<table border='0' id='table_list_user'>";
-        echo "<tr id='head_list_user'>
+        echo "<table border='0' id='div02_thanhvien_list_table'>";
+        echo "<tr>
               <th>STT</th>
-              <th>Tên thành viên</th>
+              <th>Họ và tên</th>
               <th>Ảnh đại diện</th>
               <th>Email</th>
               <th>Số điện thoại</th>
@@ -48,23 +48,23 @@ if ($result->num_rows > 0) {
                  <td>" . $row['ADMIN_LEVEL'] . "</td>
                  <td>" . $row['ADMIN_STATUS'] . "</td>
                  <td>" . $row['ADMIN_NGAYTAO'] . "</td>
-                 <td><a href='#' id='id_edit_user' onclick='edit_user(" . $row['ADMIN_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
-			         <a href='#' id='id_del_user' onclick='del_user(" . $row['ADMIN_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
+                 <td><a href='#' id='div02_thanhvien_list_table_edit' onclick='div02_thanhvien_list_table_edit_click(" . $row['ADMIN_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
+			         <a href='#' id='div02_thanhvien_list_table_delete' onclick='div02_thanhvien_list_table_delete_click(" . $row['ADMIN_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
                  </tr>";
         }
         echo "</table>";
         echo "<div class='pick_page'>";
         if ($current_page > 3) {
-            echo "<a class='pages_tool' href='#' onclick=list_user('" . $hoten . "',1)>First</a>";
+            echo "<a class='pages_tool' href='#' onclick=div02_thanhvien_form_search_input_keyup('" . $hoten . "',1)>First</a>";
         }
         if ($current_page > 1) {
             $prev_page = $current_page - 1;
-            echo "<a class='pages_tool' href='#' onclick=list_user('" . $hoten . "'," . $prev_page . ")>Prev</a>";
+            echo "<a class='pages_tool' href='#' onclick=div02_thanhvien_form_search_input_keyup('" . $hoten . "'," . $prev_page . ")>Prev</a>";
         }
         for ($num = 1; $num <= $total_page; $num++) {
             if ($num != $current_page) {
                 if ($num > $current_page - 3 && $num < $current_page + 3) {
-                    echo "<a class='pages' href='#' onclick=list_user('" . $hoten . "'," . $num . ")>" . $num . "</a>";
+                    echo "<a class='pages' href='#' onclick=div02_thanhvien_form_search_input_keyup('" . $hoten . "'," . $num . ")>" . $num . "</a>";
                 }
             } else {
                 echo "<strong class='pages' style='background-color:black; color:white; border:2px solid black;'>" . $num . "</strong>";
@@ -72,10 +72,10 @@ if ($result->num_rows > 0) {
         }
         if ($current_page < $total_page) {
             $next_page = $current_page + 1;
-            echo "<a class='pages_tool' href='#' onclick=list_user('" . $hoten . "'," . $next_page . ")>Next</a>";
+            echo "<a class='pages_tool' href='#' onclick=div02_thanhvien_form_search_input_keyup('" . $hoten . "'," . $next_page . ")>Next</a>";
         }
         if ($current_page < $total_page - 2) {
-            echo "<a class='pages_tool' href='#' onclick=list_user('" . $hoten . "'," . $total_page . ")>Last</a>";
+            echo "<a class='pages_tool' href='#' onclick=div02_thanhvien_form_search_input_keyup('" . $hoten . "'," . $total_page . ")>Last</a>";
         }
         echo "<strong style='margin-left:20px;'>Tổng số kết quả tìm kiếm: ".$result_count->num_rows."</strong>";
         echo "</div>";
