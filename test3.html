@@ -1,0 +1,67 @@
+<html>
+
+<head>
+    <title>Quản lí web truyện tranh</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="icon" href="admin.ico" size="64x64">
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div id="div02_theloai_form_add">
+        <form id="div02_theloai_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table border="0">
+                <tr>
+                    <td><input type="text" class="div02_theloai_form_add_form_input" name="theloai_name" placeholder="Tên thể loại"></td>
+                </tr>
+                <tr>
+                    <td><textarea rows="20" cols="65" style="margin-top:30px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại"></textarea> </td>
+                </tr>
+                <tr>
+                    <td><input id="div02_theloai_form_add_form_submit" type="submit" value="Thêm" name="submit">
+                        <input id="div02_theloai_form_add_form_reset" type="reset" value="Làm lại">
+                        <input id="div02_theloai_form_add_form_exit" type="button" value="Thoát" onclick="div02_theloai_form_add_form_exit_click()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/admin/lib/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $("#div02_theloai_form_add_form").validate({
+            rules: {
+                theloai_name: {
+                    required: true,
+                    maxlength: 255,
+                    remote: "admin/theloai_check_name_exist.php?theloai_id=no_value"
+                }
+            },
+            messages: {
+                theloai_name: {
+                    required: "Bạn chưa nhập tên thể loại",
+                    maxlength: "Tên thể loại không quá 255 kí tự",
+                    remote: "Tên thể loại đã tồn tại"
+                }
+            },
+            submitHandler: function(form) {
+                e.preventDefault();
+                $.ajax({
+                    url: "theloai_xuly_add.php",
+                    method: "POST",
+                    data: new FormData(this),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        div02_theloai_form_add_form_exit_click();
+                        div02_theloai_form_search_input_keyup("", 1);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

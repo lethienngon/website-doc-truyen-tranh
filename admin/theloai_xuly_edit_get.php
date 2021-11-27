@@ -18,13 +18,13 @@ if ($result->num_rows > 0) {
   $result_del = $conn->query($sql_del);
   $row = $result_del->fetch_assoc();
   if ($result_del->num_rows > 0) {
-    echo '<form id="div02_theloai_form_edit_form" method="POST" enctype="multipart/form-data" autocomplete="off">
+    echo '<form id="div02_theloai_form_edit_form" action="" method="POST" enctype="multipart/form-data" autocomplete="off">
             <table border="0">
               <tr>
                 <td><input type="text" class="div02_theloai_form_edit_form_input" name="theloai_name" value="'.$row['THELOAI_NAME'].'" placeholder="Tên của thể loại"></td>
               </tr>
               <tr>
-                <td><textarea rows="20" cols="65" style="margin-top:20px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại">'.$row['THELOAI_MOTA'].'</textarea> </td>
+                <td><textarea rows="20" cols="65" style="margin-top:30px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại">'.$row['THELOAI_MOTA'].'</textarea> </td>
               </tr>
               <tr>
                 <td><input id="div02_theloai_form_edit_form_submit" type="submit" value="Chỉnh sửa" name="submit">

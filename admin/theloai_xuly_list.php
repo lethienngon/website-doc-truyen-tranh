@@ -24,24 +24,6 @@ if ($result->num_rows > 0) {
     $result_kq = $conn->query($sql_kq);
     if ($result_kq->num_rows > 0) {
         $total_page = ceil($result_count->num_rows / $item_per_page);
-        echo "<table border='0' id='div02_theloai_list_table'>";
-        echo "<tr>
-              <th>STT</th>
-              <th>Tên thể loại</th>
-              <th>Mô tả</th>
-          </tr>";
-        $stt = $offset;
-        while ($row = $result_kq->fetch_assoc()) {
-            $stt = $stt + 1;
-            echo "<tr>
-                 <td>" . $stt . "</td>
-                 <td width='220px'>" . $row['THELOAI_NAME'] . "</td>
-                 <td>" . $row['THELOAI_MOTA'] . "</td>
-                 <td><a href='#' id='div02_theloai_list_table_edit' onclick='div02_theloai_list_table_edit_click(" . $row['THELOAI_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
-			         <a href='#' id='div02_theloai_list_table_delete' onclick='div02_theloai_list_table_delete_click(" . $row['THELOAI_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
-                 </tr>";
-        }
-        echo "</table>";
         echo "<div class='pick_page'>";
         if ($current_page > 3) {
             echo "<a class='pages_tool' href='#' onclick=div02_theloai_form_search_input_keyup('" . $theloai_name . "',1)>First</a>";
@@ -68,6 +50,26 @@ if ($result->num_rows > 0) {
         }
         echo "<strong style='margin-left:20px;'>Tổng số kết quả tìm kiếm: ".$result_count->num_rows."</strong>";
         echo "</div>";
+        echo "<table border='0' id='div02_theloai_list_table'>";
+        echo "<tr>
+              <th>STT</th>
+              <th>Tên thể loại</th>
+              <th>Mô tả</th>
+              <th>Công cụ</th>
+          </tr>";
+        $stt = $offset;
+        while ($row = $result_kq->fetch_assoc()) {
+            $stt = $stt + 1;
+            echo "<tr>
+                 <td id='div02_theloai_list_table_td_id'>" . $stt . "</td>
+                 <td id='div02_theloai_list_table_td_name'>" . $row['THELOAI_NAME'] . "</td>
+                 <td id='div02_theloai_list_table_td_mota'>" . $row['THELOAI_MOTA'] . "</td>
+                 <td id='div02_theloai_list_table_td_congcu'>
+                    <a href='#' id='div02_theloai_list_table_edit' onclick='div02_theloai_list_table_edit_click(" . $row['THELOAI_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
+			        <a href='#' id='div02_theloai_list_table_delete' onclick='div02_theloai_list_table_delete_click(" . $row['THELOAI_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
+                 </tr>";
+        }
+        echo "</table>";
     }
 } else {
     exit();

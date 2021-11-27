@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     $tendangnhap = $_POST['username'];
 	$pass = $_POST['password'];
 
@@ -12,9 +12,9 @@
 		setcookie('id',$row['ADMIN_ID'],time()+3600,'/','',0,0);
 		setcookie('username',$tendangnhap,time()+3600,'/','',0,0);
 		setcookie('pass',$pass,time()+3600,'/','',0,0);
-		$_SESSION['id'] = $row['ADMIN_ID'];
-		$_SESSION['username'] = $tendangnhap;
-		$_SESSION['pass'] = $pass;
+		//$_SESSION['id'] = $row['ADMIN_ID'];
+		//$_SESSION['username'] = $tendangnhap;
+		//$_SESSION['pass'] = $pass;
 
 		echo json_encode(array(
 			'status' => 1 , 

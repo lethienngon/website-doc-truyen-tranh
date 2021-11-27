@@ -19,11 +19,11 @@ body {
 
 #div02 {
     background-color: #ffffff;
-    position: fixed;
+    position: absolute;
     top: 20px;
     left: 270px;
     width: 1070px;
-    height: 580px;
+    height: auto;
 }
 
 #div01 #ad_name {
@@ -271,23 +271,29 @@ body {
 }
 
 .pages {
+    background-color: white;
     display: inline-block;
+    font-weight: bold;
     color: black;
     border: 2px solid rgb(190, 190, 190);
     text-align: center;
     line-height: 25px;
-    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
     width: 30px;
     height: 30px;
 }
 
 .pages_tool {
+    background-color: rgb(160, 255, 203);
     display: inline-block;
+    font-weight: bold;
     color: black;
     border: 2px solid rgb(190, 190, 190);
     text-align: center;
     line-height: 25px;
-    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 20px;
     width: 50px;
     height: 30px;
 }
@@ -575,7 +581,6 @@ body {
 /*Danh sách thể loại*/
 
 #div02_theloai_list {
-    border-radius: 5px;
     position: absolute;
     margin-top: 70px;
     margin-left: 10px;
@@ -584,15 +589,92 @@ body {
 #div02_theloai_list_table {
     border: 1px solid rgb(216, 216, 216);
     font-size: 15px;
-    text-align: center;
     width: 1050px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 #div02_theloai_list_table th {
+    padding-left: 10px;
+    padding-right: 5px;
     height: 30px;
+    background-color: rgb(77, 148, 240);
 }
 
 #div02_theloai_list_table td {
     border-top: 1px solid rgb(240, 240, 240);
-    height: 80px;
+    height: 50px;
+}
+
+#div02_theloai_list_table tr:nth-child(even) {
+    background-color: rgb(255, 255, 255);
+}
+
+#div02_theloai_list_table tr:nth-child(odd) {
+    background-color: rgb(205, 233, 241);
+}
+
+#div02_theloai_list_table_td_id {
+    width: 30px;
+    text-align: center;
+    word-break: break-all;
+}
+
+#div02_theloai_list_table_td_name {
+    width: 300px;
+    text-align: center;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_theloai_list_table_td_mota {
+    width: 600px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_theloai_list_table_td_congcu {
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+/* TRUYỆN */
+
+
+/*Button Thêm truyện*/
+
+#div02_truyen_add {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_truyen_add:hover {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+
+/*Tìm kiếm truyện*/
+
+#div02_truyen_form_search_input {
+    position: absolute;
+    left: 300px;
+    top: 12px;
+    width: 400px;
+    height: 38px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
 }

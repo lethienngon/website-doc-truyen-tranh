@@ -2,7 +2,7 @@
 header('Cache-Control: no-cache, no-store, must-revalidate'); //HTTP 1.1
 header('Pragma: no-cache'); //HTTP 1.0
 header('Expires: 0'); // Date in the past
-session_start();
+//session_start();
 // Check Cookie
 if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     $tendangnhap_cook = $_COOKIE['username'];
@@ -18,7 +18,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     }
 } 
 // Check Session
-else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
+/*else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
     $tendangnhap_sess = $_SESSION['username'];
     $pass_sess = $_SESSION['pass'];
 
@@ -30,7 +30,8 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
     } else {
         header('location:login.php');
     }
-} else {
+}*/
+else {
     header('location:login.php');
 }
 ?>
@@ -107,7 +108,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                         echo "
                         <tr>
                             <th>Username:</th>
-                            <td>" . $row['ADMIN_USERNAME'] . "</td>
+                            <td>" . $row['ADMIN_HOTEN'] . "</td>
                         </tr>
                         <tr>
                             <th>Email:</th>
@@ -129,7 +130,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             <div>
             <div id="div02_theloai">
                 <!-- 2.2.1)Title Thể loại -->
-                <p class="div02_title">Thể loại</p>
+                <p class="div02_title">Quản lý Thể loại</p>
                 <!-- 2.2.2)Thêm thể loại -->
                 <a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>
                 <!-- 2.2.3)Tìm kiếm thể loại -->
@@ -143,7 +144,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             <!-- 2.3)Phần nội dung Tác giả -->
             <div id="div02_tacgia">
                 <!-- 2.3.1)Title Tác giả -->
-                <p class="div02_title">Tác giả</p>
+                <p class="div02_title">Quản lý Tác giả</p>
                 <!-- 2.3.2)Thêm tác giả -->
                 <a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
                 <!-- 2.3.3)Tìm kiếm tác giả -->
@@ -154,11 +155,22 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                 <div id="div02_tacgia_list"></div>
             </div>
             <!-- 2.4)Phần nội dung Truyện -->
-            <div></div>
+            <div id="div02_truyen">
+                <!-- 2.4.1)Title Truyện -->
+                <p class="div02_title">Quản lý Truyện</p>
+                <!-- 2.4.2)Thêm Truyện -->
+                <a id="div02_truyen_add" onclick="div02_truyen_add_click()" href="#"><img src="truyen_add.ico" style="width:16px;height:16px"> Thêm Truyện</a>
+                <!-- 2.4.3)Tìm kiếm Truyện -->
+                <form id="div02_truyen_form_search">
+                    <input id="div02_truyen_form_search_input" type="text" name="hoten" onkeyup=div02_truyen_form_search_input_keyup(this.value,1) placeholder="Nhập tên truyện để tìm kiếm">
+                </form>
+                <!-- 2.2.4)Danh sách truyện -->
+                <div id="div02_truyen_list"></div>
+            </div>
             <!-- 2.5)Phần nội dung Thành viên -->
             <div id="div02_thanhvien">
                 <!-- 2.5.1)Title Thành viên -->
-                <p class="div02_title">Thành viên</p>
+                <p class="div02_title">Quản lý Thành viên</p>
                 <!-- 2.5.2)Thêm Thành viên -->
                 <a id="div02_thanhvien_add" onclick="div02_thanhvien_add_click()" href="#"><img src="thanhvien_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
                 <!-- 2.5.3)Tìm kiếm thành viên -->
@@ -180,7 +192,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
                     <td><input type="text" class="div02_theloai_form_add_form_input" name="theloai_name" placeholder="Tên thể loại"></td>
                 </tr>
                 <tr>
-                    <td><textarea rows="20" cols="65" style="margin-top:20px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại"></textarea> </td>
+                    <td><textarea rows="20" cols="65" style="margin-top:30px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại"></textarea> </td>
                 </tr>
                 <tr>
                     <td><input id="div02_theloai_form_add_form_submit" type="submit" value="Thêm" name="submit">
@@ -303,6 +315,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "visible";
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
+            document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -310,6 +323,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_theloai').style.visibility = "visible";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
+            document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_theloai_form_search_input_keyup("", 1);
         }
@@ -318,6 +332,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "visible";
+            document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_tacgia_form_search_input_keyup("", 1);
         }
@@ -326,6 +341,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
+            document.getElementById('div02_truyen').style.visibility = "visible";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -333,6 +349,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
+            document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
             div02_thanhvien_form_search_input_keyup("", 1);
         }
@@ -341,136 +358,28 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
+            document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
-        //THÀNH VIÊN
-        //Hiện form thêm thành viên 
-        function div02_thanhvien_add_click() {
-            document.getElementById('div02_thanhvien_form_add').style.visibility = "visible";
-            document.getElementById('content').style.filter = "blur(10px)";
-            document.getElementById('content').style.pointerEvents = "none";
-            document.getElementById('content').style.userSelect = "none";
-            document.getElementById('div02_thanhvien_form_add').style.top = "50%";
-            document.getElementById('div02_thanhvien_form_add').style.transition = "0.5s";
-        }
-        //Ẩn form thêm thành viên
-        function div02_thanhvien_form_add_form_exit_click() {
-            document.getElementById('div02_thanhvien_form_add').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('div02_thanhvien_form_add').style.transition = "0s";
-            document.getElementById('div02_thanhvien_form_add').style.top = "30%";
-        }
-        //Tìm kiếm thành viên
-        function div02_thanhvien_form_search_input_keyup(value, page) {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("div02_thanhvien_list").innerHTML = xmlhttp.responseText;
-                }
-            }
-            xmlhttp.open("GET", "thanhvien_xuly_list.php?thanhvien_hoten=" + value + "&page=" + page, true);
-            xmlhttp.send();
-        }
-        //Tạo thanhvien_id để sử dụng
-        var thanhvien_id = "";
-        //Hiện form chỉnh sửa thành viên
-        function div02_thanhvien_list_table_edit_click(value) {
-            document.getElementById('div02_thanhvien_form_edit').style.visibility = "visible";
-            document.getElementById('content').style.filter = "blur(10px)";
-            document.getElementById('content').style.pointerEvents = "none";
-            document.getElementById('content').style.userSelect = "none";
-            document.getElementById('div02_thanhvien_form_edit').style.top = "50%";
-            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
-            thanhvien_id = value;
 
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById('div02_thanhvien_form_edit').innerHTML = xmlhttp.responseText;
-                }
-            }
-            xmlhttp.open("GET", "thanhvien_xuly_edit_get.php?thanhvien_id=" + thanhvien_id, true);
-            xmlhttp.send();
-        }
-        //Ẩn form chỉnh sửa thành viên
-        function div02_thanhvien_form_edit_form_exit_click() {
-            document.getElementById('div02_thanhvien_form_edit').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('div02_thanhvien_form_edit').style.top = "30%";
-            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
-        }
-        //Hiện thông báo xóa thành viên
-        function div02_thanhvien_list_table_delete_click(value) {
-            document.getElementById('divreport_delete_thanhvien').style.visibility = "visible";
-            document.getElementById('content').style.filter = "blur(10px)";
-            document.getElementById('content').style.pointerEvents = "none";
-            document.getElementById('content').style.userSelect = "none";
-            document.getElementById('divreport_delete_thanhvien').style.transition = "0.5s";
-            document.getElementById('divreport_delete_thanhvien').style.top = "30%";
-            thanhvien_id = value;
-        }
-        //Chọn yes để delete thành viên
-        function divreport_delete_thanhvien_yes() {
-            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
-            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    div02_thanhvien_form_search_input_keyup("", 1);
-                }
-            }
-            xmlhttp.open("GET", "thanhvien_xuly_delete.php?thanhvien_id=" + thanhvien_id, true);
-            xmlhttp.send();
-        }
-        //Chọn no để quay lại
-        function divreport_delete_thanhvien_no() {
-            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
-            document.getElementById('content').style.filter = "none";
-            document.getElementById('content').style.pointerEvents = "auto";
-            document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
-            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
-        }
         //THỂ LOẠI
+
         //Hiện form thêm thể loại
         function div02_theloai_add_click() {
             document.getElementById('div02_theloai_form_add').style.visibility = "visible";
+            document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
             document.getElementById('content').style.filter = "blur(10px)";
             document.getElementById('content').style.pointerEvents = "none";
             document.getElementById('content').style.userSelect = "none";
             document.getElementById('div02_theloai_form_add').style.top = "50%";
-            document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
         }
         //Ẩn form thêm thể loại
         function div02_theloai_form_add_form_exit_click() {
             document.getElementById('div02_theloai_form_add').style.visibility = "hidden";
+            document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
             document.getElementById('content').style.filter = "none";
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
             document.getElementById('div02_theloai_form_add').style.top = "30%";
         }
         //Tìm kiếm thể loại
@@ -567,6 +476,7 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
         }
 
         //TÁC GIẢ
+
         //Hiện form thêm tác giả
         function div02_tacgia_add_click() {
             document.getElementById('div02_tacgia_form_add').style.visibility = "visible";
@@ -676,6 +586,156 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('divreport_delete_tacgia').style.transition = "0s";
             document.getElementById('divreport_delete_tacgia').style.top = "10%";
+        }
+
+        //TRUYỆN
+
+        //Hiện form thêm truyện
+        function div02_truyen_add_click() {
+            document.getElementById('div02_truyen_form_add').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('div02_truyen_form_add').style.top = "50%";
+            document.getElementById('div02_truyen_form_add').style.transition = "0.5s";
+        }
+        //Ẩn form thêm truyện
+        function div02_truyen_form_add_form_exit_click() {
+            document.getElementById('div02_truyen_form_add').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_truyen_form_add').style.transition = "0.5s";
+            document.getElementById('div02_truyen_form_add').style.top = "30%";
+        }
+        //Tìm kiếm truyện
+        function div02_truyen_form_search_input_keyup(value, page) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_truyen_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "truyen_xuly_list.php?truyen_name=" + value + "&page=" + page, true);
+            xmlhttp.send();
+        }
+
+        //THÀNH VIÊN
+
+        //Hiện form thêm thành viên 
+        function div02_thanhvien_add_click() {
+            document.getElementById('div02_thanhvien_form_add').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('div02_thanhvien_form_add').style.top = "50%";
+            document.getElementById('div02_thanhvien_form_add').style.transition = "0.5s";
+        }
+        //Ẩn form thêm thành viên
+        function div02_thanhvien_form_add_form_exit_click() {
+            document.getElementById('div02_thanhvien_form_add').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_thanhvien_form_add').style.transition = "0s";
+            document.getElementById('div02_thanhvien_form_add').style.top = "30%";
+        }
+        //Tìm kiếm thành viên
+        function div02_thanhvien_form_search_input_keyup(value, page) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_thanhvien_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "thanhvien_xuly_list.php?thanhvien_hoten=" + value + "&page=" + page, true);
+            xmlhttp.send();
+        }
+        //Tạo thanhvien_id để sử dụng
+        var thanhvien_id = "";
+        //Hiện form chỉnh sửa thành viên
+        function div02_thanhvien_list_table_edit_click(value) {
+            document.getElementById('div02_thanhvien_form_edit').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('div02_thanhvien_form_edit').style.top = "50%";
+            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
+            thanhvien_id = value;
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById('div02_thanhvien_form_edit').innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "thanhvien_xuly_edit_get.php?thanhvien_id=" + thanhvien_id, true);
+            xmlhttp.send();
+        }
+        //Ẩn form chỉnh sửa thành viên
+        function div02_thanhvien_form_edit_form_exit_click() {
+            document.getElementById('div02_thanhvien_form_edit').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_thanhvien_form_edit').style.top = "30%";
+            document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
+        }
+        //Hiện thông báo xóa thành viên
+        function div02_thanhvien_list_table_delete_click(value) {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0.5s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "30%";
+            thanhvien_id = value;
+        }
+        //Chọn yes để delete thành viên
+        function divreport_delete_thanhvien_yes() {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    div02_thanhvien_form_search_input_keyup("", 1);
+                }
+            }
+            xmlhttp.open("GET", "thanhvien_xuly_delete.php?thanhvien_id=" + thanhvien_id, true);
+            xmlhttp.send();
+        }
+        //Chọn no để quay lại
+        function divreport_delete_thanhvien_no() {
+            document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_thanhvien').style.transition = "0s";
+            document.getElementById('divreport_delete_thanhvien').style.top = "10%";
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -908,17 +968,22 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
     </script>
 
     <!-- THỂ LOẠI -->
+
     <script type="text/javascript">
         $(document).ready(function() {
             $("#div02_theloai_form_add_form").validate({
                 rules: {
                     theloai_name: {
-                        required: true
+                        required: true,
+                        maxlength: 255,
+                        remote: "theloai_check_name_exist.php?theloai_id=no_value"
                     }
                 },
                 messages: {
                     theloai_name: {
-                        required: "Bạn chưa nhập tên thể loại"
+                        required: "Bạn chưa nhập tên thể loại",
+                        maxlength: "Tên thể loại không quá 255 kí tự",
+                        remote: "Tên thể loại đã tồn tại"
                     }
                 },
                 submitHandler: function(form) {
@@ -950,15 +1015,19 @@ else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
             $("#div02_theloai_form_edit").on("click", "#div02_theloai_form_edit_form", function() {
                 $("#div02_theloai_form_edit_form").validate({
                     rules: {
-                        theloai_name: {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        theloai_name: {
-                            required: "Bạn chưa nhập tên thể loại"
-                        }
-                    },
+                    theloai_name: {
+                        required: true,
+                        maxlength: 255,
+                        remote: "theloai_check_name_exist.php?theloai_id="+theloai_id
+                    }
+                },
+                messages: {
+                    theloai_name: {
+                        required: "Bạn chưa nhập tên thể loại",
+                        maxlength: "Tên thể loại không quá 255 kí tự",
+                        remote: "Tên thể loại đã tồn tại"
+                    }
+                },
                     submitHandler: function(form) {
                     $('#div02_theloai_form_edit_form').on('submit', function(e) {
                         e.preventDefault();
