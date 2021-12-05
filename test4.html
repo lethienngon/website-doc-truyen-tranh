@@ -1,0 +1,28 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <div id="div02_truyen_form_add">
+        <form id="div02_truyen_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <select class="div02_truyen_form_add_form_select_tacgia" name="select_tacgia" multiple="multiple">
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+            </select>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/admin/ib/jquery.validate.min.js"></script>
+    <link href="admin/lib/select2.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="/admin/lib/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".div02_truyen_form_add_form_select_tacgia").select2({
+            placeholder: "Select a state",
+            allowClear: true
+        })
+    </script>
+</body>
+
+</html>

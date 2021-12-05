@@ -20,6 +20,6 @@ else{
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
 $tacgia_id = $_GET['tacgia_id'];
-$sql = "UPDATE tacgia SET TACGIA_HOTEN='$tacgia_hoten', TACGIA_NGAYSINH='$tacgia_ngaysinh', TACGIA_TIEUSU='$tacgia_tieusu', TACGIA_HINHANH='$tacgia_hinhanh' where TACGIA_ID='$tacgia_id'";
+$sql = "UPDATE tacgia SET TACGIA_HOTEN='$tacgia_hoten', TACGIA_NGAYSINH='$tacgia_ngaysinh', TACGIA_TIEUSU='$tacgia_tieusu', TACGIA_HINHANH='$url' where TACGIA_ID='$tacgia_id'";
 $result = $conn->query($sql);
 $conn->close();

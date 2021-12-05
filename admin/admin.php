@@ -16,7 +16,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     } else {
         header('location:login.php');
     }
-} 
+}
 // Check Session
 /*else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
     $tendangnhap_sess = $_SESSION['username'];
@@ -30,10 +30,14 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     } else {
         header('location:login.php');
     }
-}*/
-else {
+}*/ else {
     header('location:login.php');
 }
+// Truyện Select tác giả 
+$conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
+$conn->set_charset("utf8");
+$result_truyen_select_tacgia = mysqli_query($conn, "SELECT TACGIA_ID, TACGIA_HOTEN FROM tacgia");
+$result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_NAME FROM theloai");
 ?>
 
 <html>
@@ -128,18 +132,18 @@ else {
             </div>
             <!-- 2.2)Phần nội dung Thể loại -->
             <div>
-            <div id="div02_theloai">
-                <!-- 2.2.1)Title Thể loại -->
-                <p class="div02_title">Quản lý Thể loại</p>
-                <!-- 2.2.2)Thêm thể loại -->
-                <a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>
-                <!-- 2.2.3)Tìm kiếm thể loại -->
-                <form id="div02_theloai_form_search">
-                    <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
-                </form>
-                <!-- 2.2.4)Danh sách thể loại -->
-                <div id="div02_theloai_list"></div>
-            </div>
+                <div id="div02_theloai">
+                    <!-- 2.2.1)Title Thể loại -->
+                    <p class="div02_title">Quản lý Thể loại</p>
+                    <!-- 2.2.2)Thêm thể loại -->
+                    <a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>
+                    <!-- 2.2.3)Tìm kiếm thể loại -->
+                    <form id="div02_theloai_form_search">
+                        <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
+                    </form>
+                    <!-- 2.2.4)Danh sách thể loại -->
+                    <div id="div02_theloai_list"></div>
+                </div>
             </div>
             <!-- 2.3)Phần nội dung Tác giả -->
             <div id="div02_tacgia">
@@ -212,12 +216,13 @@ else {
         <button id="divreport_delete_theloai_no" type="button" onclick="return divreport_delete_theloai_no();">Không</button>
     </div>
     <!-- 4.1)Form ẩn: Thêm Tác giả -->
-    <div id="div02_theloai_form_add">
+    <div id="div02_tacgia_form_add">
         <form id="div02_tacgia_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
                 <tr>
                     <td rowspan="4"><label for="div02_tacgia_form_add_form_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_tacgia_form_add_form_hinhanh_img" width="450" height="450"></label>
-                        <input type="file" id="div02_tacgia_form_add_form_hinhanh" name="tacgia_hinhanh" onchange="div02_tacgia_form_add_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
+                        <input type="file" id="div02_tacgia_form_add_form_hinhanh" name="tacgia_hinhanh" onchange="div02_tacgia_form_add_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;">
+                    </td>
                     <td><input type="text" class="div02_tacgia_form_add_form_input" name="tacgia_hoten" placeholder="Họ và tên của tác giả"></td>
                 </tr>
                 <tr>
@@ -243,7 +248,53 @@ else {
         <button id="divreport_delete_tacgia_yes" type="button" onclick="return divreport_delete_tacgia_yes();">Có</button>
         <button id="divreport_delete_tacgia_no" type="button" onclick="return divreport_delete_tacgia_no();">Không</button>
     </div>
-    <!-- 5.1)Form ẩn: Thêm Thành viên -->
+    <!-- 5.1)Form ẩn: Thêm truyện -->
+    <div id="div02_truyen_form_add">
+        <form id="div02_truyen_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
+            <table border="0">
+                <tr>
+                    <td rowspan="6"><label for="div02_truyen_form_add_form_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_truyen_form_add_form_hinhanh_img" width="450" height="450"></label>
+                        <input type="file" id="div02_truyen_form_add_form_hinhanh" name="truyen_hinhanh" onchange="div02_truyen_form_add_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;">
+                    </td>
+                    <td><input type="text" class="div02_truyen_form_add_form_input" name="truyen_name" placeholder="Nhập tên truyện"></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="div02_truyen_form_add_form_select_tacgia" name="truyen_select_tacgia[]" multiple="multiple">
+                            <?php
+                            while ($row_truyen_select_tacgia = $result_truyen_select_tacgia->fetch_assoc()) {
+                                echo "<option value='" . $row_truyen_select_tacgia['TACGIA_ID'] . "'>" . $row_truyen_select_tacgia['TACGIA_HOTEN'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="div02_truyen_form_add_form_select_theloai" name="truyen_select_theloai[]" multiple="multiple">
+                            <?php
+                            while ($row_truyen_select_theloai = $result_truyen_select_theloai->fetch_assoc()) {
+                                echo "<option value='" . $row_truyen_select_theloai['THELOAI_ID'] . "'>" . $row_truyen_select_theloai['THELOAI_NAME'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><textarea rows="15" cols="65" style="margin-top:30px; padding:5px;" name="truyen_mota" placeholder="Mô tả truyện"></textarea> </td>
+                </tr>
+                <tr>
+                    <td><input id="div02_truyen_form_add_form_submit" class="div02_form_submit" type="submit" value="Đăng kí" name="submit">
+                        <input id="div02_truyen_form_add_form_reset" class="div02_form_edit" type="reset" value="Làm lại">
+                        <input id="div02_truyen_form_add_form_exit" class="div02_form_exit" type="button" value="Thoát" onclick="div02_truyen_form_add_form_exit_click()">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <!-- 5.2)Form ẩn: Chỉnh sửa truyện -->
+    <div id="div02_truyen_form_edit"></div>
+    <!-- 6.1)Form ẩn: Thêm Thành viên -->
     <div id="div02_thanhvien_form_add">
         <form id="div02_thanhvien_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -302,9 +353,9 @@ else {
             </table>
         </form>
     </div>
-    <!-- 5.2)Form ẩn: Chỉnh sửa thành viên -->
+    <!-- 6.2)Form ẩn: Chỉnh sửa thành viên -->
     <div id="div02_thanhvien_form_edit"></div>
-    <!-- 5.3)Form ẩn: Xác nhận muốn xóa Thành viên -->
+    <!-- 6.3)Form ẩn: Xác nhận muốn xóa Thành viên -->
     <div id="divreport_delete_thanhvien">
         <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
         <button id="divreport_delete_thanhvien_yes" type="button" onclick="return divreport_delete_thanhvien_yes();">Có</button>
@@ -343,6 +394,7 @@ else {
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "visible";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
+            div02_truyen_form_search_input_keyup("", 1);
         }
 
         function click_thanhvien() {
@@ -376,7 +428,7 @@ else {
         //Ẩn form thêm thể loại
         function div02_theloai_form_add_form_exit_click() {
             document.getElementById('div02_theloai_form_add').style.visibility = "hidden";
-            document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
+            document.getElementById('div02_theloai_form_add').style.transition = "0s";
             document.getElementById('content').style.filter = "none";
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
@@ -431,7 +483,7 @@ else {
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('div02_theloai_form_edit').style.top = "30%";
-            document.getElementById('div02_theloai_form_edit').style.transition = "0.5s";
+            document.getElementById('div02_theloai_form_edit').style.transition = "0s";
         }
         //Hiện thông báo xóa thể loại
         function div02_theloai_list_table_delete_click(value) {
@@ -605,7 +657,7 @@ else {
             document.getElementById('content').style.filter = "none";
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
-            document.getElementById('div02_truyen_form_add').style.transition = "0.5s";
+            document.getElementById('div02_truyen_form_add').style.transition = "0s";
             document.getElementById('div02_truyen_form_add').style.top = "30%";
         }
         //Tìm kiếm truyện
@@ -623,6 +675,42 @@ else {
             }
             xmlhttp.open("GET", "truyen_xuly_list.php?truyen_name=" + value + "&page=" + page, true);
             xmlhttp.send();
+        }
+        //Tạo truyen_id để dùng
+        truyen_id = "";
+        //Hiện form chỉnh sửa truyện
+        function div02_truyen_list_table_edit_click(value) {
+            document.getElementById('div02_truyen_form_edit').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('div02_truyen_form_edit').style.top = "50%";
+            document.getElementById('div02_truyen_form_edit').style.transition = "0.5s";
+            truyen_id = value;
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById('div02_truyen_form_edit').innerHTML = xmlhttp.responseText;
+                    truyen_select_tacgia_theloai();
+                }
+            }
+            xmlhttp.open("GET", "truyen_xuly_edit_get.php?truyen_id=" + truyen_id, true);
+            xmlhttp.send();
+        }
+        //Ẩn form chỉnh sửa truyện
+        function div02_truyen_form_edit_form_exit_click() {
+            document.getElementById('div02_truyen_form_edit').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('div02_truyen_form_edit').style.top = "30%";
+            document.getElementById('div02_truyen_form_edit').style.transition = "0s";
         }
 
         //THÀNH VIÊN
@@ -740,6 +828,8 @@ else {
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="lib/select2.min.js"></script>
+    <link href="lib/select2.min.css" rel="stylesheet" />
     <!-- THÀNH VIÊN -->
     <script type="text/javascript">
         $(document).ready(function() {
@@ -874,43 +964,71 @@ else {
 
     <!-- TÁC GIẢ -->
     <script type="text/javascript">
+        // Thêm rule cho Ngày sinh
+        $.validator.addMethod("minAge", function(value, element, min) {
+            var today = new Date();
+            var birthDate = new Date(value);
+            var age = today.getFullYear() - birthDate.getFullYear();
+
+            if (age > min + 1) {
+                return true;
+            }
+
+            var m = today.getMonth() - birthDate.getMonth();
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age >= min;
+        }, "You are not old enough!");
+        // Form thêm tác giả
         $(document).ready(function() {
-            $("#div02_tacgia_form_add_form").validate({
-                rules: {
-                    tacgia_hoten: {
-                        required: true
+            $("#div02_tacgia_form_add").on("click", "#div02_tacgia_form_add_form", function() {
+                $("#div02_tacgia_form_add_form").validate({
+                    rules: {
+                        tacgia_hoten: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "tacgia_check_hoten_exist.php?tacgia_id=no_value"
+                        },
+                        tacgia_ngaysinh: {
+                            required: true,
+                            date: true,
+                            minAge: 10
+                        }
                     },
-                    tacgia_ngaysinh: {
-                        required: true,
-                        date: true
-                    }
-                },
-                messages: {
-                    tacgia_hoten: {
-                        required: "Bạn chưa nhập họ và tên tác giả"
+                    messages: {
+                        tacgia_hoten: {
+                            required: "Bạn chưa nhập họ và tên tác giả",
+                            maxlength: "Tên tác giả không quá 255 kí tự",
+                            remote: "Tên tác giả đã tồn tại"
+                        },
+                        tacgia_ngaysinh: {
+                            required: "Bạn chưa nhập ngày sinh tác giả",
+                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
+                            minAge: "Có vẻ ngày sinh tác giả đã sai"
+                        }
                     },
-                    tacgia_ngaysinh: {
-                        required: "Bạn chưa nhập ngày sinh tác giả",
-                        date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)"
-                    }
-                },
-                submitHandler: function(form) {
-                    $('#div02_tacgia_form_add_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "tacgia_xuly_add.php",
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                div02_tacgia_form_add_form_exit_click();
-                                div02_tacgia_form_search_input_keyup("", 1);
-                            }
+                    submitHandler: function(form) {
+                        $('#div02_tacgia_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "tacgia_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_tacgia_form_add_form_exit_click();
+                                    div02_tacgia_form_search_input_keyup("", 1);
+                                    $("#div02_tacgia_form_add").load(" #div02_tacgia_form_add > *");
+                                }
+                            });
                         });
-                    });
-                }
+                    }
+                });
             });
         });
         /* Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_add */
@@ -923,40 +1041,46 @@ else {
             $("#div02_tacgia_form_edit").on("click", "#div02_tacgia_form_edit_form", function() {
                 $("#div02_tacgia_form_edit_form").validate({
                     rules: {
-                    tacgia_hoten: {
-                        required: true
+                        tacgia_hoten: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "tacgia_check_hoten_exist.php?tacgia_id=" + tacgia_id
+                        },
+                        tacgia_ngaysinh: {
+                            required: true,
+                            date: true,
+                            minAge: 10
+                        }
                     },
-                    tacgia_ngaysinh: {
-                        required: true,
-                        date: true
-                    }
-                },
-                messages: {
-                    tacgia_hoten: {
-                        required: "Bạn chưa nhập họ và tên tác giả"
+                    messages: {
+                        tacgia_hoten: {
+                            required: "Bạn chưa nhập họ và tên tác giả",
+                            maxlength: "Tên tác giả không quá 255 kí tự",
+                            remote: "Tên tác giả đã tồn tại"
+                        },
+                        tacgia_ngaysinh: {
+                            required: "Bạn chưa nhập ngày sinh tác giả",
+                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
+                            minAge: "Có vẻ ngày sinh tác giả đã sai"
+                        }
                     },
-                    tacgia_ngaysinh: {
-                        required: "Bạn chưa nhập ngày sinh tác giả",
-                        date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)"
-                    }
-                },
-                submitHandler: function(form) {
-                    $('#div02_tacgia_form_edit_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "tacgia_xuly_edit_send.php?tacgia_id="+ tacgia_id,
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                div02_tacgia_form_edit_form_exit_click();
-                                div02_tacgia_form_search_input_keyup("", 1);
-                            }
+                    submitHandler: function(form) {
+                        $('#div02_tacgia_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "tacgia_xuly_edit_send.php?tacgia_id=" + tacgia_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_tacgia_form_edit_form_exit_click();
+                                    div02_tacgia_form_search_input_keyup("", 1);
+                                }
+                            });
                         });
-                    });
-                }
+                    }
                 });
             });
         });
@@ -968,83 +1092,87 @@ else {
     </script>
 
     <!-- THỂ LOẠI -->
-
     <script type="text/javascript">
+        // Form thêm thể loại
         $(document).ready(function() {
-            $("#div02_theloai_form_add_form").validate({
-                rules: {
-                    theloai_name: {
-                        required: true,
-                        maxlength: 255,
-                        remote: "theloai_check_name_exist.php?theloai_id=no_value"
-                    }
-                },
-                messages: {
-                    theloai_name: {
-                        required: "Bạn chưa nhập tên thể loại",
-                        maxlength: "Tên thể loại không quá 255 kí tự",
-                        remote: "Tên thể loại đã tồn tại"
-                    }
-                },
-                submitHandler: function(form) {
-                    $('#div02_theloai_form_add_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "theloai_xuly_add.php",
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                div02_theloai_form_add_form_exit_click();
-                                div02_theloai_form_search_input_keyup("", 1);
-                            }
+            $("#div02_theloai_form_add").on("click", "#div02_theloai_form_add_form", function() {
+                $("#div02_theloai_form_add_form").validate({
+                    rules: {
+                        theloai_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "theloai_check_name_exist.php?theloai_id=no_value"
+                        }
+                    },
+                    messages: {
+                        theloai_name: {
+                            required: "Bạn chưa nhập tên thể loại",
+                            maxlength: "Tên thể loại không quá 255 kí tự",
+                            remote: "Tên thể loại đã tồn tại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_theloai_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "theloai_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_theloai_form_add_form_exit_click();
+                                    div02_theloai_form_search_input_keyup("", 1);
+                                    $("#div02_theloai_form_add").load(" #div02_theloai_form_add > *");
+                                }
+                            });
                         });
-                    });
-                }
+                    }
+                });
             });
         });
-        /* Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_add */
+        // Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_add
         function div02_theloai_form_add_form_hinhanh_change() {
             div02_theloai_form_add_form_hinhanh_img.src = "";
             div02_theloai_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
         }
+        // Form chỉnh sửa thể loại
         $(document).ready(function() {
-            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            //ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới
             $("#div02_theloai_form_edit").on("click", "#div02_theloai_form_edit_form", function() {
                 $("#div02_theloai_form_edit_form").validate({
                     rules: {
-                    theloai_name: {
-                        required: true,
-                        maxlength: 255,
-                        remote: "theloai_check_name_exist.php?theloai_id="+theloai_id
-                    }
-                },
-                messages: {
-                    theloai_name: {
-                        required: "Bạn chưa nhập tên thể loại",
-                        maxlength: "Tên thể loại không quá 255 kí tự",
-                        remote: "Tên thể loại đã tồn tại"
-                    }
-                },
+                        theloai_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "theloai_check_name_exist.php?theloai_id=" + theloai_id
+                        }
+                    },
+                    messages: {
+                        theloai_name: {
+                            required: "Bạn chưa nhập tên thể loại",
+                            maxlength: "Tên thể loại không quá 255 kí tự",
+                            remote: "Tên thể loại đã tồn tại"
+                        }
+                    },
                     submitHandler: function(form) {
-                    $('#div02_theloai_form_edit_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "theloai_xuly_edit_send.php?theloai_id="+ theloai_id,
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                div02_theloai_form_edit_form_exit_click();
-                                div02_theloai_form_search_input_keyup("", 1);
-                            }
+                        $('#div02_theloai_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "theloai_xuly_edit_send.php?theloai_id=" + theloai_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_theloai_form_edit_form_exit_click();
+                                    div02_theloai_form_search_input_keyup("", 1);
+                                }
+                            });
                         });
-                    });
-                }
+                    }
                 });
             });
         });
@@ -1055,6 +1183,168 @@ else {
         }
     </script>
 
+    <!-- Truyện -->
+    <script type="text/javascript">
+        // Form thêm truyện
+        $(document).ready(function() {
+            // Khi gọi ajax thì validate form dưới đây sẽ không hoạt động vì vậy cần bắt thêm 1 sự kiện khi người dùng gọi ajax
+            $("#div02_truyen_form_add").on("click", "#div02_truyen_form_add_form", function() {
+                $("#div02_truyen_form_add_form").validate({
+                    rules: {
+                        truyen_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "truyen_check_name_exist.php?truyen_id=no_value"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: true
+                        },
+                        "truyen_select_theloai[]": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        truyen_name: {
+                            required: "Bạn chưa nhập tên truyện",
+                            maxlength: "Tên truyện không quá 255 kí tự",
+                            remote: "Tên truyện đã tồn tại"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: "Bạn chưa chọn tác giả"
+                        },
+                        "truyen_select_theloai[]": {
+                            required: "Bạn chưa chọn thể loại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                    url: "truyen_xuly_add.php",
+                                    method: "POST",
+                                    data: new FormData(this),
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success: function(data) {
+                                        // Đóng form thêm truyện
+                                        div02_truyen_form_add_form_exit_click();
+                                        // Trở về và gọi list trang đầu tiên
+                                        div02_truyen_form_search_input_keyup("", 1);
+                                        // Reload lại form thêm truyện nếu không sẽ gửi nhiều form chồng lẫn nhau
+                                        $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                            // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                            truyen_select_tacgia_theloai();
+                                        });
+                                    }
+                                })
+                        });
+                    }
+                });
+            });
+        });
+        // Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_add
+        function div02_truyen_form_add_form_hinhanh_change() {
+            div02_truyen_form_add_form_hinhanh_img.src = "";
+            div02_truyen_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+        // Phần select tác giả và thể loại của truyện
+        function truyen_select_tacgia_theloai(){
+            // Truyện select tác giả - add
+            var $truyen_select_tacgia_add = $(".div02_truyen_form_add_form_select_tacgia").select2({
+                placeholder: "Chọn tác giả",
+                allowClear: true
+            });
+            $truyen_select_tacgia_add.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select thể loại - add
+            var $truyen_select_theloai_add = $(".div02_truyen_form_add_form_select_theloai").select2({
+                placeholder: "Chọn thể loại",
+                allowClear: true
+            });
+            $truyen_select_theloai_add.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select tác giả - edit
+            var $truyen_select_tacgia_edit = $(".div02_truyen_form_edit_form_select_tacgia").select2({
+                placeholder: "Chọn tác giả",
+                allowClear: true
+            });
+            $truyen_select_tacgia_edit.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select thể loại - edit
+            var $truyen_select_theloai_edit = $(".div02_truyen_form_edit_form_select_theloai").select2({
+                placeholder: "Chọn thể loại",
+                allowClear: true
+            });
+            $truyen_select_theloai_edit.on('change', function() {
+                $(this).trigger('blur');
+            });
+        }
+        // Cần gọi select2 lúc đầu, sau khi thêm 1 truyện muốn thêm 1 truyện nữa thì ready này không còn hoạt động mà sẽ dùng bên trên
+        $(document).ready(function select_tacgia() {
+            truyen_select_tacgia_theloai();
+        });
+
+        // Form sửa truyện
+        $(document).ready(function() {
+            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            $("#div02_truyen_form_edit").on("click", "#div02_truyen_form_edit_form", function() {
+                $("#div02_truyen_form_edit_form").validate({
+                    rules: {
+                        truyen_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "truyen_check_name_exist.php?truyen_id="+truyen_id
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: true
+                        },
+                        "truyen_select_theloai[]": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        truyen_name: {
+                            required: "Bạn chưa nhập tên truyện",
+                            maxlength: "Tên truyện không quá 255 kí tự",
+                            remote: "Tên truyện đã tồn tại"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: "Bạn chưa chọn tác giả"
+                        },
+                        "truyen_select_theloai[]": {
+                            required: "Bạn chưa chọn thể loại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "truyen_xuly_edit_send.php?truyen_id=" + truyen_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_truyen_form_edit_form_exit_click();
+                                    div02_truyen_form_search_input_keyup("", 1);
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        /* Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_edit */
+        function div02_truyen_form_edit_form_hinhanh_change() {
+            div02_truyen_form_edit_form_hinhanh_img.src = "";
+            div02_truyen_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
 </body>
 
 </html>

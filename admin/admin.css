@@ -199,57 +199,36 @@ body {
 
 /*BEGIN_CHUNG*/
 
-#div02_thanhvien_form_add_form_submit,
-#div02_thanhvien_form_edit_form_submit,
-#div02_tacgia_form_add_form_submit,
-#div02_tacgia_form_edit_form_submit,
-#div02_theloai_form_add_form_submit,
-#div02_theloai_form_edit_form_submit {
+.div02_form_submit {
     background-color: rgb(49, 102, 182);
     margin-top: 10px;
+    margin-bottom: 20px;
     border: 0px;
     width: 80px;
     height: 30px;
 }
 
-#div02_thanhvien_form_add_form_reset,
-#div02_tacgia_form_add_form_reset,
-#div02_theloai_form_add_form_reset {
+.div02_form_edit {
     background-color: rgb(180, 182, 49);
     margin-top: 10px;
+    margin-bottom: 20px;
     border: 0px;
     width: 80px;
     height: 30px;
 }
 
-#div02_thanhvien_form_add_form_exit,
-#div02_thanhvien_form_edit_form_exit,
-#div02_tacgia_form_add_form_exit,
-#div02_tacgia_form_edit_form_exit,
-#div02_theloai_form_add_form_exit,
-#div02_theloai_form_edit_form_exit {
+.div02_form_exit {
     background-color: rgb(83, 83, 83);
     margin-top: 10px;
+    margin-bottom: 20px;
     border: 0px;
     width: 80px;
     height: 30px;
 }
 
-#div02_thanhvien_form_add_form_submit:hover,
-#div02_thanhvien_form_add_form_reset:hover,
-#div02_thanhvien_form_add_form_exit:hover,
-#div02_thanhvien_form_edit_form_submit:hover,
-#div02_thanhvien_form_edit_form_exit:hover,
-#div02_tacgia_form_add_form_submit:hover,
-#div02_tacgia_form_add_form_reset:hover,
-#div02_tacgia_form_add_form_exit:hover,
-#div02_tacgia_form_edit_form_submit:hover,
-#div02_tacgia_form_edit_form_exit:hover,
-#div02_theloai_form_add_form_submit:hover,
-#div02_theloai_form_add_form_reset:hover,
-#div02_theloai_form_add_form_exit:hover,
-#div02_theloai_form_edit_form_submit:hover,
-#div02_theloai_form_edit_form_exit:hover {
+.div02_form_submit:hover,
+.div02_form_edit:hover,
+.div02_form_exit:hover {
     border: 2px solid rgb(255, 255, 255);
 }
 
@@ -470,6 +449,46 @@ body {
 
 /*Danh sách tác giả*/
 
+#div02_tacgia_list_table_td_id {
+    width: 30px;
+    text-align: center;
+}
+
+#div02_tacgia_list_table_td_hoten {
+    width: 400px;
+    text-align: center;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_tacgia_list_table_td_hinhanh {
+    width: 100px;
+    padding: 2px;
+    text-align: center;
+}
+
+#div02_tacgia_list_table_td_ngaysinh {
+    width: 150px;
+    text-align: center;
+}
+
+#div02_tacgia_list_table_td_tieusu {
+    width: 600px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_tacgia_list_table_td_congcu {
+    width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+
+/*
 #div02_tacgia_list {
     border-radius: 5px;
     position: absolute;
@@ -492,6 +511,7 @@ body {
     border-top: 1px solid rgb(240, 240, 240);
     height: 80px;
 }
+*/
 
 
 /* THỂ LOẠI */
@@ -580,13 +600,17 @@ body {
 
 /*Danh sách thể loại*/
 
-#div02_theloai_list {
+#div02_theloai_list,
+#div02_tacgia_list,
+#div02_truyen_list {
     position: absolute;
-    margin-top: 70px;
+    margin-top: 60px;
     margin-left: 10px;
 }
 
-#div02_theloai_list_table {
+#div02_theloai_list_table,
+#div02_tacgia_list_table,
+#div02_truyen_list_table {
     border: 1px solid rgb(216, 216, 216);
     font-size: 15px;
     width: 1050px;
@@ -594,30 +618,37 @@ body {
     margin-bottom: 20px;
 }
 
-#div02_theloai_list_table th {
+#div02_theloai_list_table th,
+#div02_tacgia_list_table th,
+#div02_truyen_list_table th {
     padding-left: 10px;
     padding-right: 5px;
     height: 30px;
     background-color: rgb(77, 148, 240);
 }
 
-#div02_theloai_list_table td {
+#div02_theloai_list_table td,
+#div02_tacgia_list_table td,
+#div02_truyen_list_table td {
     border-top: 1px solid rgb(240, 240, 240);
     height: 50px;
 }
 
-#div02_theloai_list_table tr:nth-child(even) {
+#div02_theloai_list_table tr:nth-child(even),
+#div02_tacgia_list_table tr:nth-child(even),
+#div02_truyen_list_table tr:nth-child(even) {
     background-color: rgb(255, 255, 255);
 }
 
-#div02_theloai_list_table tr:nth-child(odd) {
+#div02_theloai_list_table tr:nth-child(odd),
+#div02_tacgia_list_table tr:nth-child(odd),
+#div02_truyen_list_table tr:nth-child(odd) {
     background-color: rgb(205, 233, 241);
 }
 
 #div02_theloai_list_table_td_id {
     width: 30px;
     text-align: center;
-    word-break: break-all;
 }
 
 #div02_theloai_list_table_td_name {
@@ -677,4 +708,121 @@ body {
     border: 2px solid black;
     border-radius: 5px;
     padding-left: 10px;
+}
+
+
+/*Form Thêm truyện và Chỉnh sửa truyện*/
+
+#div02_truyen_form_add,
+#div02_truyen_form_edit {
+    position: fixed;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+    transition: 0.5s;
+}
+
+#div02_truyen_form_add_form,
+#div02_truyen_form_edit_form {
+    background-color: rgb(197, 228, 248);
+    width: auto;
+    height: auto;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
+    border-radius: 10px;
+}
+
+.div02_truyen_form_add_form_input,
+.div02_truyen_form_edit_form_input,
+.div02_truyen_form_add_form_select_tacgia,
+.div02_truyen_form_add_form_select_theloai,
+.div02_truyen_form_edit_form_select_tacgia,
+.div02_truyen_form_edit_form_select_theloai {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding-left: 5px;
+    width: 500px;
+    height: 35px;
+}
+
+.select2-selection {
+    margin-top: 30px;
+}
+
+.div02_truyen_form_add_form_select_tacgia+.error,
+.div02_truyen_form_add_form_select_theloai+.error,
+.div02_truyen_form_edit_form_select_tacgia+.error,
+.div02_truyen_form_edit_form_select_theloai+.error {
+    padding-top: 60px;
+}
+
+#div02_truyen_form_add_form table tr td,
+#div02_truyen_form_edit_form table tr td {
+    position: relative;
+    padding-right: 20px;
+}
+
+#div02_truyen_form_add_form_hinhanh_img,
+#div02_truyen_form_edit_form_hinhanh_img {
+    border: 1px solid white;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#div02_truyen_form_add_form_hinhanh_img:hover,
+#div02_truyen_form_edit_form_hinhanh_img:hover {
+    border: 1px solid black;
+    color: red;
+}
+
+
+/*Danh sách truyện*/
+
+#div02_truyen_list_table_td_stt {
+    width: 30px;
+    text-align: center;
+}
+
+#div02_truyen_list_table_td_name {
+    width: 400px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_list_table_td_tacgia {
+    width: 300px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_list_table_td_theloai {
+    width: 300px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_list_table_td_ngaydang {
+    width: 110px;
+    text-align: center;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_list_table_td_trangthai {
+    width: 110px;
+    text-align: center;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_list_table_td_congcu {
+    width: 100px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
 }
