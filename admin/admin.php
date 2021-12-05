@@ -77,6 +77,11 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                     </a>
                 </li>
                 <li>
+                    <a href="#" onclick="click_chuong()">
+                        <p>Chương</p>
+                    </a>
+                </li>
+                <li>
                     <a href="#" onclick="click_thanhvien()">
                         <p>Thành viên</p>
                     </a>
@@ -168,23 +173,25 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                 <form id="div02_truyen_form_search">
                     <input id="div02_truyen_form_search_input" type="text" name="hoten" onkeyup=div02_truyen_form_search_input_keyup(this.value,1) placeholder="Nhập tên truyện để tìm kiếm">
                 </form>
-                <!-- 2.2.4)Danh sách truyện -->
+                <!-- 2.4.4)Danh sách truyện -->
                 <div id="div02_truyen_list"></div>
             </div>
-            <!-- 2.5)Phần nội dung Thành viên -->
+            <!-- 2.5)Phần nội dung Chương -->
+            <div id="div02_truyen_chuong"></div>
+            <!-- 2.6)Phần nội dung Thành viên -->
             <div id="div02_thanhvien">
-                <!-- 2.5.1)Title Thành viên -->
+                <!-- 2.6.1)Title Thành viên -->
                 <p class="div02_title">Quản lý Thành viên</p>
-                <!-- 2.5.2)Thêm Thành viên -->
+                <!-- 2.6.2)Thêm Thành viên -->
                 <a id="div02_thanhvien_add" onclick="div02_thanhvien_add_click()" href="#"><img src="thanhvien_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
-                <!-- 2.5.3)Tìm kiếm thành viên -->
+                <!-- 2.6.3)Tìm kiếm thành viên -->
                 <form id="div02_thanhvien_form_search">
                     <input id="div02_thanhvien_form_search_input" type="text" name="hoten" onkeyup=div02_thanhvien_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
                 </form>
-                <!-- 2.5.4)Danh sách thành viên -->
+                <!-- 2.6.4)Danh sách thành viên -->
                 <div id="div02_thanhvien_list"></div>
             </div>
-            <!-- 2.6)Phần nội dung Báo lỗi -->
+            <!-- 2.7)Phần nội dung Báo lỗi -->
             <div></div>
         </div>
     </div>
@@ -367,6 +374,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -375,6 +383,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "visible";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_theloai_form_search_input_keyup("", 1);
         }
@@ -384,6 +393,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "visible";
             document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_tacgia_form_search_input_keyup("", 1);
         }
@@ -393,6 +403,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "visible";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_truyen_form_search_input_keyup("", 1);
         }
@@ -402,6 +413,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
             div02_thanhvien_form_search_input_keyup("", 1);
         }
@@ -411,6 +423,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai').style.visibility = "hidden";
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -711,6 +724,42 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('div02_truyen_form_edit').style.top = "30%";
             document.getElementById('div02_truyen_form_edit').style.transition = "0s";
+        }
+        // Thông tin truyện và danh sách chương
+        function div02_truyen_list_table_list_click(value) {
+            document.getElementById('div02_truyen').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong').style.visibility = "visible";
+            truyen_id = value;
+
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById('div02_truyen_chuong').innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "truyen_chuong_xuly_list.php?truyen_id=" + truyen_id, true);
+            xmlhttp.send();
+        }
+        //Tìm kiếm chương của truyện
+        function div02_chuong_form_search_input_keyup(chuong_name,truyen_id) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_truyen_chuong_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "chuong_xuly_list.php?chuong_name=" + chuong_name + "&truyen_id=" + truyen_id, true);
+            xmlhttp.send();
         }
 
         //THÀNH VIÊN

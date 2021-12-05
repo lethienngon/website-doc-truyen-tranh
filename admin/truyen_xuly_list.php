@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
         if ($current_page < $total_page - 2) {
             echo "<a class='pages_tool' href='#' onclick=div02_truyen_form_search_input_keyup('" . $truyen_name . "'," . $total_page . ")>Last</a>";
         }
-        echo "<strong style='margin-left:20px;'>Tổng số kết quả tìm kiếm: ".$result_count->num_rows."</strong>";
+        echo "<strong style='margin-left:20px;'>Tổng số kết quả tìm kiếm: " . $result_count->num_rows . "</strong>";
         echo "</div>";
         echo "<table border='1' id='div02_truyen_list_table'>";
         echo "<tr id='div02_truyen_list_table_head'>
@@ -70,23 +70,37 @@ if ($result->num_rows > 0) {
             $sql_select_tacgia = "SELECT TACGIA_HOTEN FROM `truyen` JOIN `truyen_tacgia`on truyen.TRUYEN_ID=truyen_tacgia.TRUYEN_ID JOIN `tacgia` ON truyen_tacgia.TACGIA_ID=tacgia.TACGIA_ID WHERE truyen_tacgia.TRUYEN_ID='$truyen_id'";
             $result_select_tacgia = $conn->query($sql_select_tacgia);
             while ($row_select_tacgia = $result_select_tacgia->fetch_assoc()) {
-                $truyen_tacgia = $truyen_tacgia.$row_select_tacgia['TACGIA_HOTEN'].", "; 
+                $truyen_tacgia = $truyen_tacgia . $row_select_tacgia['TACGIA_HOTEN'] . ", ";
             }
-            $truyen_tacgia = substr($truyen_tacgia,0,-2);
+            $truyen_tacgia = substr($truyen_tacgia, 0, -2);
             // Lấy danh sách thể loại của truyện có số id là truyen_id
             $sql_select_theloai = "SELECT THELOAI_NAME FROM `truyen` JOIN `truyen_theloai`on truyen.TRUYEN_ID=truyen_theloai.TRUYEN_ID JOIN `theloai` ON truyen_theloai.THELOAI_ID=theloai.THELOAI_ID WHERE truyen_theloai.TRUYEN_ID='$truyen_id'";
             $result_select_theloai = $conn->query($sql_select_theloai);
             while ($row_select_theloai = $result_select_theloai->fetch_assoc()) {
-                $truyen_theloai = $truyen_theloai.$row_select_theloai['THELOAI_NAME'].", "; 
+                $truyen_theloai = $truyen_theloai . $row_select_theloai['THELOAI_NAME'] . ", ";
             }
-            $truyen_theloai = substr($truyen_theloai,0,-2);
+            $truyen_theloai = substr($truyen_theloai, 0, -2);
+            $truyen_trangthai_switch = "";
+            switch ($row['TRUYEN_TRANGTHAI']) {
+                case 0:
+                    $truyen_trangthai_switch = "Tạm dừng";
+                    break;
+                case 1:
+                    $truyen_trangthai_switch = "Đang ra";
+                    break;
+                case 2:
+                    $truyen_trangthai_switch = "Hoàn thành";
+                    break;
+                default:
+                    $truyen_trangthai_switch = "Có lỗi truy xuất CSDL";
+            }
             echo "<tr>
                  <td id='div02_truyen_list_table_td_stt' >" . $stt . "</td>
                  <td id='div02_truyen_list_table_td_name' >" . $row['TRUYEN_NAME'] . "</td>
                  <td id='div02_truyen_list_table_td_tacgia' >" . $truyen_tacgia . "</td>
                  <td id='div02_truyen_list_table_td_theloai' >" . $truyen_theloai . "</td>
                  <td id='div02_truyen_list_table_td_ngaydang' >" . $row['TRUYEN_NGAYDANG'] . "</td>
-                 <td id='div02_truyen_list_table_td_trangthai' >" . $row['TRUYEN_TRANGTHAI'] . "</td>
+                 <td id='div02_truyen_list_table_td_trangthai' >" . $truyen_trangthai_switch . "</td>
                  <td id='div02_truyen_list_table_td_congcu' >
                  <a href='#' id='div02_truyen_list_table_list' onclick='div02_truyen_list_table_list_click(" . $row['TRUYEN_ID'] . ")'><img src='list.ico' width='20px;' height='20px'></a>
                     <a href='#' id='div02_truyen_list_table_edit' onclick='div02_truyen_list_table_edit_click(" . $row['TRUYEN_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>

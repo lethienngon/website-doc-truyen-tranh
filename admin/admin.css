@@ -18,9 +18,8 @@ body {
 }
 
 #div02 {
-    background-color: #ffffff;
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 270px;
     width: 1070px;
     height: auto;
@@ -62,6 +61,9 @@ body {
 
 .div02_title {
     position: absolute;
+    word-wrap: break-word;
+    width: 500px;
+    height: 50px;
     font-size: 20px;
     left: 10px;
     top: 10px;
@@ -620,7 +622,8 @@ body {
 
 #div02_theloai_list_table th,
 #div02_tacgia_list_table th,
-#div02_truyen_list_table th {
+#div02_truyen_list_table th,
+#div02_truyen_chuong_list_table th {
     padding-left: 10px;
     padding-right: 5px;
     height: 30px;
@@ -629,20 +632,23 @@ body {
 
 #div02_theloai_list_table td,
 #div02_tacgia_list_table td,
-#div02_truyen_list_table td {
+#div02_truyen_list_table td,
+#div02_truyen_chuong_list_table td {
     border-top: 1px solid rgb(240, 240, 240);
     height: 50px;
 }
 
 #div02_theloai_list_table tr:nth-child(even),
 #div02_tacgia_list_table tr:nth-child(even),
-#div02_truyen_list_table tr:nth-child(even) {
+#div02_truyen_list_table tr:nth-child(even),
+#div02_truyen_chuong_list_table tr:nth-child(even) {
     background-color: rgb(255, 255, 255);
 }
 
 #div02_theloai_list_table tr:nth-child(odd),
 #div02_tacgia_list_table tr:nth-child(odd),
-#div02_truyen_list_table tr:nth-child(odd) {
+#div02_truyen_list_table tr:nth-child(odd),
+#div02_truyen_chuong_list_table tr:nth-child(odd) {
     background-color: rgb(205, 233, 241);
 }
 
@@ -825,4 +831,133 @@ body {
     text-align: center;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+
+/* Chương của truyện */
+
+
+/*Button Thêm chương*/
+
+#div02_chuong_add {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 10px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_chuong_tonghop {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 180px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_chuong_truyen {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(18, 184, 54);
+    right: 380px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+}
+
+#div02_chuong_add:hover,
+#div02_chuong_tonghop:hover,
+#div02_chuong_truyen:hover {
+    border: 1px solid rgb(0, 0, 0);
+}
+
+
+/*Tìm kiếm truyện*/
+
+#div02_chuong_form_search_input {
+    position: absolute;
+    right: 200px;
+    top: 70px;
+    width: 400px;
+    height: 38px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+
+/* Thông tin của 1 truyện*/
+
+#div02_truyen_thongtin {
+    margin-top: 70px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    background-color: rgb(175, 246, 255);
+    width: 250px;
+    height: auto;
+    padding-top: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+    border-radius: 5px;
+}
+
+#div02_truyen_thongtin p {
+    font-size: 15px;
+    margin-top: 10px;
+    width: 250px;
+    word-break: break-all;
+}
+
+
+/* Danh sách chương của 1 truyện*/
+
+#div02_truyen_chuong_list {
+    position: absolute;
+    right: 10px;
+    top: 120px;
+}
+
+#div02_truyen_chuong_list_table {
+    border: 1px solid rgb(216, 216, 216);
+    font-size: 15px;
+    width: 740px;
+    height: auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#div02_truyen_chuong_list_table_td_stt {
+    width: 25px;
+    text-align: center;
+}
+
+#div02_truyen_chuong_list_table_td_name {
+    width: 270px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_truyen_chuong_list_table_td_luotxem,
+#div02_truyen_chuong_list_table_td_ngaydang,
+#div02_truyen_chuong_list_table_td_trangthai,
+#div02_truyen_chuong_list_table_td_congcu {
+    width: 100px;
+    text-align: center;
 }
