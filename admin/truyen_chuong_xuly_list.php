@@ -61,9 +61,11 @@ if ($result->num_rows > 0) {
         default: $truyen_trangthai_switch = "Có lỗi truy xuất CSDL";
     }
         echo "<p class='div02_title'>".$truyen_name."</p>
-        <a id='div02_chuong_add' onclick='div02_chuong_add_click()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Thêm chương</a>
-        <a id='div02_chuong_tonghop' onclick='click_chuong()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Tổng hợp chương</a>
-        <a id='div02_chuong_truyen' onclick='click_truyen()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Quản lý truyện</a>
+        <div id='div02_chuong_button'>
+            <a id='div02_chuong_add' onclick='div02_truyen_chuong_form_add_click()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Thêm chương</a>
+            <a id='div02_chuong_tonghop' onclick='click_chuong()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Tổng hợp chương</a>
+            <a id='div02_chuong_truyen' onclick='click_truyen()' href='#'><img src='chuong_add.ico' style='width:16px;height:16px'> Quản lý truyện</a>
+        </div>
         <form id='div02_chuong_form_search'>
             <input id='div02_chuong_form_search_input' type='text' name='hoten' onkeyup=div02_chuong_form_search_input_keyup(this.value,".$truyen_id.") placeholder='Nhập tên chương để tìm kiếm'>
         </form>
@@ -103,6 +105,20 @@ if ($result->num_rows > 0) {
         }
         echo "</table>
         </div>";
+        echo '
+        <div id="div02_truyen_chuong_form_add">
+        <form id="div02_truyen_chuong_form_add_form" method="POST" enctype="multipart/form-data" autocomplete="off">
+            <lable for="truyen_chuong_sochuong">Số chương</lable></br>
+            <input type="text" name="truyen_chuong_sochuong" placeholder="Nhập số chương"></br>
+            <lable for="truyen_chuong_name">Tên chương</lable></br>
+            <input type="text" name="truyen_chuong_name" placeholder="Nhập tên chương"></br>
+            <lable for="truyen_chuong_noidung">Nội dung</lable></br>
+            <textarea id="truyen_chuong_noidung" name="truyen_chuong_noidung" rows="10" cols="80">This is my textarea to be replaced with CKEditor.</textarea></br>
+            <input class="div02_form_submit" type="submit" value="Đăng kí" name="submit">
+            <input class="div02_form_reset" type="reset" value="Làm lại">
+            <input class="div02_form_exit" type="button" value="Thoát" onclick="div02_theloai_form_add_form_exit_click()">
+        </form>
+    </div>';
 } else {
     exit();
 }

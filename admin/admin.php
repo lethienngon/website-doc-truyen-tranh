@@ -47,6 +47,10 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link rel="icon" href="admin.ico" size="64x64">
     <link rel="stylesheet" href="admin.css">
+    <script src="ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('#truyen_chuong_noidung'); // tham số là biến name của textarea
+    </script>
 </head>
 
 <body onload="click_ttcn()">
@@ -292,7 +296,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                 </tr>
                 <tr>
                     <td><input id="div02_truyen_form_add_form_submit" class="div02_form_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="div02_truyen_form_add_form_reset" class="div02_form_edit" type="reset" value="Làm lại">
+                        <input id="div02_truyen_form_add_form_reset" class="div02_form_reset" type="reset" value="Làm lại">
                         <input id="div02_truyen_form_add_form_exit" class="div02_form_exit" type="button" value="Thoát" onclick="div02_truyen_form_add_form_exit_click()">
                     </td>
                 </tr>
@@ -746,7 +750,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.send();
         }
         //Tìm kiếm chương của truyện
-        function div02_chuong_form_search_input_keyup(chuong_name,truyen_id) {
+        function div02_chuong_form_search_input_keyup(chuong_name, truyen_id) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
                 xmlhttp = new XMLHttpRequest();
@@ -760,6 +764,14 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             }
             xmlhttp.open("GET", "chuong_xuly_list.php?chuong_name=" + chuong_name + "&truyen_id=" + truyen_id, true);
             xmlhttp.send();
+        }
+        // Thêm chương
+        function div02_truyen_chuong_form_add_click() {
+            document.getElementById('div02_chuong_button').style.visibility = "hidden";
+            document.getElementById('div02_chuong_form_search').style.visibility = "hidden";
+            document.getElementById('div02_truyen_thongtin').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong_list_table').style.visibility = "hidden";
+            document.getElementById('div02_truyen_chuong_form_add').style.visibility = "visible";
         }
 
         //THÀNH VIÊN
@@ -1269,24 +1281,24 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                         $('#div02_truyen_form_add_form').on('submit', function(e) {
                             e.preventDefault();
                             $.ajax({
-                                    url: "truyen_xuly_add.php",
-                                    method: "POST",
-                                    data: new FormData(this),
-                                    contentType: false,
-                                    cache: false,
-                                    processData: false,
-                                    success: function(data) {
-                                        // Đóng form thêm truyện
-                                        div02_truyen_form_add_form_exit_click();
-                                        // Trở về và gọi list trang đầu tiên
-                                        div02_truyen_form_search_input_keyup("", 1);
-                                        // Reload lại form thêm truyện nếu không sẽ gửi nhiều form chồng lẫn nhau
-                                        $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
-                                            // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
-                                            truyen_select_tacgia_theloai();
-                                        });
-                                    }
-                                })
+                                url: "truyen_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Đóng form thêm truyện
+                                    div02_truyen_form_add_form_exit_click();
+                                    // Trở về và gọi list trang đầu tiên
+                                    div02_truyen_form_search_input_keyup("", 1);
+                                    // Reload lại form thêm truyện nếu không sẽ gửi nhiều form chồng lẫn nhau
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
+                                }
+                            })
                         });
                     }
                 });
@@ -1298,7 +1310,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             div02_truyen_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
         }
         // Phần select tác giả và thể loại của truyện
-        function truyen_select_tacgia_theloai(){
+        function truyen_select_tacgia_theloai() {
             // Truyện select tác giả - add
             var $truyen_select_tacgia_add = $(".div02_truyen_form_add_form_select_tacgia").select2({
                 placeholder: "Chọn tác giả",
@@ -1346,7 +1358,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                         truyen_name: {
                             required: true,
                             maxlength: 255,
-                            remote: "truyen_check_name_exist.php?truyen_id="+truyen_id
+                            remote: "truyen_check_name_exist.php?truyen_id=" + truyen_id
                         },
                         "truyen_select_tacgia[]": {
                             required: true

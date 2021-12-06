@@ -210,7 +210,7 @@ body {
     height: 30px;
 }
 
-.div02_form_edit {
+.div02_form_reset {
     background-color: rgb(180, 182, 49);
     margin-top: 10px;
     margin-bottom: 20px;
@@ -960,4 +960,11 @@ body {
 #div02_truyen_chuong_list_table_td_congcu {
     width: 100px;
     text-align: center;
+}
+
+#div02_truyen_chuong_form_add {
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 70px;
 }
