@@ -43,7 +43,6 @@ if ($result->num_rows > 0) {
                  <td id='div02_truyen_chuong_list_table_td_ngaydang' >" . $row_truyen_chuong_list['CHUONG_NGAYDANG'] . "</td>
                  <td id='div02_truyen_chuong_list_table_td_trangthai' >" . $row_truyen_chuong_list['CHUONG_TRANGTHAI'] . "</td>
                  <td id='div02_truyen_chuong_list_table_td_congcu' >
-                 <a href='#' id='div02_truyen_chuong_list_table_list' onclick='div02_truyen_chuong_list_table_list_click(" . $row_truyen_chuong_list['TRUYEN_ID'] . ")'><img src='list.ico' width='20px;' height='20px'></a>
                     <a href='#' id='div02_truyen_chuong_list_table_edit' onclick='div02_truyen_chuong_list_table_edit_click(" . $row_truyen_chuong_list['TRUYEN_ID'] . ")'><img src='edit.ico' width='20px;' height='20px'></a>
 			        <a href='#' id='div02_truyen_chuong_list_table_delete' onclick='div02_truyen_chuong_list_table_delete_click(" . $row_truyen_chuong_list['TRUYEN_ID'] . ")'><img src='delete.ico' width='20px' height='20px'></a></td>
                  </tr>";

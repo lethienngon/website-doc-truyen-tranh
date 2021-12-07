@@ -229,7 +229,7 @@ body {
 }
 
 .div02_form_submit:hover,
-.div02_form_edit:hover,
+.div02_form_reset:hover,
 .div02_form_exit:hover {
     border: 2px solid rgb(255, 255, 255);
 }
@@ -604,7 +604,8 @@ body {
 
 #div02_theloai_list,
 #div02_tacgia_list,
-#div02_truyen_list {
+#div02_truyen_list,
+#div02_chuong_list {
     position: absolute;
     margin-top: 60px;
     margin-left: 10px;
@@ -612,7 +613,8 @@ body {
 
 #div02_theloai_list_table,
 #div02_tacgia_list_table,
-#div02_truyen_list_table {
+#div02_truyen_list_table,
+#div02_chuong_list_table {
     border: 1px solid rgb(216, 216, 216);
     font-size: 15px;
     width: 1050px;
@@ -623,7 +625,8 @@ body {
 #div02_theloai_list_table th,
 #div02_tacgia_list_table th,
 #div02_truyen_list_table th,
-#div02_truyen_chuong_list_table th {
+#div02_truyen_chuong_list_table th,
+#div02_chuong_list_table th {
     padding-left: 10px;
     padding-right: 5px;
     height: 30px;
@@ -633,7 +636,8 @@ body {
 #div02_theloai_list_table td,
 #div02_tacgia_list_table td,
 #div02_truyen_list_table td,
-#div02_truyen_chuong_list_table td {
+#div02_truyen_chuong_list_table td,
+#div02_chuong_list_table td {
     border-top: 1px solid rgb(240, 240, 240);
     height: 50px;
 }
@@ -641,14 +645,16 @@ body {
 #div02_theloai_list_table tr:nth-child(even),
 #div02_tacgia_list_table tr:nth-child(even),
 #div02_truyen_list_table tr:nth-child(even),
-#div02_truyen_chuong_list_table tr:nth-child(even) {
+#div02_truyen_chuong_list_table tr:nth-child(even),
+#div02_chuong_list_table tr:nth-child(even) {
     background-color: rgb(255, 255, 255);
 }
 
 #div02_theloai_list_table tr:nth-child(odd),
 #div02_tacgia_list_table tr:nth-child(odd),
 #div02_truyen_list_table tr:nth-child(odd),
-#div02_truyen_chuong_list_table tr:nth-child(odd) {
+#div02_truyen_chuong_list_table tr:nth-child(odd),
+#div02_chuong_list_table tr:nth-child(odd) {
     background-color: rgb(205, 233, 241);
 }
 
@@ -881,9 +887,25 @@ body {
     text-align: center;
 }
 
-#div02_chuong_add:hover,
+.div02_chuong_back {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(126, 155, 0);
+    right: 0px;
+    top: -60px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+    width: 500px;
+}
+
+.div02_chuong_add:hover,
 #div02_chuong_tonghop:hover,
-#div02_chuong_truyen:hover {
+#div02_chuong_truyen:hover,
+#div02_chuong_back:hover {
     border: 1px solid rgb(0, 0, 0);
 }
 
@@ -908,12 +930,10 @@ body {
     margin-top: 70px;
     margin-left: 10px;
     margin-bottom: 20px;
-    background-color: rgb(175, 246, 255);
+    background-color: rgb(160, 199, 204);
     width: 250px;
     height: auto;
-    padding-top: 25px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding: 25px;
     border-radius: 5px;
 }
 
@@ -962,9 +982,135 @@ body {
     text-align: center;
 }
 
+
+/* Form thêm chương của truyện*/
+
 #div02_truyen_chuong_form_add {
     visibility: hidden;
     position: absolute;
+    width: auto;
+    height: auto;
     left: 0px;
     top: 70px;
+}
+
+.div02_truyen_chuong_form_add_form_label {
+    font-weight: bold;
+    color: rgb(70, 63, 63);
+    display: block;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.div02_truyen_chuong_form_add_form_input {
+    padding-left: 5px;
+    width: 1060px;
+    height: 40px;
+    display: block;
+}
+
+#div02_truyen_chuong_form_add_form_p {
+    font-weight: bold;
+    color: rgb(66, 58, 58);
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+
+/* Form chỉnh sửa chương của truyện */
+
+#div02_truyen_chuong_form_edit {
+    visibility: hidden;
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 0px;
+    top: 70px;
+}
+
+.div02_truyen_chuong_form_edit_form_label {
+    font-weight: bold;
+    color: rgb(70, 63, 63);
+    display: block;
+    margin-top: 10px;
+    margin-bottom: -10px;
+}
+
+.div02_truyen_chuong_form_edit_form_input {
+    padding-left: 5px;
+    width: 1060px;
+    height: 40px;
+    display: block;
+}
+
+#div02_truyen_chuong_form_edit_form_p {
+    font-weight: bold;
+    color: rgb(66, 58, 58);
+    font-size: 20px;
+    padding-bottom: 10px;
+}
+
+
+/* Danh sách chương*/
+
+#div02_chuong {
+    visibility: hidden;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+#div02_chuong_search {
+    position: absolute;
+    left: 300px;
+    top: 12px;
+    width: 400px;
+    height: 38px;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#div02_chuong_quanly_truyen {
+    position: absolute;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    background-color: rgb(18, 184, 54);
+    left: 900px;
+    top: 10px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 18px;
+    text-align: center;
+    width: 140px;
+    height: 18px;
+}
+
+#div02_chuong_list_table_td_stt {
+    width: 35px;
+    text-align: center;
+}
+
+#div02_chuong_list_table_td_name {
+    width: 300px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_chuong_list_table_td_truyen {
+    width: 300px;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#div02_chuong_list_table_td_luotxem,
+#div02_chuong_list_table_td_ngaydang,
+#div02_chuong_list_table_td_trangthai,
+#div02_chuong_list_table_td_congcu {
+    width: 100px;
+    text-align: center;
 }
