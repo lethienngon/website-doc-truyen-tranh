@@ -286,7 +286,8 @@ body {
 
 #divreport_delete_thanhvien,
 #divreport_delete_tacgia,
-#divreport_delete_theloai {
+#divreport_delete_theloai,
+#divreport_delete_chuong {
     position: fixed;
     left: 50%;
     top: 10%;
@@ -302,7 +303,8 @@ body {
 
 #divreport_delete_thanhvien h3,
 #divreport_delete_tacgia h3,
-#divreport_delete_theloai h3 {
+#divreport_delete_theloai h3,
+#divreport_delete_chuong h3 {
     color: rgb(0, 0, 0);
     margin-top: 40px;
     margin-left: 80px;
@@ -313,7 +315,9 @@ body {
 #divreport_delete_tacgia_yes,
 #divreport_delete_tacgia_no,
 #divreport_delete_theloai_yes,
-#divreport_delete_theloai_no {
+#divreport_delete_theloai_no,
+#divreport_delete_chuong_yes,
+#divreport_delete_chuong_no {
     font-size: 15px;
     font-weight: bold;
     color: white;
@@ -332,7 +336,9 @@ body {
 #divreport_delete_tacgia_yes:hover,
 #divreport_delete_tacgia_no:hover,
 #divreport_delete_theloai_yes:hover,
-#divreport_delete_theloai_no:hover {
+#divreport_delete_theloai_no:hover,
+#divreport_delete_chuong_yes:hover,
+#divreport_delete_chuong_no:hover {
     border: 2px solid black;
 }
 
@@ -1113,4 +1119,36 @@ body {
 #div02_chuong_list_table_td_congcu {
     width: 100px;
     text-align: center;
+}
+
+
+/* Thông báo thao tác thành công*/
+
+#divreport_success {
+    visibility: hidden;
+    background-color: rgb(21, 175, 80);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    bottom: -10%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+
+/* Thông báo thao tác thất bại*/
+
+#divreport_failed {
+    visibility: hidden;
+    background-color: rgb(160, 26, 26);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    bottom: -10%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
 }

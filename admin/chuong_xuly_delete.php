@@ -10,12 +10,6 @@ if (!isset($_COOKIE['username']) and !isset($_COOKIE['pass'])) {
 $id = $_COOKIE['id'];
 $username = $_COOKIE['username'];
 $pass = $_COOKIE['pass'];
-// Dữ liệu thêm vào chương
-$truyen_id = $_GET['truyen_id'];
-$admin_id = $_COOKIE['id'];
-$chuong_stt = $_POST['truyen_chuong_sochuong'];
-$chuong_name = $_POST['truyen_chuong_name'];
-$chuong_noidung = $_POST['truyen_chuong_noidung'];
 // Connect Mysql
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
@@ -24,12 +18,14 @@ $sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$id' and ADMIN_USERNAME
 $result = $conn->query($sql);
 // Nếu là thành viên thì thực hiện trong lệnh if dưới đây
 if ($result->num_rows > 0) {
-    // Dữ liệu thêm vào bảng 'truyen'
-    $sql_insert_truyen = "INSERT INTO `chuong`(`TRUYEN_ID`, `ADMIN_ID`, `CHUONG_STT`, `CHUONG_NAME`, `CHUONG_NOIDUNG`) VALUES ('$truyen_id', '$admin_id', '$chuong_stt', '$chuong_name', '$chuong_noidung');";
-    $result = $conn->query($sql_insert_truyen);
-} 
+   // Lấy id của chương đễ xóa
+   $chuong_id = $_GET['chuong_id'];
+   // SQL xóa chương
+   $sql_del = "DELETE FROM chuong where CHUONG_ID='$chuong_id'";
+   $result_del = $conn->query($sql_del);
+}
 // Nếu không là thành viên thì exit
-else {
+else{
     exit();
     echo "EXIT";
 }

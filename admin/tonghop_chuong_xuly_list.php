@@ -23,7 +23,7 @@ $sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$idtv' and ADMIN_USERNA
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 
-        $sql_chuong_list = "SELECT chuong.*, TRUYEN_NAME FROM chuong join truyen on chuong.TRUYEN_ID=truyen.truyen_ID where CHUONG_NAME like'%$chuong_name%'";
+        $sql_chuong_list = "SELECT chuong.*, TRUYEN_NAME FROM chuong join truyen on chuong.TRUYEN_ID=truyen.truyen_ID where CHUONG_NAME like'%$chuong_name%' ORDER BY TRUYEN_NAME, CHUONG_STT ASC";
         $result_chuong_list = $conn->query($sql_chuong_list);
         echo "<table border='1' id='div02_chuong_list_table'>";
         echo "<tr id='div02_chuong_list_table_head'>

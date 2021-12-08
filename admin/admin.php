@@ -311,6 +311,12 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
     </div>
     <!-- 5.2)Form ẩn: Chỉnh sửa truyện -->
     <div id="div02_truyen_form_edit"></div>
+    <!-- 6)Form ẩn: Xác nhận muốn xóa Chương -->
+    <div id="divreport_delete_chuong">
+        <h3>Bạn có chắc muốn xóa chương này không?</h3>
+        <button id="divreport_delete_chuong_yes" type="button" onclick="return divreport_delete_chuong_yes();">Có</button>
+        <button id="divreport_delete_chuong_no" type="button" onclick="return divreport_delete_chuong_no();">Không</button>
+    </div>
     <!-- 6.1)Form ẩn: Thêm Thành viên -->
     <div id="div02_thanhvien_form_add">
         <form id="div02_thanhvien_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
@@ -377,6 +383,13 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
         <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
         <button id="divreport_delete_thanhvien_yes" type="button" onclick="return divreport_delete_thanhvien_yes();">Có</button>
         <button id="divreport_delete_thanhvien_no" type="button" onclick="return divreport_delete_thanhvien_no();">Không</button>
+    </div>
+    <!-- Thông báo  -->
+    <div id="divreport_success">
+        <p>Thao tác thành công!</p>
+    </div>
+    <div id="divreport_failed">
+        <p>Thao tác thất bại!</p>
     </div>
     <script>
         function click_ttcn() {
@@ -455,9 +468,10 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
-        //THỂ LOẠI
+        /////----------------------------------------------------/////
+        // THỂ LOẠI
 
-        //Hiện form thêm thể loại
+        // Hiện form thêm thể loại
         function div02_theloai_add_click() {
             document.getElementById('div02_theloai_form_add').style.visibility = "visible";
             document.getElementById('div02_theloai_form_add').style.transition = "0.5s";
@@ -466,7 +480,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('content').style.userSelect = "none";
             document.getElementById('div02_theloai_form_add').style.top = "50%";
         }
-        //Ẩn form thêm thể loại
+        // Ẩn form thêm thể loại
         function div02_theloai_form_add_form_exit_click() {
             document.getElementById('div02_theloai_form_add').style.visibility = "hidden";
             document.getElementById('div02_theloai_form_add').style.transition = "0s";
@@ -475,7 +489,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('div02_theloai_form_add').style.top = "30%";
         }
-        //Tìm kiếm thể loại
+        // Tìm kiếm thể loại
         function div02_theloai_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -491,9 +505,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "theloai_xuly_list.php?theloai_name=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
-        //Tạo theloai_id để dùng
+        // Tạo theloai_id để dùng
         theloai_id = "";
-        //Hiện form chỉnh sửa thể loại
+        // Hiện form chỉnh sửa thể loại
         function div02_theloai_list_table_edit_click(value) {
             document.getElementById('div02_theloai_form_edit').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -517,7 +531,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "theloai_xuly_edit_get.php?theloai_id=" + theloai_id, true);
             xmlhttp.send();
         }
-        //Ẩn form chỉnh sửa thể loại
+        // Ẩn form chỉnh sửa thể loại
         function div02_theloai_form_edit_form_exit_click() {
             document.getElementById('div02_theloai_form_edit').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -526,7 +540,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_theloai_form_edit').style.top = "30%";
             document.getElementById('div02_theloai_form_edit').style.transition = "0s";
         }
-        //Hiện thông báo xóa thể loại
+        // Hiện thông báo xóa thể loại
         function div02_theloai_list_table_delete_click(value) {
             document.getElementById('divreport_delete_theloai').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -536,7 +550,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('divreport_delete_theloai').style.top = "30%";
             theloai_id = value;
         }
-        //Chọn yes để delete thể loại
+        // Chọn yes để delete thể loại
         function divreport_delete_theloai_yes() {
             document.getElementById('divreport_delete_theloai').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -558,7 +572,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "theloai_xuly_delete.php?theloai_id=" + theloai_id, true);
             xmlhttp.send();
         }
-        //Chọn no để quay lại
+        // Chọn no để quay lại
         function divreport_delete_theloai_no() {
             document.getElementById('divreport_delete_theloai').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -568,9 +582,10 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('divreport_delete_theloai').style.top = "10%";
         }
 
-        //TÁC GIẢ
+        /////----------------------------------------------------/////
+        // TÁC GIẢ
 
-        //Hiện form thêm tác giả
+        // Hiện form thêm tác giả
         function div02_tacgia_add_click() {
             document.getElementById('div02_tacgia_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -579,7 +594,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia_form_add').style.top = "50%";
             document.getElementById('div02_tacgia_form_add').style.transition = "0.5s";
         }
-        //Ẩn form thêm tác giả
+        // Ẩn form thêm tác giả
         function div02_tacgia_form_add_form_exit_click() {
             document.getElementById('div02_tacgia_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -588,7 +603,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia_form_add').style.transition = "0s";
             document.getElementById('div02_tacgia_form_add').style.top = "30%";
         }
-        //Tìm kiếm tác giả
+        // Tìm kiếm tác giả
         function div02_tacgia_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -604,9 +619,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "tacgia_xuly_list.php?tacgia_hoten=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
-        //Tạo tacgia_id để dùng
+        // Tạo tacgia_id để dùng
         tacgia_id = "";
-        //Hiện form chỉnh sửa tác giả
+        // Hiện form chỉnh sửa tác giả
         function div02_tacgia_list_table_edit_click(value) {
             document.getElementById('div02_tacgia_form_edit').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -630,7 +645,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "tacgia_xuly_edit_get.php?tacgia_id=" + tacgia_id, true);
             xmlhttp.send();
         }
-        //Ẩn form chỉnh sửa tác giả
+        // Ẩn form chỉnh sửa tác giả
         function div02_tacgia_form_edit_form_exit_click() {
             document.getElementById('div02_tacgia_form_edit').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -639,7 +654,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia_form_edit').style.top = "30%";
             document.getElementById('div02_tacgia_form_edit').style.transition = "0.5s";
         }
-        //Hiện thông báo xóa tác giả
+        // Hiện thông báo xóa tác giả
         function div02_tacgia_list_table_delete_click(value) {
             document.getElementById('divreport_delete_tacgia').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -649,7 +664,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('divreport_delete_tacgia').style.top = "30%";
             tacgia_id = value;
         }
-        //Chọn yes để delete tác giả
+        // Chọn yes để delete tác giả
         function divreport_delete_tacgia_yes() {
             document.getElementById('divreport_delete_tacgia').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -671,7 +686,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "tacgia_xuly_delete.php?tacgia_id=" + tacgia_id, true);
             xmlhttp.send();
         }
-        //Chọn no để quay lại
+        // Chọn no để quay lại
         function divreport_delete_tacgia_no() {
             document.getElementById('divreport_delete_tacgia').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -681,9 +696,10 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('divreport_delete_tacgia').style.top = "10%";
         }
 
-        //TRUYỆN
+        /////----------------------------------------------------/////
+        // TRUYỆN
 
-        //Hiện form thêm truyện
+        // Hiện form thêm truyện
         function div02_truyen_add_click() {
             document.getElementById('div02_truyen_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -692,7 +708,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_truyen_form_add').style.top = "50%";
             document.getElementById('div02_truyen_form_add').style.transition = "0.5s";
         }
-        //Ẩn form thêm truyện
+        // Ẩn form thêm truyện
         function div02_truyen_form_add_form_exit_click() {
             document.getElementById('div02_truyen_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -701,7 +717,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_truyen_form_add').style.transition = "0s";
             document.getElementById('div02_truyen_form_add').style.top = "30%";
         }
-        //Tìm kiếm truyện
+        // Tìm kiếm truyện
         function div02_truyen_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -717,9 +733,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "truyen_xuly_list.php?truyen_name=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
-        //Tạo truyen_id để dùng
+        // Tạo truyen_id để dùng
         truyen_id = "";
-        //Hiện form chỉnh sửa truyện
+        // Hiện form chỉnh sửa truyện
         function div02_truyen_list_table_edit_click(value) {
             document.getElementById('div02_truyen_form_edit').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -744,7 +760,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "truyen_xuly_edit_get.php?truyen_id=" + truyen_id, true);
             xmlhttp.send();
         }
-        //Ẩn form chỉnh sửa truyện
+        // Ẩn form chỉnh sửa truyện
         function div02_truyen_form_edit_form_exit_click() {
             document.getElementById('div02_truyen_form_edit').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -773,23 +789,11 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "truyen_chuong_xuly_list.php?truyen_id=" + truyen_id, true);
             xmlhttp.send();
         }
-        //Tìm kiếm chương của truyện
-        function div02_chuong_form_search_input_keyup(chuong_name, truyen_id) {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("div02_truyen_chuong_list").innerHTML = xmlhttp.responseText;
-                }
-            }
-            xmlhttp.open("GET", "chuong_xuly_list.php?chuong_name=" + chuong_name + "&truyen_id=" + truyen_id, true);
-            xmlhttp.send();
-        }
-        // Thêm chương
+
+        /////----------------------------------------------------/////
+        // CHƯƠNG
+
+        // Hiện form thêm chương
         function div02_truyen_chuong_form_add_click() {
             document.getElementById('div02_chuong_button').style.visibility = "hidden";
             document.getElementById('div02_chuong_form_search').style.visibility = "hidden";
@@ -803,26 +807,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                 filebrowserUploadMethod: 'form'
             });
         }
-
-        //Tìm kiếm chương
-        function div02_chuong_form_search(chuong_name) {
-            var xmlhttp;
-            if (window.XMLHttpRequest) {
-                xmlhttp = new XMLHttpRequest();
-            } else {
-                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-            }
-            xmlhttp.onreadystatechange = function() {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    document.getElementById("div02_chuong_list").innerHTML = xmlhttp.responseText;
-                }
-            }
-            xmlhttp.open("GET", "tonghop_chuong_xuly_list.php?chuong_name=" + chuong_name, true);
-            xmlhttp.send();
-        }
-
-        // Chỉnh sửa chương
-        chuong_id="";
+        // Tạo chuong_id để dùng
+        chuong_id = "";
+        // Hiện form chỉnh sửa chương
         function div02_truyen_chuong_list_table_edit_click(value) {
             document.getElementById('div02_chuong_button').style.visibility = "hidden";
             document.getElementById('div02_chuong_form_search').style.visibility = "hidden";
@@ -830,7 +817,8 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_truyen_chuong_list_table').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong_form_add').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong_form_edit').style.visibility = "visible";
-            chuong_id=value;
+            chuong_id = value;
+
             var xmlhttp;
             if (window.XMLHttpRequest) {
                 xmlhttp = new XMLHttpRequest();
@@ -850,10 +838,110 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "truyen_chuong_xuly_edit_get.php?chuong_id=" + value, true);
             xmlhttp.send();
         }
+        // Tìm kiếm chương của truyện
+        function div02_chuong_form_search_input_keyup(chuong_name, truyen_id) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_truyen_chuong_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "chuong_xuly_list.php?chuong_name=" + chuong_name + "&truyen_id=" + truyen_id, true);
+            xmlhttp.send();
+        }
+        // Tìm kiếm chương của tổng hợp chương
+        function div02_chuong_form_search(chuong_name) {
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    document.getElementById("div02_chuong_list").innerHTML = xmlhttp.responseText;
+                }
+            }
+            xmlhttp.open("GET", "tonghop_chuong_xuly_list.php?chuong_name=" + chuong_name, true);
+            xmlhttp.send();
+        }
+        // Hiện thông báo xóa chương
+        function div02_truyen_chuong_list_table_delete_click(value) {
+            document.getElementById('divreport_delete_chuong').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_delete_chuong').style.transition = "0.5s";
+            document.getElementById('divreport_delete_chuong').style.top = "30%";
+            chuong_id = value;
+        }
+        // Chọn no để quay lại
+        function divreport_delete_chuong_no() {
+            document.getElementById('divreport_delete_chuong').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_chuong').style.transition = "0s";
+            document.getElementById('divreport_delete_chuong').style.top = "10%";
+        }
+        // Chọn yes để xóa chương
+        function divreport_delete_chuong_yes() {
+            divreport_delete_chuong_no();
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    div02_chuong_form_search_input_keyup("", truyen_id);
+                    if (xmlhttp.responseText == '') {
+                        divreport_success();
+                    } else {
+                        divreport_failed();
+                    }
+                }
+            }
+            xmlhttp.open("GET", "chuong_xuly_delete.php?chuong_id=" + chuong_id, true);
+            xmlhttp.send();
+        }
+        // Hiện thông báo 'thao tác thành công'
+        function divreport_success() {
+            document.getElementById('divreport_success').style.visibility = "visible";
+            document.getElementById('divreport_success').style.transition = "0.5s";
+            document.getElementById('divreport_success').style.bottom = "5%";
+            setTimeout("divreport_success_timeout()", 2000);
+        }
+        // Ẩn thông báo 'thao tác thành công'
+        function divreport_success_timeout() {
+            document.getElementById('divreport_success').style.visibility = "hidden";
+            document.getElementById('divreport_success').style.transition = "0.5s";
+            document.getElementById('divreport_success').style.bottom = "-10%";
+        }
+        // Hiện thông báo 'thao tác thất bại'
+        function divreport_failed() {
+            document.getElementById('divreport_failed').style.visibility = "visible";
+            document.getElementById('divreport_failed').style.transition = "0.5s";
+            document.getElementById('divreport_failed').style.bottom = "5%";
+            setTimeout("divreport_failed_timeout()", 2000);
+        }
+        // Ẩn thông báo 'thao tác thất bại'
+        function divreport_failed_timeout() {
+            document.getElementById('divreport_failed').style.visibility = "hidden";
+            document.getElementById('divreport_failed').style.transition = "0.5s";
+            document.getElementById('divreport_failed').style.bottom = "-10%";
+        }
 
-        //THÀNH VIÊN
+        /////----------------------------------------------------/////
+        // THÀNH VIÊN
 
-        //Hiện form thêm thành viên 
+        // Hiện form thêm thành viên 
         function div02_thanhvien_add_click() {
             document.getElementById('div02_thanhvien_form_add').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -862,7 +950,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_thanhvien_form_add').style.top = "50%";
             document.getElementById('div02_thanhvien_form_add').style.transition = "0.5s";
         }
-        //Ẩn form thêm thành viên
+        // Ẩn form thêm thành viên
         function div02_thanhvien_form_add_form_exit_click() {
             document.getElementById('div02_thanhvien_form_add').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -871,7 +959,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_thanhvien_form_add').style.transition = "0s";
             document.getElementById('div02_thanhvien_form_add').style.top = "30%";
         }
-        //Tìm kiếm thành viên
+        // Tìm kiếm thành viên
         function div02_thanhvien_form_search_input_keyup(value, page) {
             var xmlhttp;
             if (window.XMLHttpRequest) {
@@ -887,9 +975,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "thanhvien_xuly_list.php?thanhvien_hoten=" + value + "&page=" + page, true);
             xmlhttp.send();
         }
-        //Tạo thanhvien_id để sử dụng
+        // Tạo thanhvien_id để sử dụng
         var thanhvien_id = "";
-        //Hiện form chỉnh sửa thành viên
+        // Hiện form chỉnh sửa thành viên
         function div02_thanhvien_list_table_edit_click(value) {
             document.getElementById('div02_thanhvien_form_edit').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -913,7 +1001,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "thanhvien_xuly_edit_get.php?thanhvien_id=" + thanhvien_id, true);
             xmlhttp.send();
         }
-        //Ẩn form chỉnh sửa thành viên
+        // Ẩn form chỉnh sửa thành viên
         function div02_thanhvien_form_edit_form_exit_click() {
             document.getElementById('div02_thanhvien_form_edit').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -922,7 +1010,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_thanhvien_form_edit').style.top = "30%";
             document.getElementById('div02_thanhvien_form_edit').style.transition = "0.5s";
         }
-        //Hiện thông báo xóa thành viên
+        // Hiện thông báo xóa thành viên
         function div02_thanhvien_list_table_delete_click(value) {
             document.getElementById('divreport_delete_thanhvien').style.visibility = "visible";
             document.getElementById('content').style.filter = "blur(10px)";
@@ -932,7 +1020,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('divreport_delete_thanhvien').style.top = "30%";
             thanhvien_id = value;
         }
-        //Chọn yes để delete thành viên
+        // Chọn yes để delete thành viên
         function divreport_delete_thanhvien_yes() {
             document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -954,7 +1042,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.open("GET", "thanhvien_xuly_delete.php?thanhvien_id=" + thanhvien_id, true);
             xmlhttp.send();
         }
-        //Chọn no để quay lại
+        // Chọn no để quay lại
         function divreport_delete_thanhvien_no() {
             document.getElementById('divreport_delete_thanhvien').style.visibility = "hidden";
             document.getElementById('content').style.filter = "none";
@@ -968,9 +1056,524 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
     <script type="text/javascript" src="lib/jquery.validate.min.js"></script>
     <script type="text/javascript" src="lib/select2.min.js"></script>
     <link href="lib/select2.min.css" rel="stylesheet" />
+
+    <!-- THỂ LOẠI -->
+    <script type="text/javascript">
+        // Form thêm thể loại
+        $(document).ready(function() {
+            $("#div02_theloai_form_add").on("click", "#div02_theloai_form_add_form", function() {
+                $("#div02_theloai_form_add_form").validate({
+                    rules: {
+                        theloai_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "theloai_check_name_exist.php?theloai_id=no_value"
+                        }
+                    },
+                    messages: {
+                        theloai_name: {
+                            required: "Bạn chưa nhập tên thể loại",
+                            maxlength: "Tên thể loại không quá 255 kí tự",
+                            remote: "Tên thể loại đã tồn tại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_theloai_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "theloai_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Ẩn form thêm thể loại
+                                    div02_theloai_form_add_form_exit_click();
+                                    // Hiện danh sách thể loại
+                                    div02_theloai_form_search_input_keyup("", 1);
+                                    // Load lại form thêm thể loại
+                                    $("#div02_theloai_form_add").load(" #div02_theloai_form_add > *");
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+            // Form chỉnh sửa thể loại
+            $("#div02_theloai_form_edit").on("click", "#div02_theloai_form_edit_form", function() {
+                $("#div02_theloai_form_edit_form").validate({
+                    rules: {
+                        theloai_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "theloai_check_name_exist.php?theloai_id=" + theloai_id
+                        }
+                    },
+                    messages: {
+                        theloai_name: {
+                            required: "Bạn chưa nhập tên thể loại",
+                            maxlength: "Tên thể loại không quá 255 kí tự",
+                            remote: "Tên thể loại đã tồn tại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_theloai_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "theloai_xuly_edit_send.php?theloai_id=" + theloai_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    div02_theloai_form_edit_form_exit_click();
+                                    div02_theloai_form_search_input_keyup("", 1);
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        // Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_add
+        function div02_theloai_form_add_form_hinhanh_change() {
+            div02_theloai_form_add_form_hinhanh_img.src = "";
+            div02_theloai_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+        // Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_edit
+        function div02_theloai_form_edit_form_hinhanh_change() {
+            div02_theloai_form_edit_form_hinhanh_img.src = "";
+            div02_theloai_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <!-- TÁC GIẢ -->
+    <script type="text/javascript">
+        // Thêm rule cho Ngày sinh
+        $.validator.addMethod("minAge", function(value, element, min) {
+            var today = new Date();
+            var birthDate = new Date(value);
+            var age = today.getFullYear() - birthDate.getFullYear();
+
+            if (age > min + 1) {
+                return true;
+            }
+
+            var m = today.getMonth() - birthDate.getMonth();
+
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+
+            return age >= min;
+        }, "You are not old enough!");
+        
+        $(document).ready(function() {
+            // Form thêm tác giả
+            $("#div02_tacgia_form_add").on("click", "#div02_tacgia_form_add_form", function() {
+                $("#div02_tacgia_form_add_form").validate({
+                    rules: {
+                        tacgia_hoten: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "tacgia_check_hoten_exist.php?tacgia_id=no_value"
+                        },
+                        tacgia_ngaysinh: {
+                            required: true,
+                            date: true,
+                            minAge: 10
+                        }
+                    },
+                    messages: {
+                        tacgia_hoten: {
+                            required: "Bạn chưa nhập họ và tên tác giả",
+                            maxlength: "Tên tác giả không quá 255 kí tự",
+                            remote: "Tên tác giả đã tồn tại"
+                        },
+                        tacgia_ngaysinh: {
+                            required: "Bạn chưa nhập ngày sinh tác giả",
+                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
+                            minAge: "Có vẻ ngày sinh tác giả đã sai"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_tacgia_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "tacgia_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Ẩn đi form thêm tác giả
+                                    div02_tacgia_form_add_form_exit_click();
+                                    // Hiện danh sách tác giả
+                                    div02_tacgia_form_search_input_keyup("", 1);
+                                    // Load lại form thêm tác giả 
+                                    $("#div02_tacgia_form_add").load(" #div02_tacgia_form_add > *");
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+            // Form chỉnh sửa tác giả
+            $("#div02_tacgia_form_edit").on("click", "#div02_tacgia_form_edit_form", function() {
+                $("#div02_tacgia_form_edit_form").validate({
+                    rules: {
+                        tacgia_hoten: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "tacgia_check_hoten_exist.php?tacgia_id=" + tacgia_id
+                        },
+                        tacgia_ngaysinh: {
+                            required: true,
+                            date: true,
+                            minAge: 10
+                        }
+                    },
+                    messages: {
+                        tacgia_hoten: {
+                            required: "Bạn chưa nhập họ và tên tác giả",
+                            maxlength: "Tên tác giả không quá 255 kí tự",
+                            remote: "Tên tác giả đã tồn tại"
+                        },
+                        tacgia_ngaysinh: {
+                            required: "Bạn chưa nhập ngày sinh tác giả",
+                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
+                            minAge: "Có vẻ ngày sinh tác giả đã sai"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_tacgia_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "tacgia_xuly_edit_send.php?tacgia_id=" + tacgia_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Ẩn form chỉnh sửa tác giả
+                                    div02_tacgia_form_edit_form_exit_click();
+                                    // Hiện danh sách tác giả
+                                    div02_tacgia_form_search_input_keyup("", 1);
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        // Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_add
+        function div02_tacgia_form_add_form_hinhanh_change() {
+            div02_tacgia_form_add_form_hinhanh_img.src = "";
+            div02_tacgia_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+        // Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_edit
+        function div02_tacgia_form_edit_form_hinhanh_change() {
+            div02_tacgia_form_edit_form_hinhanh_img.src = "";
+            div02_tacgia_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <!-- Truyện -->
+    <script type="text/javascript">
+        // Form thêm truyện
+        $(document).ready(function() {
+            // Khi gọi ajax thì validate form dưới đây sẽ không hoạt động vì vậy cần bắt thêm 1 sự kiện khi người dùng gọi ajax
+            $("#div02_truyen_form_add").on("click", "#div02_truyen_form_add_form", function() {
+                $("#div02_truyen_form_add_form").validate({
+                    rules: {
+                        truyen_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "truyen_check_name_exist.php?truyen_id=no_value"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: true
+                        },
+                        "truyen_select_theloai[]": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        truyen_name: {
+                            required: "Bạn chưa nhập tên truyện",
+                            maxlength: "Tên truyện không quá 255 kí tự",
+                            remote: "Tên truyện đã tồn tại"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: "Bạn chưa chọn tác giả"
+                        },
+                        "truyen_select_theloai[]": {
+                            required: "Bạn chưa chọn thể loại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "truyen_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Đóng form thêm truyện
+                                    div02_truyen_form_add_form_exit_click();
+                                    // Trở về và gọi list trang đầu tiên
+                                    div02_truyen_form_search_input_keyup("", 1);
+                                    // Reload lại form thêm truyện nếu không sẽ gửi nhiều form chồng lẫn nhau
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if(data == ""){
+                                        divreport_success();
+                                    }
+                                    else{
+                                        divreport_failed();
+                                    }
+                                }
+                            })
+                        });
+                    }
+                });
+            });
+            // Form chỉnh sửa truyện
+            $("#div02_truyen_form_edit").on("click", "#div02_truyen_form_edit_form", function() {
+                $("#div02_truyen_form_edit_form").validate({
+                    rules: {
+                        truyen_name: {
+                            required: true,
+                            maxlength: 255,
+                            remote: "truyen_check_name_exist.php?truyen_id=" + truyen_id
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: true
+                        },
+                        "truyen_select_theloai[]": {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        truyen_name: {
+                            required: "Bạn chưa nhập tên truyện",
+                            maxlength: "Tên truyện không quá 255 kí tự",
+                            remote: "Tên truyện đã tồn tại"
+                        },
+                        "truyen_select_tacgia[]": {
+                            required: "Bạn chưa chọn tác giả"
+                        },
+                        "truyen_select_theloai[]": {
+                            required: "Bạn chưa chọn thể loại"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "truyen_xuly_edit_send.php?truyen_id=" + truyen_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Ẩn form chỉnh sửa truyện
+                                    div02_truyen_form_edit_form_exit_click();
+                                    // Hiện ra danh sách truyện
+                                    div02_truyen_form_search_input_keyup("", 1);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if(data == ""){
+                                        divreport_success();
+                                    }
+                                    else{
+                                        divreport_failed();
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+        // Phần select tác giả và thể loại của truyện
+        function truyen_select_tacgia_theloai() {
+            // Truyện select tác giả - add
+            var $truyen_select_tacgia_add = $(".div02_truyen_form_add_form_select_tacgia").select2({
+                placeholder: "Chọn tác giả",
+                allowClear: true
+            });
+            $truyen_select_tacgia_add.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select thể loại - add
+            var $truyen_select_theloai_add = $(".div02_truyen_form_add_form_select_theloai").select2({
+                placeholder: "Chọn thể loại",
+                allowClear: true
+            });
+            $truyen_select_theloai_add.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select tác giả - edit
+            var $truyen_select_tacgia_edit = $(".div02_truyen_form_edit_form_select_tacgia").select2({
+                placeholder: "Chọn tác giả",
+                allowClear: true
+            });
+            $truyen_select_tacgia_edit.on('change', function() {
+                $(this).trigger('blur');
+            });
+            // Truyện select thể loại - edit
+            var $truyen_select_theloai_edit = $(".div02_truyen_form_edit_form_select_theloai").select2({
+                placeholder: "Chọn thể loại",
+                allowClear: true
+            });
+            $truyen_select_theloai_edit.on('change', function() {
+                $(this).trigger('blur');
+            });
+        }
+        // Cần gọi select2 lúc đầu, sau khi thêm 1 truyện muốn thêm 1 truyện nữa thì ready này không còn hoạt động mà sẽ dùng bên trên
+        $(document).ready(function select_tacgia() {
+            truyen_select_tacgia_theloai();
+        });
+        // Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_add
+        function div02_truyen_form_add_form_hinhanh_change() {
+            div02_truyen_form_add_form_hinhanh_img.src = "";
+            div02_truyen_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+        // Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_edit
+        function div02_truyen_form_edit_form_hinhanh_change() {
+            div02_truyen_form_edit_form_hinhanh_img.src = "";
+            div02_truyen_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
+        }
+    </script>
+
+    <!-- Chương -->
+    <script type="text/javascript">
+        // Form thêm chương
+        $(document).ready(function() {
+            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            $("#div02").on("click", "#div02_truyen_chuong_form_add_form", function() {
+                $("#div02_truyen_chuong_form_add_form").validate({
+                    rules: {
+                        truyen_chuong_sochuong: {
+                            required: true,
+                            maxlength: 10,
+                            number: true,
+                            remote: "truyen_chuong_check_sochuong_exist.php?truyen_id=" + truyen_id + "&chuong_id=no_value"
+                        },
+                        truyen_chuong_name: {
+                            required: true,
+                            maxlength: 255
+                        }
+                    },
+                    messages: {
+                        truyen_chuong_sochuong: {
+                            required: "Bạn chưa nhập số chương",
+                            maxlength: "Có vẻ bạn đang nhập số chương qua lớn",
+                            number: "Bạn chỉ được nhập số",
+                            remote: "Số chương này đã tồn tại"
+                        },
+                        truyen_chuong_name: {
+                            required: "Bạn chưa nhập tên chương",
+                            maxlength: "Tên chương không vượt quá 255 kí tự"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_chuong_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "truyen_chuong_xuly_add.php?truyen_id=" + truyen_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Hiển thị trang thông tin truyện và danh sách chương khi thêm chương mới xong
+                                    div02_truyen_list_table_list_click(truyen_id);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if(data == ""){
+                                        divreport_success();
+                                    }
+                                    else{
+                                        divreport_failed();
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+            // Form chỉnh sửa chương
+            $("#div02").on("click", "#div02_truyen_chuong_form_edit_form", function() {
+                $("#div02_truyen_chuong_form_edit_form").validate({
+                    rules: {
+                        truyen_chuong_sochuong: {
+                            required: true,
+                            maxlength: 10,
+                            number: true,
+                            remote: "truyen_chuong_check_sochuong_exist.php?truyen_id=" + truyen_id + "&chuong_id=" + chuong_id
+                        },
+                        truyen_chuong_name: {
+                            required: true,
+                            maxlength: 255
+                        }
+                    },
+                    messages: {
+                        truyen_chuong_sochuong: {
+                            required: "Bạn chưa nhập số chương",
+                            maxlength: "Có vẻ bạn đang nhập số chương qua lớn",
+                            number: "Bạn chỉ được nhập số",
+                            remote: "Số chương này đã tồn tại"
+                        },
+                        truyen_chuong_name: {
+                            required: "Bạn chưa nhập tên chương",
+                            maxlength: "Tên chương không vượt quá 255 kí tự"
+                        }
+                    },
+                    submitHandler: function(form) {
+                        $('#div02_truyen_chuong_form_edit_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "truyen_chuong_xuly_edit_send.php?chuong_id=" + chuong_id,
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Hiển thị trang thông tin truyện và danh sách chương khi chỉnh sửa xong
+                                    div02_truyen_list_table_list_click(truyen_id);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if(data == ""){
+                                        divreport_success();
+                                    }
+                                    else{
+                                        divreport_failed();
+                                    }
+                                }
+                            });
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
     <!-- THÀNH VIÊN -->
     <script type="text/javascript">
         $(document).ready(function() {
+            // Form thêm thành viên
             $("#div02_thanhvien_form_add_form").validate({
                 rules: {
                     username: {
@@ -1033,18 +1636,16 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                             cache: false,
                             processData: false,
                             success: function(data) {
+                                // Ẩn đi form thêm thành viên
                                 div02_thanhvien_form_add_form_exit_click();
+                                // Hiện ra danh sách thành viên
                                 div02_thanhvien_form_search_input_keyup("", 1);
                             }
                         });
                     });
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
+            // Form chỉnh sửa thành viên
             $("#div02_thanhvien_form_edit").on("click", "#div02_thanhvien_form_edit_form", function() {
                 $("#div02_thanhvien_form_edit_form").validate({
                     rules: {
@@ -1084,7 +1685,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                 cache: false,
                                 processData: false,
                                 success: function(data) {
+                                    // Ẩn đi form chỉnh sửa thành viên
                                     div02_thanhvien_form_edit_form_exit_click();
+                                    // Hiện danh sách thành viên
                                     div02_thanhvien_form_search_input_keyup("", 1);
                                 }
                             });
@@ -1093,490 +1696,11 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                 });
             });
         });
-        /* Hiển thị ảnh khi chọn ảnh trong form edit user */
+        // Hiển thị ảnh khi chọn ảnh trong form edit user
         function div02_thanhvien_form_edit_form_hinhanh_change() {
             div02_thanhvien_form_edit_form_hinhanh_img.src = "";
             div02_thanhvien_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
         }
-    </script>
-
-    <!-- TÁC GIẢ -->
-    <script type="text/javascript">
-        // Thêm rule cho Ngày sinh
-        $.validator.addMethod("minAge", function(value, element, min) {
-            var today = new Date();
-            var birthDate = new Date(value);
-            var age = today.getFullYear() - birthDate.getFullYear();
-
-            if (age > min + 1) {
-                return true;
-            }
-
-            var m = today.getMonth() - birthDate.getMonth();
-
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-
-            return age >= min;
-        }, "You are not old enough!");
-        // Form thêm tác giả
-        $(document).ready(function() {
-            $("#div02_tacgia_form_add").on("click", "#div02_tacgia_form_add_form", function() {
-                $("#div02_tacgia_form_add_form").validate({
-                    rules: {
-                        tacgia_hoten: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "tacgia_check_hoten_exist.php?tacgia_id=no_value"
-                        },
-                        tacgia_ngaysinh: {
-                            required: true,
-                            date: true,
-                            minAge: 10
-                        }
-                    },
-                    messages: {
-                        tacgia_hoten: {
-                            required: "Bạn chưa nhập họ và tên tác giả",
-                            maxlength: "Tên tác giả không quá 255 kí tự",
-                            remote: "Tên tác giả đã tồn tại"
-                        },
-                        tacgia_ngaysinh: {
-                            required: "Bạn chưa nhập ngày sinh tác giả",
-                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
-                            minAge: "Có vẻ ngày sinh tác giả đã sai"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_tacgia_form_add_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "tacgia_xuly_add.php",
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_tacgia_form_add_form_exit_click();
-                                    div02_tacgia_form_search_input_keyup("", 1);
-                                    $("#div02_tacgia_form_add").load(" #div02_tacgia_form_add > *");
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
-        /* Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_add */
-        function div02_tacgia_form_add_form_hinhanh_change() {
-            div02_tacgia_form_add_form_hinhanh_img.src = "";
-            div02_tacgia_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-        $(document).ready(function() {
-            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
-            $("#div02_tacgia_form_edit").on("click", "#div02_tacgia_form_edit_form", function() {
-                $("#div02_tacgia_form_edit_form").validate({
-                    rules: {
-                        tacgia_hoten: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "tacgia_check_hoten_exist.php?tacgia_id=" + tacgia_id
-                        },
-                        tacgia_ngaysinh: {
-                            required: true,
-                            date: true,
-                            minAge: 10
-                        }
-                    },
-                    messages: {
-                        tacgia_hoten: {
-                            required: "Bạn chưa nhập họ và tên tác giả",
-                            maxlength: "Tên tác giả không quá 255 kí tự",
-                            remote: "Tên tác giả đã tồn tại"
-                        },
-                        tacgia_ngaysinh: {
-                            required: "Bạn chưa nhập ngày sinh tác giả",
-                            date: "Chưa đúng định dạng ngày sinh (dd/mm/yyyy)",
-                            minAge: "Có vẻ ngày sinh tác giả đã sai"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_tacgia_form_edit_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "tacgia_xuly_edit_send.php?tacgia_id=" + tacgia_id,
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_tacgia_form_edit_form_exit_click();
-                                    div02_tacgia_form_search_input_keyup("", 1);
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
-        /* Hiển thị ảnh khi chọn ảnh trong div02_tacgia_form_edit */
-        function div02_tacgia_form_edit_form_hinhanh_change() {
-            div02_tacgia_form_edit_form_hinhanh_img.src = "";
-            div02_tacgia_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-    </script>
-
-    <!-- THỂ LOẠI -->
-    <script type="text/javascript">
-        // Form thêm thể loại
-        $(document).ready(function() {
-            $("#div02_theloai_form_add").on("click", "#div02_theloai_form_add_form", function() {
-                $("#div02_theloai_form_add_form").validate({
-                    rules: {
-                        theloai_name: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "theloai_check_name_exist.php?theloai_id=no_value"
-                        }
-                    },
-                    messages: {
-                        theloai_name: {
-                            required: "Bạn chưa nhập tên thể loại",
-                            maxlength: "Tên thể loại không quá 255 kí tự",
-                            remote: "Tên thể loại đã tồn tại"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_theloai_form_add_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "theloai_xuly_add.php",
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_theloai_form_add_form_exit_click();
-                                    div02_theloai_form_search_input_keyup("", 1);
-                                    $("#div02_theloai_form_add").load(" #div02_theloai_form_add > *");
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
-        // Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_add
-        function div02_theloai_form_add_form_hinhanh_change() {
-            div02_theloai_form_add_form_hinhanh_img.src = "";
-            div02_theloai_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-        // Form chỉnh sửa thể loại
-        $(document).ready(function() {
-            //ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới
-            $("#div02_theloai_form_edit").on("click", "#div02_theloai_form_edit_form", function() {
-                $("#div02_theloai_form_edit_form").validate({
-                    rules: {
-                        theloai_name: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "theloai_check_name_exist.php?theloai_id=" + theloai_id
-                        }
-                    },
-                    messages: {
-                        theloai_name: {
-                            required: "Bạn chưa nhập tên thể loại",
-                            maxlength: "Tên thể loại không quá 255 kí tự",
-                            remote: "Tên thể loại đã tồn tại"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_theloai_form_edit_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "theloai_xuly_edit_send.php?theloai_id=" + theloai_id,
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_theloai_form_edit_form_exit_click();
-                                    div02_theloai_form_search_input_keyup("", 1);
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
-        /* Hiển thị ảnh khi chọn ảnh trong div02_theloai_form_edit */
-        function div02_theloai_form_edit_form_hinhanh_change() {
-            div02_theloai_form_edit_form_hinhanh_img.src = "";
-            div02_theloai_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-    </script>
-
-    <!-- Truyện -->
-    <script type="text/javascript">
-        // Form thêm truyện
-        $(document).ready(function() {
-            // Khi gọi ajax thì validate form dưới đây sẽ không hoạt động vì vậy cần bắt thêm 1 sự kiện khi người dùng gọi ajax
-            $("#div02_truyen_form_add").on("click", "#div02_truyen_form_add_form", function() {
-                $("#div02_truyen_form_add_form").validate({
-                    rules: {
-                        truyen_name: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "truyen_check_name_exist.php?truyen_id=no_value"
-                        },
-                        "truyen_select_tacgia[]": {
-                            required: true
-                        },
-                        "truyen_select_theloai[]": {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        truyen_name: {
-                            required: "Bạn chưa nhập tên truyện",
-                            maxlength: "Tên truyện không quá 255 kí tự",
-                            remote: "Tên truyện đã tồn tại"
-                        },
-                        "truyen_select_tacgia[]": {
-                            required: "Bạn chưa chọn tác giả"
-                        },
-                        "truyen_select_theloai[]": {
-                            required: "Bạn chưa chọn thể loại"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_truyen_form_add_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "truyen_xuly_add.php",
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    // Đóng form thêm truyện
-                                    div02_truyen_form_add_form_exit_click();
-                                    // Trở về và gọi list trang đầu tiên
-                                    div02_truyen_form_search_input_keyup("", 1);
-                                    // Reload lại form thêm truyện nếu không sẽ gửi nhiều form chồng lẫn nhau
-                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
-                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
-                                        truyen_select_tacgia_theloai();
-                                    });
-                                }
-                            })
-                        });
-                    }
-                });
-            });
-        });
-        // Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_add
-        function div02_truyen_form_add_form_hinhanh_change() {
-            div02_truyen_form_add_form_hinhanh_img.src = "";
-            div02_truyen_form_add_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-        // Phần select tác giả và thể loại của truyện
-        function truyen_select_tacgia_theloai() {
-            // Truyện select tác giả - add
-            var $truyen_select_tacgia_add = $(".div02_truyen_form_add_form_select_tacgia").select2({
-                placeholder: "Chọn tác giả",
-                allowClear: true
-            });
-            $truyen_select_tacgia_add.on('change', function() {
-                $(this).trigger('blur');
-            });
-            // Truyện select thể loại - add
-            var $truyen_select_theloai_add = $(".div02_truyen_form_add_form_select_theloai").select2({
-                placeholder: "Chọn thể loại",
-                allowClear: true
-            });
-            $truyen_select_theloai_add.on('change', function() {
-                $(this).trigger('blur');
-            });
-            // Truyện select tác giả - edit
-            var $truyen_select_tacgia_edit = $(".div02_truyen_form_edit_form_select_tacgia").select2({
-                placeholder: "Chọn tác giả",
-                allowClear: true
-            });
-            $truyen_select_tacgia_edit.on('change', function() {
-                $(this).trigger('blur');
-            });
-            // Truyện select thể loại - edit
-            var $truyen_select_theloai_edit = $(".div02_truyen_form_edit_form_select_theloai").select2({
-                placeholder: "Chọn thể loại",
-                allowClear: true
-            });
-            $truyen_select_theloai_edit.on('change', function() {
-                $(this).trigger('blur');
-            });
-        }
-        // Cần gọi select2 lúc đầu, sau khi thêm 1 truyện muốn thêm 1 truyện nữa thì ready này không còn hoạt động mà sẽ dùng bên trên
-        $(document).ready(function select_tacgia() {
-            truyen_select_tacgia_theloai();
-        });
-
-        // Form sửa truyện
-        $(document).ready(function() {
-            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
-            $("#div02_truyen_form_edit").on("click", "#div02_truyen_form_edit_form", function() {
-                $("#div02_truyen_form_edit_form").validate({
-                    rules: {
-                        truyen_name: {
-                            required: true,
-                            maxlength: 255,
-                            remote: "truyen_check_name_exist.php?truyen_id=" + truyen_id
-                        },
-                        "truyen_select_tacgia[]": {
-                            required: true
-                        },
-                        "truyen_select_theloai[]": {
-                            required: true
-                        }
-                    },
-                    messages: {
-                        truyen_name: {
-                            required: "Bạn chưa nhập tên truyện",
-                            maxlength: "Tên truyện không quá 255 kí tự",
-                            remote: "Tên truyện đã tồn tại"
-                        },
-                        "truyen_select_tacgia[]": {
-                            required: "Bạn chưa chọn tác giả"
-                        },
-                        "truyen_select_theloai[]": {
-                            required: "Bạn chưa chọn thể loại"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_truyen_form_edit_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "truyen_xuly_edit_send.php?truyen_id=" + truyen_id,
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_truyen_form_edit_form_exit_click();
-                                    div02_truyen_form_search_input_keyup("", 1);
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
-        /* Hiển thị ảnh khi chọn ảnh trong div02_truyen_form_edit */
-        function div02_truyen_form_edit_form_hinhanh_change() {
-            div02_truyen_form_edit_form_hinhanh_img.src = "";
-            div02_truyen_form_edit_form_hinhanh_img.src = URL.createObjectURL(event.target.files[0]);
-        }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            /* ready chỉ được kích hoạt trước lúc tải xong tài liệu, gọi Ajax thì nội dung không dùng được ready, vì vậy phải thêm dòng dưới */
-            $("#div02").on("click", "#div02_truyen_chuong_form_add_form", function() {
-                $("#div02_truyen_chuong_form_add_form").validate({
-                    rules: {
-                        truyen_chuong_sochuong: {
-                            required: true,
-                            maxlength: 10,
-                            number: true,
-                            remote: "truyen_chuong_check_sochuong_exist.php?truyen_id="+truyen_id+"&chuong_id=no_value"
-                        },
-                        truyen_chuong_name: {
-                            required: true,
-                            maxlength: 255
-                        }
-                    },
-                    messages: {
-                        truyen_chuong_sochuong: {
-                            required: "Bạn chưa nhập số chương",
-                            maxlength: "Có vẻ bạn đang nhập số chương qua lớn",
-                            number: "Bạn chỉ được nhập số",
-                            remote: "Số chương này đã tồn tại"
-                        },
-                        truyen_chuong_name: {
-                            required: "Bạn chưa nhập tên chương",
-                            maxlength: "Tên chương không vượt quá 255 kí tự"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_truyen_chuong_form_add_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "truyen_chuong_xuly_add.php?truyen_id=" + truyen_id,
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    div02_truyen_list_table_list_click(truyen_id);
-                                    //div02_truyen_chuong_form_search_input_keyup("", 1);
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-            $("#div02").on("click", "#div02_truyen_chuong_form_edit_form", function() {
-                $("#div02_truyen_chuong_form_edit_form").validate({
-                    rules: {
-                        truyen_chuong_sochuong: {
-                            required: true,
-                            maxlength: 10,
-                            number: true,
-                            remote: "truyen_chuong_check_sochuong_exist.php?truyen_id="+truyen_id+"&chuong_id="+chuong_id
-                        },
-                        truyen_chuong_name: {
-                            required: true,
-                            maxlength: 255
-                        }
-                    },
-                    messages: {
-                        truyen_chuong_sochuong: {
-                            required: "Bạn chưa nhập số chương",
-                            maxlength: "Có vẻ bạn đang nhập số chương qua lớn",
-                            number: "Bạn chỉ được nhập số",
-                            remote: "Số chương này đã tồn tại"
-                        },
-                        truyen_chuong_name: {
-                            required: "Bạn chưa nhập tên chương",
-                            maxlength: "Tên chương không vượt quá 255 kí tự"
-                        }
-                    },
-                    submitHandler: function(form) {
-                        $('#div02_truyen_chuong_form_edit_form').on('submit', function(e) {
-                            e.preventDefault();
-                            $.ajax({
-                                url: "truyen_chuong_xuly_edit_send.php?chuong_id=" + chuong_id,
-                                method: "POST",
-                                data: new FormData(this),
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function(data) {
-                                    //div02_truyen_chuong_form_edit_form_exit_click();
-                                    //div02_truyen_chuong_form_search_input_keyup("", 1);
-                                }
-                            });
-                        });
-                    }
-                });
-            });
-        });
     </script>
 </body>
 
