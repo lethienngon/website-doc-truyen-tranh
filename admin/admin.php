@@ -53,7 +53,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
 <body onload="click_ttcn()">
     <!-- Thẻ bao trọn hết phần body (có thể dùng để định dạnh khi click thêm hoặc sửa) -->
     <div id="content">
-        <!-- 1)Menu lựa chọn -->
+        <!-- 1) Menu lựa chọn -->
         <div id="div01">
             <header id="ad_name">Admin</header>
             <ul>
@@ -99,9 +99,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                 </li>
             </ul>
         </div>
-        <!-- 2)Phần nội dung khi chọn một mục trong Menu lực chọn -->
+        <!-- 2) Phần nội dung khi chọn một mục trong Menu lựa chọn -->
         <div id="div02">
-            <!-- 2.1)Phần nội dung Thông tin cá nhân của Username đang đăng nhập -->
+            <!-- 2.1) Phần nội dung Thông tin cá nhân của Username đang đăng nhập -->
             <div id="div02_thongtincanhan">
                 <p class="div02_title">Thông tin cá nhân</p>
                 <div id="div02_thongtincanhan_lienhe">
@@ -136,76 +136,81 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                     </table>
                 </div>
             </div>
-            <!-- 2.2)Phần nội dung Thể loại -->
+            <!-- 2.2) Phần nội dung Thể loại -->
             <div>
                 <div id="div02_theloai">
-                    <!-- 2.2.1)Title Thể loại -->
+                    <!-- 2.2.1) Title Thể loại -->
                     <p class="div02_title">Quản lý Thể loại</p>
-                    <!-- 2.2.2)Thêm thể loại -->
+                    <!-- 2.2.2) Thêm thể loại -->
                     <a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>
-                    <!-- 2.2.3)Tìm kiếm thể loại -->
+                    <!-- 2.2.3) Tìm kiếm thể loại -->
                     <form id="div02_theloai_form_search">
                         <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
                     </form>
-                    <!-- 2.2.4)Danh sách thể loại -->
+                    <!-- 2.2.4) Danh sách thể loại -->
                     <div id="div02_theloai_list"></div>
                 </div>
             </div>
-            <!-- 2.3)Phần nội dung Tác giả -->
+            <!-- 2.3) Phần nội dung Tác giả -->
             <div id="div02_tacgia">
-                <!-- 2.3.1)Title Tác giả -->
+                <!-- 2.3.1) Title Tác giả -->
                 <p class="div02_title">Quản lý Tác giả</p>
-                <!-- 2.3.2)Thêm tác giả -->
+                <!-- 2.3.2) Thêm tác giả -->
                 <a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
-                <!-- 2.3.3)Tìm kiếm tác giả -->
+                <!-- 2.3.3) Tìm kiếm tác giả -->
                 <form id="div02_tacgia_form_search">
                     <input id="div02_tacgia_form_search_input" type="text" name="hoten" onkeyup=div02_tacgia_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
                 </form>
-                <!-- 2.3.4)Danh sách tác giả -->
+                <!-- 2.3.4) Danh sách tác giả -->
                 <div id="div02_tacgia_list"></div>
             </div>
-            <!-- 2.4)Phần nội dung Truyện -->
+            <!-- 2.4) Phần nội dung Truyện -->
             <div id="div02_truyen">
-                <!-- 2.4.1)Title Truyện -->
+                <!-- 2.4.1) Title Truyện -->
                 <p class="div02_title">Quản lý Truyện</p>
-                <!-- 2.4.2)Thêm Truyện -->
+                <!-- 2.4.2) Thêm Truyện -->
                 <a id="div02_truyen_add" onclick="div02_truyen_add_click()" href="#"><img src="truyen_add.ico" style="width:16px;height:16px"> Thêm Truyện</a>
-                <!-- 2.4.3)Tìm kiếm Truyện -->
+                <!-- 2.4.3) Tìm kiếm Truyện -->
                 <form id="div02_truyen_form_search">
                     <input id="div02_truyen_form_search_input" type="text" name="hoten" onkeyup=div02_truyen_form_search_input_keyup(this.value,1) placeholder="Nhập tên truyện để tìm kiếm">
                 </form>
-                <!-- 2.4.4)Danh sách truyện -->
+                <!-- 2.4.4) Danh sách Truyện -->
                 <div id="div02_truyen_list"></div>
             </div>
-            <!-- 2.5)Phần nội dung Chương của Truyện -->
-            <div id="div02_truyen_chuong"></div>
-            <!-- 6)Phần nội dung Chương -->
+            <!-- 2.5) Phần nội dung Chương của Truyện (Hiển thị trong mục Truyện ) -->
+            <div id="div02_truyen_chuong">
+            </div>
+            <!-- 6) Phần nội dung Chương -->
             <div id="div02_chuong">
+                <!-- 2.6.1) Title Chương -->
                 <p class='div02_title'>Tổng hợp chương</p>
+                <!-- 2.6.2) Thêm Chương -->
                 <a id='div02_chuong_quanly_truyen' onclick='click_truyen()' href='#'><img src='manage.ico' style='width:16px;height:16px'> Quản lý truyện</a>
+                <!-- 2.6.3) Tìm kiếm Chương -->
                 <form>
                     <input id='div02_chuong_search' type='text' name='hoten' onkeyup=div02_chuong_form_search(this.value) placeholder='Nhập tên chương để tìm kiếm'>
                 </form>
+                <!-- 2.6.4) Danh sách Chương -->
                 <div id="div02_chuong_list"></div>
             </div>
-            <!-- 2.7)Phần nội dung Thành viên -->
+            <!-- 2.7) Phần nội dung Thành viên -->
             <div id="div02_thanhvien">
-                <!-- 2.7.1)Title Thành viên -->
+                <!-- 2.7.1) Title Thành viên -->
                 <p class="div02_title">Quản lý Thành viên</p>
-                <!-- 2.7.2)Thêm Thành viên -->
+                <!-- 2.7.2) Thêm Thành viên -->
                 <a id="div02_thanhvien_add" onclick="div02_thanhvien_add_click()" href="#"><img src="thanhvien_add.ico" style="width:16px;height:16px"> Thêm mới thành viên</a>
-                <!-- 2.7.3)Tìm kiếm thành viên -->
+                <!-- 2.7.3) Tìm kiếm Thành viên -->
                 <form id="div02_thanhvien_form_search">
                     <input id="div02_thanhvien_form_search_input" type="text" name="hoten" onkeyup=div02_thanhvien_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên để tìm kiếm">
                 </form>
-                <!-- 2.7.4)Danh sách thành viên -->
+                <!-- 2.7.4) Danh sách Thành viên -->
                 <div id="div02_thanhvien_list"></div>
             </div>
-            <!-- 2.8)Phần nội dung Báo lỗi -->
+            <!-- 2.8) Phần nội dung Báo lỗi -->
             <div></div>
         </div>
     </div>
-    <!-- 3.1)Form ẩn: Thêm Thể loại -->
+    <!-- 3.1) Form ẩn: Thêm Thể loại -->
     <div id="div02_theloai_form_add">
         <form id="div02_theloai_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -224,15 +229,15 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             </table>
         </form>
     </div>
-    <!-- 3.2)Form ẩn: Chỉnh sửa thể loại -->
+    <!-- 3.2) Form ẩn: Chỉnh sửa thể loại -->
     <div id="div02_theloai_form_edit"></div>
-    <!-- 3.3)Form ẩn: Xác nhận muốn xóa thể loại này -->
+    <!-- 3.3) Form ẩn: Xác nhận muốn xóa thể loại này -->
     <div id="divreport_delete_theloai">
         <h3>Bạn có chắc muốn xóa tác giả này không?</h3>
         <button id="divreport_delete_theloai_yes" type="button" onclick="return divreport_delete_theloai_yes();">Có</button>
         <button id="divreport_delete_theloai_no" type="button" onclick="return divreport_delete_theloai_no();">Không</button>
     </div>
-    <!-- 4.1)Form ẩn: Thêm Tác giả -->
+    <!-- 4.1) Form ẩn: Thêm Tác giả -->
     <div id="div02_tacgia_form_add">
         <form id="div02_tacgia_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -257,15 +262,15 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             </table>
         </form>
     </div>
-    <!-- 4.2)Form ẩn: Chỉnh sửa tác giả -->
+    <!-- 4.2) Form ẩn: Chỉnh sửa tác giả -->
     <div id="div02_tacgia_form_edit"></div>
-    <!-- 4.3)Form ẩn: Xác nhận muốn xóa Tác giả -->
+    <!-- 4.3) Form ẩn: Xác nhận muốn xóa Tác giả -->
     <div id="divreport_delete_tacgia">
         <h3>Bạn có chắc muốn xóa tác giả này không?</h3>
         <button id="divreport_delete_tacgia_yes" type="button" onclick="return divreport_delete_tacgia_yes();">Có</button>
         <button id="divreport_delete_tacgia_no" type="button" onclick="return divreport_delete_tacgia_no();">Không</button>
     </div>
-    <!-- 5.1)Form ẩn: Thêm truyện -->
+    <!-- 5.1) Form ẩn: Thêm truyện -->
     <div id="div02_truyen_form_add">
         <form id="div02_truyen_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -309,15 +314,15 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             </table>
         </form>
     </div>
-    <!-- 5.2)Form ẩn: Chỉnh sửa truyện -->
+    <!-- 5.2) Form ẩn: Chỉnh sửa truyện -->
     <div id="div02_truyen_form_edit"></div>
-    <!-- 6)Form ẩn: Xác nhận muốn xóa Chương -->
+    <!-- 6.1) Form ẩn: Xác nhận muốn xóa Chương -->
     <div id="divreport_delete_chuong">
         <h3>Bạn có chắc muốn xóa chương này không?</h3>
         <button id="divreport_delete_chuong_yes" type="button" onclick="return divreport_delete_chuong_yes();">Có</button>
         <button id="divreport_delete_chuong_no" type="button" onclick="return divreport_delete_chuong_no();">Không</button>
     </div>
-    <!-- 6.1)Form ẩn: Thêm Thành viên -->
+    <!-- 7.1) Form ẩn: Thêm Thành viên -->
     <div id="div02_thanhvien_form_add">
         <form id="div02_thanhvien_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
@@ -376,18 +381,19 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             </table>
         </form>
     </div>
-    <!-- 6.2)Form ẩn: Chỉnh sửa thành viên -->
+    <!-- 7.2) Form ẩn: Chỉnh sửa thành viên -->
     <div id="div02_thanhvien_form_edit"></div>
-    <!-- 6.3)Form ẩn: Xác nhận muốn xóa Thành viên -->
+    <!-- 7.3) Form ẩn: Xác nhận muốn xóa Thành viên -->
     <div id="divreport_delete_thanhvien">
         <h3>Bạn có chắc muốn xóa thành viên này không?</h3>
         <button id="divreport_delete_thanhvien_yes" type="button" onclick="return divreport_delete_thanhvien_yes();">Có</button>
         <button id="divreport_delete_thanhvien_no" type="button" onclick="return divreport_delete_thanhvien_no();">Không</button>
     </div>
-    <!-- Thông báo  -->
+    <!-- 8.1) Thông báo 'thao tác thành công' -->
     <div id="divreport_success">
         <p>Thao tác thành công!</p>
     </div>
+    <!-- 8.2) Thông báo 'thao tác thất bại' -->
     <div id="divreport_failed">
         <p>Thao tác thất bại!</p>
     </div>
@@ -399,6 +405,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -409,6 +416,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_theloai_form_search_input_keyup("", 1);
         }
@@ -420,6 +428,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "visible";
             document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_tacgia_form_search_input_keyup("", 1);
         }
@@ -431,6 +440,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "visible";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
             div02_truyen_form_search_input_keyup("", 1);
         }
@@ -454,6 +464,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
             div02_thanhvien_form_search_input_keyup("", 1);
         }
@@ -465,6 +476,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('div02_tacgia').style.visibility = "hidden";
             document.getElementById('div02_truyen').style.visibility = "hidden";
             document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
+            document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
@@ -784,6 +796,13 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     document.getElementById('div02_truyen_chuong').innerHTML = xmlhttp.responseText;
+                    // Dùng khi người dùng ấn vào icon edit ở tổng hợp chương, nếu có ấn vào thì check_form_edit = 1, và thực thi trong if
+                    if (check_form_edit == 1) {
+                        div02_truyen_chuong_list_table_edit_click(value_chuong_id);
+                        // Đặt lại biến cho lần sau
+                        check_form_edit = "";
+                        value_chuong_id = "";
+                    }
                 }
             }
             xmlhttp.open("GET", "truyen_chuong_xuly_list.php?truyen_id=" + truyen_id, true);
@@ -793,6 +812,17 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
         /////----------------------------------------------------/////
         // CHƯƠNG
 
+        // Tạo ra hai biến để dùng cho hàm bên dưới
+        check_form_edit = "";
+        value_chuong_id = "";
+        // Ẩn đi các bảng và forn để đến Hiện form chỉnh sửa chương
+        function div02_chuong_list_table_edit_click(value_truyen_id, value_c) {
+            check_form_edit = 1;
+            value_chuong_id = value_c;
+            truyen_id = value_truyen_id;
+            document.getElementById('div02_chuong').style.visibility = "hidden";
+            div02_truyen_list_table_list_click(value_truyen_id);
+        }
         // Hiện form thêm chương
         function div02_truyen_chuong_form_add_click() {
             document.getElementById('div02_chuong_button').style.visibility = "hidden";
@@ -901,6 +931,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_chuong_form_search_input_keyup("", truyen_id);
+                    div02_chuong_form_search("");
                     if (xmlhttp.responseText == '') {
                         divreport_success();
                     } else {
@@ -1169,7 +1200,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
 
             return age >= min;
         }, "You are not old enough!");
-        
+
         $(document).ready(function() {
             // Form thêm tác giả
             $("#div02_tacgia_form_add").on("click", "#div02_tacgia_form_add_form", function() {
@@ -1336,10 +1367,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                         truyen_select_tacgia_theloai();
                                     });
                                     // Hiện thông báo thêm thành công or thêm thất bại
-                                    if(data == ""){
+                                    if (data == "") {
                                         divreport_success();
-                                    }
-                                    else{
+                                    } else {
                                         divreport_failed();
                                     }
                                 }
@@ -1393,10 +1423,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                     // Hiện ra danh sách truyện
                                     div02_truyen_form_search_input_keyup("", 1);
                                     // Hiện thông báo thêm thành công or thêm thất bại
-                                    if(data == ""){
+                                    if (data == "") {
                                         divreport_success();
-                                    }
-                                    else{
+                                    } else {
                                         divreport_failed();
                                     }
                                 }
@@ -1502,10 +1531,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                     // Hiển thị trang thông tin truyện và danh sách chương khi thêm chương mới xong
                                     div02_truyen_list_table_list_click(truyen_id);
                                     // Hiện thông báo thêm thành công or thêm thất bại
-                                    if(data == ""){
+                                    if (data == "") {
                                         divreport_success();
-                                    }
-                                    else{
+                                    } else {
                                         divreport_failed();
                                     }
                                 }
@@ -1555,10 +1583,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                     // Hiển thị trang thông tin truyện và danh sách chương khi chỉnh sửa xong
                                     div02_truyen_list_table_list_click(truyen_id);
                                     // Hiện thông báo thêm thành công or thêm thất bại
-                                    if(data == ""){
+                                    if (data == "") {
                                         divreport_success();
-                                    }
-                                    else{
+                                    } else {
                                         divreport_failed();
                                     }
                                 }
