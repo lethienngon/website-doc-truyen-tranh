@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
 }
 // Nếu không là thành viên thì exit
 else{
-    exit();
     echo "EXIT";
+    exit();
 }
 $conn->close();

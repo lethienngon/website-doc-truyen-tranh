@@ -38,6 +38,14 @@ $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
 $result_truyen_select_tacgia = mysqli_query($conn, "SELECT TACGIA_ID, TACGIA_HOTEN FROM tacgia");
 $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_NAME FROM theloai");
+// Lấy dữ liệu cookie
+$id = $_COOKIE['id'];
+$username = $_COOKIE['username'];
+$pass = $_COOKIE['pass'];
+// SQL lấy level người dùng
+$sql_admin_level = "select ADMIN_LEVEL from admin where ADMIN_ID='$id' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass')";
+$result_admin_level = $conn->query($sql_admin_level);
+$row_admin_level = $result_admin_level->fetch_assoc();
 ?>
 
 <html>
@@ -142,7 +150,11 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                     <!-- 2.2.1) Title Thể loại -->
                     <p class="div02_title">Quản lý Thể loại</p>
                     <!-- 2.2.2) Thêm thể loại -->
-                    <a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>
+                    <?php
+                    if ($row['ADMIN_LEVEL'] == 0 || $row['ADMIN_LEVEL'] == 1) {
+                        echo '<a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>';
+                    }
+                    ?>
                     <!-- 2.2.3) Tìm kiếm thể loại -->
                     <form id="div02_theloai_form_search">
                         <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
@@ -221,9 +233,9 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                     <td><textarea rows="20" cols="65" style="margin-top:30px; padding:5px;" name="theloai_mota" placeholder="Mô tả thể loại"></textarea> </td>
                 </tr>
                 <tr>
-                    <td><input id="div02_theloai_form_add_form_submit" type="submit" value="Thêm" name="submit">
-                        <input id="div02_theloai_form_add_form_reset" type="reset" value="Làm lại">
-                        <input id="div02_theloai_form_add_form_exit" type="button" value="Thoát" onclick="div02_theloai_form_add_form_exit_click()">
+                    <td><input class="div02_form_submit" type="submit" value="Thêm" name="submit">
+                        <input class="div02_form_reset" type="reset" value="Làm lại">
+                        <input class="div02_form_exit" type="button" value="Thoát" onclick="div02_theloai_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
@@ -233,7 +245,7 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
     <div id="div02_theloai_form_edit"></div>
     <!-- 3.3) Form ẩn: Xác nhận muốn xóa thể loại này -->
     <div id="divreport_delete_theloai">
-        <h3>Bạn có chắc muốn xóa tác giả này không?</h3>
+        <h3>Bạn có chắc muốn xóa thể loại này không?</h3>
         <button id="divreport_delete_theloai_yes" type="button" onclick="return divreport_delete_theloai_yes();">Có</button>
         <button id="divreport_delete_theloai_no" type="button" onclick="return divreport_delete_theloai_no();">Không</button>
     </div>
@@ -585,6 +597,12 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_theloai_form_search_input_keyup("", 1);
+                    // Hiện thông báo thêm thành công or thêm thất bại
+                    if (xmlhttp.responseText == '') {
+                        divreport_success();
+                    } else {
+                        divreport_failed();
+                    }
                 }
             }
             xmlhttp.open("GET", "theloai_xuly_delete.php?theloai_id=" + theloai_id, true);
@@ -1170,10 +1188,16 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                 success: function(data) {
                                     // Ẩn form thêm thể loại
                                     div02_theloai_form_add_form_exit_click();
-                                    // Hiện danh sách thể loại
+                                    // Cập nhật lại danh sách thể loại khi thêm xong
                                     div02_theloai_form_search_input_keyup("", 1);
                                     // Load lại form thêm thể loại
                                     $("#div02_theloai_form_add").load(" #div02_theloai_form_add > *");
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
                                 }
                             });
                         });
@@ -1208,8 +1232,16 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
                                 cache: false,
                                 processData: false,
                                 success: function(data) {
+                                    // Ẩn form chỉnh sửa thể loại
                                     div02_theloai_form_edit_form_exit_click();
+                                    // Cập nhật danh sách thể loại sau khi chỉnh sửa
                                     div02_theloai_form_search_input_keyup("", 1);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
                                 }
                             });
                         });

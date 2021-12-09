@@ -63,6 +63,10 @@ if ($result->num_rows > 0) {
                  </tr>";
     }
     echo "</table>";
-} else {
+}
+// Nếu không là thành viên thì exit
+else {
+    echo "EXIT";
     exit();
 }
+$conn->close();

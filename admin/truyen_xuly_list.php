@@ -20,7 +20,7 @@ $offset = ($current_page - 1) * $item_per_page;
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
 // Check xem người dùng có phải là thành viên không
-$sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$idtv' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass') and ADMIN_LEVEL=0";
+$sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$idtv' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass')";
 $result = $conn->query($sql);
 // Nếu người dùng là thành viên thì thực hiện trong if
 if ($result->num_rows > 0) {
@@ -132,7 +132,7 @@ if ($result->num_rows > 0) {
 }
 // Nếu không là thành viên thì exit
 else {
-    exit();
     echo "EXIT";
+    exit();
 }
 $conn->close();

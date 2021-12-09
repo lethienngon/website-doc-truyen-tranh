@@ -27,6 +27,7 @@ if ($result->num_rows > 0) {
     // SQL xóa truyện
     $sql_del = "DELETE FROM truyen where TRUYEN_ID='$truyen_id'";
     $result_del = $conn->query($sql_del);
+    // Kiểm tra xem câu lệnh có thành công không
     if ($result_del === TRUE) {
     } else {
         echo "Error deleting record: " . $conn->error;
@@ -34,7 +35,7 @@ if ($result->num_rows > 0) {
 }
 // Nếu không là thành viên thì exit
 else {
-    exit();
     echo "EXIT";
+    exit();
 }
 $conn->close();

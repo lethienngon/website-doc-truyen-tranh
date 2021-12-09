@@ -22,7 +22,7 @@ $truyen_id = $_GET['truyen_id'];
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
 // Kiểm tra người dùng có là thành viên trong CSDL không
-$sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$id' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass')";
+$sql = "select ADMIN_USERNAME from admin where ADMIN_ID='$admin_id' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass')";
 $result = $conn->query($sql);
 // Nếu là thành viên sẽ thực hiện trong if
 if ($result->num_rows > 0) {    
@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
 }
 // Nếu không là thành viên thì exit
 else {
-    exit();
     echo "EXIT";
+    exit();
 }
 $conn->close();
