@@ -287,7 +287,8 @@ body {
 #divreport_delete_thanhvien,
 #divreport_delete_tacgia,
 #divreport_delete_theloai,
-#divreport_delete_chuong {
+#divreport_delete_chuong,
+#divreport_delete_truyen {
     position: fixed;
     left: 50%;
     top: 10%;
@@ -304,7 +305,8 @@ body {
 #divreport_delete_thanhvien h3,
 #divreport_delete_tacgia h3,
 #divreport_delete_theloai h3,
-#divreport_delete_chuong h3 {
+#divreport_delete_chuong h3,
+#divreport_delete_truyen h3 {
     color: rgb(0, 0, 0);
     margin-top: 40px;
     margin-left: 80px;
@@ -317,7 +319,9 @@ body {
 #divreport_delete_theloai_yes,
 #divreport_delete_theloai_no,
 #divreport_delete_chuong_yes,
-#divreport_delete_chuong_no {
+#divreport_delete_chuong_no,
+#divreport_delete_truyen_yes,
+#divreport_delete_truyen_no {
     font-size: 15px;
     font-weight: bold;
     color: white;
@@ -338,7 +342,9 @@ body {
 #divreport_delete_theloai_yes:hover,
 #divreport_delete_theloai_no:hover,
 #divreport_delete_chuong_yes:hover,
-#divreport_delete_chuong_no:hover {
+#divreport_delete_chuong_no:hover,
+#divreport_delete_truyen_yes:hover,
+#divreport_delete_truyen_no:hover {
     border: 2px solid black;
 }
 

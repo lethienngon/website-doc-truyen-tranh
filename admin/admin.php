@@ -316,6 +316,12 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
     </div>
     <!-- 5.2) Form ẩn: Chỉnh sửa truyện -->
     <div id="div02_truyen_form_edit"></div>
+    <!-- 5.3) Form ẩn: Xác nhận muốn xóa truyện -->
+    <div id="divreport_delete_truyen">
+        <h3>Bạn có chắc muốn xóa truyện này không?</h3>
+        <button id="divreport_delete_truyen_yes" type="button" onclick="return divreport_delete_truyen_yes();">Có</button>
+        <button id="divreport_delete_truyen_no" type="button" onclick="return divreport_delete_truyen_no();">Không</button>
+    </div>
     <!-- 6.1) Form ẩn: Xác nhận muốn xóa Chương -->
     <div id="divreport_delete_chuong">
         <h3>Bạn có chắc muốn xóa chương này không?</h3>
@@ -780,6 +786,49 @@ $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('div02_truyen_form_edit').style.top = "30%";
             document.getElementById('div02_truyen_form_edit').style.transition = "0s";
+        }
+        // Hiện thông báo xóa truyện
+        function div02_truyen_list_table_delete_click(value) {
+            document.getElementById('divreport_delete_truyen').style.visibility = "visible";
+            document.getElementById('content').style.filter = "blur(10px)";
+            document.getElementById('content').style.pointerEvents = "none";
+            document.getElementById('content').style.userSelect = "none";
+            document.getElementById('divreport_delete_truyen').style.transition = "0.5s";
+            document.getElementById('divreport_delete_truyen').style.top = "30%";
+            truyen_id = value;
+        }
+        // Chọn no để quay lại
+        function divreport_delete_truyen_no() {
+            document.getElementById('divreport_delete_truyen').style.visibility = "hidden";
+            document.getElementById('content').style.filter = "none";
+            document.getElementById('content').style.pointerEvents = "auto";
+            document.getElementById('content').style.userSelect = "auto";
+            document.getElementById('divreport_delete_truyen').style.transition = "0s";
+            document.getElementById('divreport_delete_truyen').style.top = "10%";
+        }
+        // Chọn yes để xóa truyện
+        function divreport_delete_truyen_yes() {
+            divreport_delete_truyen_no();
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest();
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    // Cập nhật danh sách truyện sau khi xóa xong
+                    div02_truyen_form_search_input_keyup("", 1);
+                    // Hiện thông báo xóa thành công hoặc xóa thất bại
+                    if (xmlhttp.responseText == '') {
+                        divreport_success();
+                    } else {
+                        divreport_failed();
+                    }
+                }
+            }
+            xmlhttp.open("GET", "truyen_xuly_delete.php?truyen_id=" + truyen_id, true);
+            xmlhttp.send();
         }
         // Thông tin truyện và danh sách chương
         function div02_truyen_list_table_list_click(value) {
