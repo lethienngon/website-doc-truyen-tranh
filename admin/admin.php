@@ -168,7 +168,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 <!-- 2.3.1) Title Tác giả -->
                 <p class="div02_title">Quản lý Tác giả</p>
                 <!-- 2.3.2) Thêm tác giả -->
-                <a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>
+                <?php
+                    if ($row['ADMIN_LEVEL'] == 0 || $row['ADMIN_LEVEL'] == 1) {
+                        echo '<a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>';
+                    }
+                    ?>
                 <!-- 2.3.3) Tìm kiếm tác giả -->
                 <form id="div02_tacgia_form_search">
                     <input id="div02_tacgia_form_search_input" type="text" name="hoten" onkeyup=div02_tacgia_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
@@ -263,12 +267,12 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                     <td><input type="date" class="div02_tacgia_form_add_form_input" name="tacgia_ngaysinh"></td>
                 </tr>
                 <tr>
-                    <td><textarea rows="20" cols="65" style="margin-top:20px; padding:5px;" name="tacgia_tieusu" placeholder="Tiểu sử của tác giả"></textarea> </td>
+                    <td><textarea rows="15" cols="65" style="margin-top:20px; padding:5px;" name="tacgia_tieusu" placeholder="Tiểu sử của tác giả"></textarea> </td>
                 </tr>
                 <tr>
-                    <td><input id="div02_tacgia_form_add_form_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="div02_tacgia_form_add_form_reset" type="reset" value="Làm lại">
-                        <input id="div02_tacgia_form_add_form_exit" type="button" value="Thoát" onclick="div02_tacgia_form_add_form_exit_click()">
+                    <td><input class="div02_form_submit" type="submit" value="Thêm" name="submit">
+                        <input class="div02_form_reset" type="reset" value="Làm lại">
+                        <input class="div02_form_exit" type="button" value="Thoát" onclick="div02_tacgia_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
@@ -318,9 +322,9 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                     <td><textarea rows="15" cols="65" style="margin-top:30px; padding:5px;" name="truyen_mota" placeholder="Mô tả truyện"></textarea> </td>
                 </tr>
                 <tr>
-                    <td><input id="div02_truyen_form_add_form_submit" class="div02_form_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="div02_truyen_form_add_form_reset" class="div02_form_reset" type="reset" value="Làm lại">
-                        <input id="div02_truyen_form_add_form_exit" class="div02_form_exit" type="button" value="Thoát" onclick="div02_truyen_form_add_form_exit_click()">
+                    <td><input class="div02_form_submit" type="submit" value="Thêm" name="submit">
+                        <input class="div02_form_reset" type="reset" value="Làm lại">
+                        <input class="div02_form_exit" type="button" value="Thoát" onclick="div02_truyen_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
@@ -391,9 +395,9 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 </tr>
                 <tr>
                     <th> </th>
-                    <td><input id="div02_thanhvien_form_add_form_submit" type="submit" value="Đăng kí" name="submit">
-                        <input id="div02_thanhvien_form_add_form_reset" type="reset" value="Làm lại">
-                        <input id="div02_thanhvien_form_add_form_exit" type="button" value="Thoát" onclick="div02_thanhvien_form_add_form_exit_click()">
+                    <td><input class="div02_form_submit" type="submit" value="Thêm" name="submit">
+                        <input class="div02_form_reset" type="reset" value="Làm lại">
+                        <input class="div02_form_exit" type="button" value="Thoát" onclick="div02_thanhvien_form_add_form_exit_click()">
                     </td>
                 </tr>
             </table>
@@ -688,7 +692,7 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             document.getElementById('content').style.pointerEvents = "auto";
             document.getElementById('content').style.userSelect = "auto";
             document.getElementById('div02_tacgia_form_edit').style.top = "30%";
-            document.getElementById('div02_tacgia_form_edit').style.transition = "0.5s";
+            document.getElementById('div02_tacgia_form_edit').style.transition = "0s";
         }
         // Hiện thông báo xóa tác giả
         function div02_tacgia_list_table_delete_click(value) {
@@ -717,6 +721,12 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_tacgia_form_search_input_keyup("", 1);
+                    // Hiện thông báo thêm thành công or thêm thất bại
+                    if (xmlhttp.responseText == '') {
+                        divreport_success();
+                    } else {
+                        divreport_failed();
+                    }
                 }
             }
             xmlhttp.open("GET", "tacgia_xuly_delete.php?tacgia_id=" + tacgia_id, true);
@@ -1281,7 +1291,6 @@ $row_admin_level = $result_admin_level->fetch_assoc();
 
             return age >= min;
         }, "You are not old enough!");
-
         $(document).ready(function() {
             // Form thêm tác giả
             $("#div02_tacgia_form_add").on("click", "#div02_tacgia_form_add_form", function() {
@@ -1327,6 +1336,12 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_tacgia_form_search_input_keyup("", 1);
                                     // Load lại form thêm tác giả 
                                     $("#div02_tacgia_form_add").load(" #div02_tacgia_form_add > *");
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
                                 }
                             });
                         });
@@ -1375,6 +1390,12 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_tacgia_form_edit_form_exit_click();
                                     // Hiện danh sách tác giả
                                     div02_tacgia_form_search_input_keyup("", 1);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
                                 }
                             });
                         });
