@@ -98,7 +98,6 @@ if ($result->num_rows > 0) {
             }
             // Cắt bỏ hai kí tự cuối của chuỗi là ", "
             $truyen_theloai = substr($truyen_theloai, 0, -2);
-            $truyen_theloai = substr($truyen_theloai, 0, -2);
             // Đổi value trạng thái truyện thành tên
             $truyen_trangthai_switch = "";
             switch ($row_kq['TRUYEN_TRANGTHAI']) {

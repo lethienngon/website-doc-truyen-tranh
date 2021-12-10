@@ -6,7 +6,7 @@ header('Expires: 0');
 if (!isset($_COOKIE['username']) and !isset($_COOKIE['pass'])) {
     exit();
 }
-// Dữ liệu để check xem người muốn xóa có phải là thành viên không
+// Dữ liệu để check xem người dùng có phải là thành viên không
 $id = $_COOKIE['id'];
 $username = $_COOKIE['username'];
 $pass = $_COOKIE['pass'];

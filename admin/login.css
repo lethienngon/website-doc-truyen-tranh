@@ -68,26 +68,29 @@ td {
     left: 50%;
     top: 10%;
     transform: translate(-50%, -50%);
-    width: 600px;
+    width: auto;
     height: 200px;
-    background-color: aquamarine;
+    background-color: rgb(146, 63, 63);
     box-shadow: 0 5px 30px rgba(0, 0, 0, .30);
     border-radius: 10px;
     visibility: hidden;
     transition: 0.5s;
+    text-align: center;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 h3 {
     color: rgb(129, 21, 93);
     margin-top: 40px;
-    margin-left: 70px;
+    color: white
 }
 
 #bt {
     margin-top: 30px;
-    margin-left: 250px;
     width: 100px;
     height: 40px;
     background-color: rgb(49, 102, 182);
     border: 0px;
+    color: white;
 }

@@ -2,13 +2,9 @@
 header('Cache-Control: no-cache, no-store, must-revalidate'); //HTTP 1.1
 header('Pragma: no-cache'); //HTTP 1.0
 header('Expires: 0'); // Date in the past
-//session_start();
 if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     header('location:admin.php');
 }
-/*else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
-    header('location:admin.php');
-}*/
 ?>
 <html>
 
@@ -27,7 +23,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                 <tr>
                     <td>
                         <input id="user" class="input" type="text" name="username" autocomplete="off" placeholder="Tài khoản đăng nhập">
-                        <p id="thep1">Bạn chưa nhập Tài khoản đăng nhập</p>
+                        <p id="thep1">Bạn chưa nhập tài khoản đăng nhập</p>
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +39,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
         </table>
     </div>
     <div id="divreport">
-        <h3>Bạn đã nhập sai Tài khoản hoặc Mật khẩu đăng nhập!!!</h3>
+        <h3 id="divreport_h3"></h3>
         <button id="bt" type="button" onclick="return ok();">OK</button>
     </div>
     <script>
@@ -59,6 +55,17 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
             document.getElementById('divcenter').style.userSelect = "auto";
             document.getElementById('divreport').style.transition = "0s";
             document.getElementById('divreport').style.top = "20%";
+        }
+
+        function click_exit() {
+            document.getElementById('divreport').style.visibility = "visible";
+            document.getElementById('thep1').style.visibility = "hidden";
+            document.getElementById('thep2').style.visibility = "hidden";
+            document.getElementById('divcenter').style.filter = "blur(20px)";
+            document.getElementById('divcenter').style.pointerEvents = "none";
+            document.getElementById('divcenter').style.userSelect = "none";
+            document.getElementById('divreport').style.top = "40%";
+            document.getElementById('divreport').style.transition = "0.5s";
         }
     </script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -78,14 +85,7 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                     response = JSON.parse(response);
                     if (response.status == 0) {
                         if (x != "" && y != "") {
-                            document.getElementById('divreport').style.visibility = "visible";
-                            document.getElementById('thep1').style.visibility = "hidden";
-                            document.getElementById('thep2').style.visibility = "hidden";
-                            document.getElementById('divcenter').style.filter = "blur(20px)";
-                            document.getElementById('divcenter').style.pointerEvents = "none";
-                            document.getElementById('divcenter').style.userSelect = "none";
-                            document.getElementById('divreport').style.top = "40%";
-                            document.getElementById('divreport').style.transition = "0.5s";
+                            click_exit();
                         } else if (x == "" && y != "") {
                             document.getElementById('thep1').style.visibility = "visible";
                             document.getElementById('thep2').style.visibility = "hidden";
@@ -96,8 +96,15 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
                             document.getElementById('thep1').style.visibility = "visible";
                             document.getElementById('thep2').style.visibility = "visible";
                         }
-                    } else {
+                        document.getElementById('divreport_h3').innerHTML = response.mesage;
+                    } else if (response.status == 1) {
                         location.pathname = "admin/admin.php";
+                    } else if (response.status == 2) {
+                        click_exit();
+                        document.getElementById('divreport_h3').innerHTML = response.mesage;
+                    } else {
+                        click_exit();
+                        document.getElementById('divreport_h3').innerHTML = "Có lỗi";
                     }
                 }
             });

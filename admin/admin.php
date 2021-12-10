@@ -2,7 +2,6 @@
 header('Cache-Control: no-cache, no-store, must-revalidate'); //HTTP 1.1
 header('Pragma: no-cache'); //HTTP 1.0
 header('Expires: 0'); // Date in the past
-//session_start();
 // Check Cookie
 if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     $tendangnhap_cook = $_COOKIE['username'];
@@ -16,32 +15,24 @@ if (isset($_COOKIE['username']) and isset($_COOKIE['pass'])) {
     } else {
         header('location:login.php');
     }
-}
-// Check Session
-/*else if (isset($_SESSION['username']) and isset($_SESSION['pass'])) {
-    $tendangnhap_sess = $_SESSION['username'];
-    $pass_sess = $_SESSION['pass'];
-
-    $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
-    $conn->set_charset("utf8");
-    $sql_sess = "select * from admin where ADMIN_USERNAME='$tendangnhap_sess' and ADMIN_MATKHAU=md5('$pass_sess')";
-    $result_sess = $conn->query($sql_sess);
-    if ($result_sess->num_rows > 0) {
-    } else {
-        header('location:login.php');
-    }
-}*/ else {
+} else {
     header('location:login.php');
 }
-// Truyện Select tác giả 
+// Connect Mysql
 $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
 $conn->set_charset("utf8");
+// Lấy dữ liệu từ bảng tác giả
 $result_truyen_select_tacgia = mysqli_query($conn, "SELECT TACGIA_ID, TACGIA_HOTEN FROM tacgia");
+// Lấy dữ liệu từ bảng thể loại
 $result_truyen_select_theloai = mysqli_query($conn, "SELECT THELOAI_ID, THELOAI_NAME FROM theloai");
 // Lấy dữ liệu cookie
 $id = $_COOKIE['id'];
 $username = $_COOKIE['username'];
 $pass = $_COOKIE['pass'];
+// Đặt lại cookie mỗi khi reload lại trang
+setcookie('id', $id, time() + 3600, '/', '', 0, 0);
+setcookie('username', $username, time() + 3600, '/', '', 0, 0);
+setcookie('pass', $pass, time() + 3600, '/', '', 0, 0);
 // SQL lấy level người dùng
 $sql_admin_level = "select ADMIN_LEVEL from admin where ADMIN_ID='$id' and ADMIN_USERNAME='$username' and ADMIN_MATKHAU=md5('$pass')";
 $result_admin_level = $conn->query($sql_admin_level);
@@ -90,11 +81,15 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                         <p>Chương</p>
                     </a>
                 </li>
-                <li>
+                <?php
+                if ($row_admin_level['ADMIN_LEVEL'] == 0) {
+                    echo '<li>
                     <a href="#" onclick="click_thanhvien()">
                         <p>Thành viên</p>
                     </a>
-                </li>
+                </li>';
+                }
+                ?>
                 <li>
                     <a href="#" onclick="click_baoloi()">
                         <p>Báo lỗi</p>
@@ -115,53 +110,47 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 <div id="div02_thongtincanhan_lienhe">
                     <table border="0">
                         <?php
-                        $username = $_COOKIE['username'];
-                        $matkhau = $_COOKIE['pass'];
-
-                        $conn = new mysqli("localhost", "root", "", "db_web_truyen_tranh");
-                        $conn->set_charset("utf8");
-                        $sql = "select * from admin where ADMIN_USERNAME = '$username' and ADMIN_MATKHAU=md5('$matkhau')";
-                        $result = $conn->query($sql);
-                        $row = $result->fetch_assoc();
+                        // Lấy thông tin cá nhân
+                        $sql_ttcn = "select * from admin where ADMIN_USERNAME = '$username' and ADMIN_MATKHAU=md5('$pass')";
+                        $result_ttcn = $conn->query($sql_ttcn);
+                        $row_ttcn = $result_ttcn->fetch_assoc();
                         echo "
                         <tr>
-                            <th>Username:</th>
-                            <td>" . $row['ADMIN_HOTEN'] . "</td>
+                            <th>Họ và Tên:</th>
+                            <td>" . $row_ttcn['ADMIN_HOTEN'] . "</td>
                         </tr>
                         <tr>
                             <th>Email:</th>
-                            <td>" . $row['ADMIN_EMAIL'] . "</td>
+                            <td>" . $row_ttcn['ADMIN_EMAIL'] . "</td>
                         </tr>
                         <tr>
                             <th>SĐT:</th>
-                            <td>" . $row['ADMIN_SDT'] . "</td>
+                            <td>" . $row_ttcn['ADMIN_SDT'] . "</td>
                         </tr>
                         <tr>
                             <th>Ngày tham gia:</th>
-                            <td>" . $row['ADMIN_NGAYTAO'] . "</td>
+                            <td>" . $row_ttcn['ADMIN_NGAYTAO'] . "</td>
                         </tr>";
                         ?>
                     </table>
                 </div>
             </div>
             <!-- 2.2) Phần nội dung Thể loại -->
-            <div>
-                <div id="div02_theloai">
-                    <!-- 2.2.1) Title Thể loại -->
-                    <p class="div02_title">Quản lý Thể loại</p>
-                    <!-- 2.2.2) Thêm thể loại -->
-                    <?php
-                    if ($row['ADMIN_LEVEL'] == 0 || $row['ADMIN_LEVEL'] == 1) {
-                        echo '<a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>';
-                    }
-                    ?>
-                    <!-- 2.2.3) Tìm kiếm thể loại -->
-                    <form id="div02_theloai_form_search">
-                        <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
-                    </form>
-                    <!-- 2.2.4) Danh sách thể loại -->
-                    <div id="div02_theloai_list"></div>
-                </div>
+            <div id="div02_theloai">
+                <!-- 2.2.1) Title Thể loại -->
+                <p class="div02_title">Quản lý Thể loại</p>
+                <!-- 2.2.2) Thêm thể loại -->
+                <?php
+                if ($row_admin_level['ADMIN_LEVEL'] == 0 || $row_admin_level['ADMIN_LEVEL'] == 1) {
+                    echo '<a id="div02_theloai_add" onclick="div02_theloai_add_click()" href="#"><img src="theloai_add.ico" style="width:16px;height:16px"> Thêm thể loại</a>';
+                }
+                ?>
+                <!-- 2.2.3) Tìm kiếm thể loại -->
+                <form id="div02_theloai_form_search">
+                    <input id="div02_theloai_form_search_input" type="text" name="hoten" onkeyup=div02_theloai_form_search_input_keyup(this.value,1) placeholder="Nhập tên thể loại để tìm kiếm">
+                </form>
+                <!-- 2.2.4) Danh sách thể loại -->
+                <div id="div02_theloai_list"></div>
             </div>
             <!-- 2.3) Phần nội dung Tác giả -->
             <div id="div02_tacgia">
@@ -169,10 +158,10 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 <p class="div02_title">Quản lý Tác giả</p>
                 <!-- 2.3.2) Thêm tác giả -->
                 <?php
-                    if ($row['ADMIN_LEVEL'] == 0 || $row['ADMIN_LEVEL'] == 1) {
-                        echo '<a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>';
-                    }
-                    ?>
+                if ($row_admin_level['ADMIN_LEVEL'] == 0 || $row_admin_level['ADMIN_LEVEL'] == 1) {
+                    echo '<a id="div02_tacgia_add" onclick="div02_tacgia_add_click()" href="#"><img src="tacgia_add.ico" style="width:16px;height:16px"> Thêm tác giả</a>';
+                }
+                ?>
                 <!-- 2.3.3) Tìm kiếm tác giả -->
                 <form id="div02_tacgia_form_search">
                     <input id="div02_tacgia_form_search_input" type="text" name="hoten" onkeyup=div02_tacgia_form_search_input_keyup(this.value,1) placeholder="Nhập họ và tên tác giả để tìm kiếm">
@@ -346,6 +335,7 @@ $row_admin_level = $result_admin_level->fetch_assoc();
     </div>
     <!-- 7.1) Form ẩn: Thêm Thành viên -->
     <div id="div02_thanhvien_form_add">
+        <p>Thêm Thành Viên</p>
         <form id="div02_thanhvien_form_add_form" method="POST" enctype='multipart/form-data' autocomplete="off">
             <table border="0">
                 <tr>
@@ -375,23 +365,6 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 <tr>
                     <th align="left"><label>Hình đại diện</label></th>
                     <td><input type="file" id="div02_thanhvien_form_add_form_anhdaidien" name="anhdaidien" accept=".jpg, .jpeg, .png"></td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Quyền</label></th>
-                    <td><select name="level">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th align="left"><label>Trạng thái</label></th>
-                    <td><select name="status">
-                            <option value="0">Khóa</option>
-                            <option value="1">Đang hoạt động</option>
-                        </select>
-                    </td>
                 </tr>
                 <tr>
                     <th> </th>
@@ -601,6 +574,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_theloai_form_search_input_keyup("", 1);
+                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                        truyen_select_tacgia_theloai();
+                    });
                     // Hiện thông báo thêm thành công or thêm thất bại
                     if (xmlhttp.responseText == '') {
                         divreport_success();
@@ -721,6 +699,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_tacgia_form_search_input_keyup("", 1);
+                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                        truyen_select_tacgia_theloai();
+                    });
                     // Hiện thông báo thêm thành công or thêm thất bại
                     if (xmlhttp.responseText == '') {
                         divreport_success();
@@ -1145,6 +1128,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             xmlhttp.onreadystatechange = function() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     div02_thanhvien_form_search_input_keyup("", 1);
+                    if (xmlhttp.responseText == '') {
+                        divreport_success();
+                    } else {
+                        divreport_failed();
+                    }
                 }
             }
             xmlhttp.open("GET", "thanhvien_xuly_delete.php?thanhvien_id=" + thanhvien_id, true);
@@ -1202,6 +1190,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_theloai_form_search_input_keyup("", 1);
                                     // Load lại form thêm thể loại
                                     $("#div02_theloai_form_add").load(" #div02_theloai_form_add > *");
+                                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
                                     // Hiện thông báo thêm thành công or thêm thất bại
                                     if (data == "") {
                                         divreport_success();
@@ -1246,6 +1239,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_theloai_form_edit_form_exit_click();
                                     // Cập nhật danh sách thể loại sau khi chỉnh sửa
                                     div02_theloai_form_search_input_keyup("", 1);
+                                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
                                     // Hiện thông báo thêm thành công or thêm thất bại
                                     if (data == "") {
                                         divreport_success();
@@ -1336,6 +1334,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_tacgia_form_search_input_keyup("", 1);
                                     // Load lại form thêm tác giả 
                                     $("#div02_tacgia_form_add").load(" #div02_tacgia_form_add > *");
+                                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
                                     // Hiện thông báo thêm thành công or thêm thất bại
                                     if (data == "") {
                                         divreport_success();
@@ -1390,6 +1393,11 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_tacgia_form_edit_form_exit_click();
                                     // Hiện danh sách tác giả
                                     div02_tacgia_form_search_input_keyup("", 1);
+                                    // Reload lại form thêm truyện nếu không các chọn lựa không cập nhật
+                                    $("#div02_truyen_form_add").load(" #div02_truyen_form_add > *", function() {
+                                        // Vì khi reload lại form thêm truyện thì select2 không hoạt động, cần đặt lại select2
+                                        truyen_select_tacgia_theloai();
+                                    });
                                     // Hiện thông báo thêm thành công or thêm thất bại
                                     if (data == "") {
                                         divreport_success();
@@ -1702,105 +1710,131 @@ $row_admin_level = $result_admin_level->fetch_assoc();
     <!-- THÀNH VIÊN -->
     <script type="text/javascript">
         $(document).ready(function() {
-            // Form thêm thành viên
-            $("#div02_thanhvien_form_add_form").validate({
-                rules: {
-                    username: {
-                        required: true,
-                        minlength: 8,
-                        remote: "thanhvien_check_username_exit.php"
+            $("#div02_thanhvien_form_add").on("click", "#div02_thanhvien_form_add_form", function() {
+                // Form thêm thành viên
+                $("#div02_thanhvien_form_add_form").validate({
+                    rules: {
+                        username: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 100,
+                            remote: "thanhvien_check_username_exit.php"
+                        },
+                        pass: {
+                            required: true,
+                            minlength: 8,
+                            maxlength: 100
+                        },
+                        passagain: {
+                            equalTo: "#div02_thanhvien_form_add_form_password"
+                        },
+                        hoten: {
+                            required: true,
+                            maxlength: 200
+                        },
+                        email: {
+                            required: true,
+                            email: true,
+                            maxlength: 200
+                        },
+                        sdt: {
+                            required: true,
+                            number: true,
+                            maxlength: 20
+                        }
                     },
-                    pass: {
-                        required: true,
-                        minlength: 8
+                    messages: {
+                        username: {
+                            required: "Bạn chưa nhập tên đăng nhập",
+                            minlength: "Username phải có ít nhất 8 kí tự",
+                            maxlength: "Username không vượt quá 100 kí tự",
+                            remote: "Username đã tồn tại"
+                        },
+                        pass: {
+                            required: "Bạn chưa nhập mật khẩu",
+                            minlength: "Mật khẩu phải có ít nhất 8 kí tự",
+                            maxlength: "Mật khẩu không vượt quá 100 kí tự",
+                        },
+                        passagain: {
+                            equalTo: "Mật khẩu không khớp"
+                        },
+                        hoten: {
+                            required: "Bạn chưa nhập họ và tên",
+                            maxlength: "Họ tên không vượt quá 200 kí tự",
+                        },
+                        email: {
+                            required: "Bạn chưa nhập email",
+                            email: "Chưa đúng định dạng email",
+                            maxlength: "Email không vượt quá 200 kí tự",
+                        },
+                        sdt: {
+                            required: "Bạn chưa nhập số điện thoại",
+                            number: "Bạn chỉ được nhập kí tự số",
+                            maxlength: "Số điện thoại không vượt quá 20 kí tự",
+                        }
                     },
-                    passagain: {
-                        equalTo: "#div02_thanhvien_form_add_form_password"
-                    },
-                    hoten: {
-                        required: true
-                    },
-                    email: {
-                        required: true,
-                        email: true
-                    },
-                    sdt: {
-                        required: true,
-                        number: true
-                    }
-                },
-                messages: {
-                    username: {
-                        required: "Bạn chưa nhập tên đăng nhập",
-                        minlength: "Username phải có ít nhất 8 kí tự",
-                        remote: "Username đã tồn tại"
-                    },
-                    pass: {
-                        required: "Bạn chưa nhập mật khẩu",
-                        minlength: "Mật khẩu phải có ít nhất 8 kí tự"
-                    },
-                    passagain: {
-                        equalTo: "Mật khẩu không khớp"
-                    },
-                    hoten: {
-                        required: "Bạn chưa nhập họ và tên"
-                    },
-                    email: {
-                        required: "Bạn chưa nhập email",
-                        email: "Chưa đúng định dạng email"
-                    },
-                    sdt: {
-                        required: "Bạn chưa nhập số điện thoại",
-                        number: "Bạn chỉ được nhập kí tự số"
-                    }
-                },
-                submitHandler: function(form) {
-                    $('#div02_thanhvien_form_add_form').on('submit', function(e) {
-                        e.preventDefault();
-                        $.ajax({
-                            url: "thanhvien_xuly_add.php",
-                            method: "POST",
-                            data: new FormData(this),
-                            contentType: false,
-                            cache: false,
-                            processData: false,
-                            success: function(data) {
-                                // Ẩn đi form thêm thành viên
-                                div02_thanhvien_form_add_form_exit_click();
-                                // Hiện ra danh sách thành viên
-                                div02_thanhvien_form_search_input_keyup("", 1);
-                            }
+                    submitHandler: function(form) {
+                        $('#div02_thanhvien_form_add_form').on('submit', function(e) {
+                            e.preventDefault();
+                            $.ajax({
+                                url: "thanhvien_xuly_add.php",
+                                method: "POST",
+                                data: new FormData(this),
+                                contentType: false,
+                                cache: false,
+                                processData: false,
+                                success: function(data) {
+                                    // Ẩn đi form thêm thành viên
+                                    div02_thanhvien_form_add_form_exit_click();
+                                    // Hiện ra danh sách thành viên
+                                    div02_thanhvien_form_search_input_keyup("", 1);
+                                    // Load lại form khi thêm xong
+                                    $("#div02_thanhvien_form_add").load(" #div02_thanhvien_form_add > *");
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
+                                }
+                            });
                         });
-                    });
-                }
+                    }
+                });
             });
             // Form chỉnh sửa thành viên
             $("#div02_thanhvien_form_edit").on("click", "#div02_thanhvien_form_edit_form", function() {
                 $("#div02_thanhvien_form_edit_form").validate({
                     rules: {
                         hoten: {
-                            required: true
+                            required: true,
+                            maxlength: 200
                         },
                         email: {
                             required: true,
-                            email: true
+                            email: true,
+                            maxlength: 200
                         },
                         sdt: {
                             required: true,
-                            number: true
+                            number: true,
+                            maxlength: 20
                         }
                     },
                     messages: {
                         hoten: {
-                            required: "Bạn chưa nhập họ và tên"
+                            required: "Bạn chưa nhập họ và tên",
+                            maxlength: "Họ tên không vượt quá 200 kí tự",
                         },
                         email: {
                             required: "Bạn chưa nhập email",
-                            email: "Chưa đúng định dạng email"
+                            email: "Chưa đúng định dạng email",
+                            maxlength: "Email không vượt quá 200 kí tự",
                         },
                         sdt: {
                             required: "Bạn chưa nhập số điện thoại",
-                            number: "Bạn chỉ được nhập kí tự số"
+                            number: "Bạn chỉ được nhập kí tự số",
+                            maxlength: "Số điện thoại không vượt quá 20 kí tự",
                         }
                     },
                     submitHandler: function(form) {
@@ -1818,6 +1852,12 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                                     div02_thanhvien_form_edit_form_exit_click();
                                     // Hiện danh sách thành viên
                                     div02_thanhvien_form_search_input_keyup("", 1);
+                                    // Hiện thông báo thêm thành công or thêm thất bại
+                                    if (data == "") {
+                                        divreport_success();
+                                    } else {
+                                        divreport_failed();
+                                    }
                                 }
                             });
                         });

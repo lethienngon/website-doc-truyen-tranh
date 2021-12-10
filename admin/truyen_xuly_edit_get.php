@@ -47,7 +47,7 @@ if ($result->num_rows > 0) {
         echo '<form id="div02_truyen_form_edit_form" method="POST" enctype="multipart/form-data" autocomplete="off">
         <table border="0">
             <tr>
-                <td rowspan="7"><label for="div02_truyen_form_edit_form_hinhanh"><img src="' . $row_edit['TRUYEN_HINHANH'] . '" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_truyen_form_edit_form_hinhanh_img" width="450" height="450"></label>
+                <td rowspan="7"><label for="div02_truyen_form_edit_form_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_truyen_form_edit_form_hinhanh_img" width="450" height="450"></label>
                     <input type="file" id="div02_truyen_form_edit_form_hinhanh" name="truyen_hinhanh" onchange="div02_truyen_form_edit_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;">
                 </td>
                 <td><input type="text" class="div02_truyen_form_edit_form_input" name="truyen_name" value="' . $row_edit['TRUYEN_NAME'] . '" placeholder="Nhập tên truyện"></td>

@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
     echo '<form id="div02_tacgia_form_edit_form" method="POST" enctype="multipart/form-data" autocomplete="off">
             <table border="0">
               <tr>
-                <td rowspan="4"><label for="div02_tacgia_form_edit_form_hinhanh"><img src="'.$row_list['TACGIA_HINHANH'].'" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_tacgia_form_edit_form_hinhanh_img" width="450" height="450"></label>
+                <td rowspan="4"><label for="div02_tacgia_form_edit_form_hinhanh"><img src="" alt="Bạn chưa chọn ảnh, sẽ tự động dùng ảnh mặc định!" id="div02_tacgia_form_edit_form_hinhanh_img" width="450" height="450"></label>
                     <input type="file" id="div02_tacgia_form_edit_form_hinhanh" name="tacgia_hinhanh" onchange="div02_tacgia_form_edit_form_hinhanh_change()" accept=".jpg, .jpeg, .png" style="visibility:hidden;"></td>
                 <td><input type="text" class="div02_tacgia_form_edit_form_input" name="tacgia_hoten" value="'.$row_list['TACGIA_HOTEN'].'" placeholder="Họ và tên của tác giả"></td>
               </tr>

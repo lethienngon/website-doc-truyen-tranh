@@ -59,6 +59,9 @@ body {
     transition: 0.5;
 }
 
+
+/* Các class title mục lục */
+
 .div02_title {
     position: absolute;
     word-wrap: break-word;
@@ -68,6 +71,9 @@ body {
     left: 10px;
     top: 10px;
 }
+
+
+/*------------------------------------------------- THÔNG TIN CÁ NHÂN -----------------------------------*/
 
 #div02_thongtincanhan_lienhe table {
     background-color: rgb(152, 212, 214);
@@ -92,7 +98,7 @@ body {
 }
 
 
-/*THÀNH VIÊN*/
+/*---------------------------------------------------THÀNH VIÊN-----------------------------------------------*/
 
 
 /*Button Thêm thành viên*/
@@ -144,6 +150,13 @@ body {
     border-radius: 10px;
     visibility: hidden;
     transition: 0.5s;
+}
+
+#div02_thanhvien_form_add p {
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 #div02_thanhvien_form_add table tr th {
@@ -199,7 +212,38 @@ body {
 }
 
 
-/*BEGIN_CHUNG*/
+/*Danh sách thành viên*/
+
+#div02_thanhvien_list_table_td_stt {
+    width: 10px;
+    text-align: center;
+}
+
+#div02_thanhvien_list_table_td_hoten {
+    width: 200px;
+    text-align: center;
+    word-break: break-all;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.div02_thanhvien_list_table_td01 {
+    width: 115px;
+    text-align: center;
+    padding: 5px;
+}
+
+.div02_thanhvien_list_table_td02 {
+    width: 100px;
+    text-align: center;
+}
+
+#div02_thanhvien_list_table_td_congcu {
+    text-align: center;
+}
+
+
+/*--------------------------------------------------BEGIN_CHUNG-------------------------------------------*/
 
 .div02_form_submit {
     background-color: rgb(49, 102, 182);
@@ -348,37 +392,106 @@ body {
     border: 2px solid black;
 }
 
+#div02_theloai_list,
+#div02_tacgia_list,
+#div02_truyen_list,
+#div02_chuong_list,
+#div02_thanhvien_list {
+    position: absolute;
+    top: 0px;
+    margin-top: 60px;
+    margin-left: 10px;
+}
+
+#div02_theloai_list_table,
+#div02_tacgia_list_table,
+#div02_truyen_list_table,
+#div02_chuong_list_table,
+#div02_thanhvien_list_table {
+    border: 1px solid rgb(216, 216, 216);
+    font-size: 15px;
+    width: 1050px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+#div02_theloai_list_table th,
+#div02_tacgia_list_table th,
+#div02_truyen_list_table th,
+#div02_truyen_chuong_list_table th,
+#div02_chuong_list_table th,
+#div02_thanhvien_list_table th {
+    padding-left: 10px;
+    padding-right: 5px;
+    height: 30px;
+    background-color: rgb(77, 148, 240);
+}
+
+#div02_theloai_list_table td,
+#div02_tacgia_list_table td,
+#div02_truyen_list_table td,
+#div02_truyen_chuong_list_table td,
+#div02_chuong_list_table td,
+#div02_thanhvien_list_table td {
+    border-top: 1px solid rgb(240, 240, 240);
+    height: 50px;
+}
+
+#div02_theloai_list_table tr:nth-child(even),
+#div02_tacgia_list_table tr:nth-child(even),
+#div02_truyen_list_table tr:nth-child(even),
+#div02_truyen_chuong_list_table tr:nth-child(even),
+#div02_chuong_list_table tr:nth-child(even),
+#div02_thanhvien_list_table tr:nth-child(even) {
+    background-color: rgb(255, 255, 255);
+}
+
+#div02_theloai_list_table tr:nth-child(odd),
+#div02_tacgia_list_table tr:nth-child(odd),
+#div02_truyen_list_table tr:nth-child(odd),
+#div02_truyen_chuong_list_table tr:nth-child(odd),
+#div02_chuong_list_table tr:nth-child(odd),
+#div02_thanhvien_list_table tr:nth-child(odd) {
+    background-color: rgb(205, 233, 241);
+}
+
+
+/* Thông báo thao tác thành công*/
+
+#divreport_success {
+    visibility: hidden;
+    background-color: rgb(21, 175, 80);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    bottom: -10%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+
+/* Thông báo thao tác thất bại*/
+
+#divreport_failed {
+    visibility: hidden;
+    background-color: rgb(160, 26, 26);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    bottom: -10%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
+}
+
 
 /*End_chung*/
 
 
-/*Danh sách thành viênr*/
-
-#div02_thanhvien_list {
-    border-radius: 5px;
-    position: absolute;
-    margin-top: 70px;
-    margin-left: 10px;
-}
-
-#div02_thanhvien_list_table {
-    border: 1px solid rgb(216, 216, 216);
-    font-size: 15px;
-    text-align: center;
-    width: 1050px;
-}
-
-#div02_thanhvien_list_table th {
-    height: 30px;
-}
-
-#div02_thanhvien_list_table td {
-    border-top: 1px solid rgb(240, 240, 240);
-    height: 80px;
-}
-
-
-/*TÁC GIẢ*/
+/*------------------------------------------------------TÁC GIẢ----------------------------------------------*/
 
 
 /*Button Thêm tác giả*/
@@ -502,33 +615,7 @@ body {
 }
 
 
-/*
-#div02_tacgia_list {
-    border-radius: 5px;
-    position: absolute;
-    margin-top: 70px;
-    margin-left: 10px;
-}
-
-#div02_tacgia_list_table {
-    border: 1px solid rgb(216, 216, 216);
-    font-size: 15px;
-    text-align: center;
-    width: 1050px;
-}
-
-#div02_tacgia_list_table th {
-    height: 30px;
-}
-
-#div02_tacgia_list_table td {
-    border-top: 1px solid rgb(240, 240, 240);
-    height: 80px;
-}
-*/
-
-
-/* THỂ LOẠI */
+/*-------------------------------------------------------THỂ LOẠI-------------------------------------------*/
 
 
 /*Button Thêm thể loại*/
@@ -614,62 +701,6 @@ body {
 
 /*Danh sách thể loại*/
 
-#div02_theloai_list,
-#div02_tacgia_list,
-#div02_truyen_list,
-#div02_chuong_list {
-    position: absolute;
-    margin-top: 60px;
-    margin-left: 10px;
-}
-
-#div02_theloai_list_table,
-#div02_tacgia_list_table,
-#div02_truyen_list_table,
-#div02_chuong_list_table {
-    border: 1px solid rgb(216, 216, 216);
-    font-size: 15px;
-    width: 1050px;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-#div02_theloai_list_table th,
-#div02_tacgia_list_table th,
-#div02_truyen_list_table th,
-#div02_truyen_chuong_list_table th,
-#div02_chuong_list_table th {
-    padding-left: 10px;
-    padding-right: 5px;
-    height: 30px;
-    background-color: rgb(77, 148, 240);
-}
-
-#div02_theloai_list_table td,
-#div02_tacgia_list_table td,
-#div02_truyen_list_table td,
-#div02_truyen_chuong_list_table td,
-#div02_chuong_list_table td {
-    border-top: 1px solid rgb(240, 240, 240);
-    height: 50px;
-}
-
-#div02_theloai_list_table tr:nth-child(even),
-#div02_tacgia_list_table tr:nth-child(even),
-#div02_truyen_list_table tr:nth-child(even),
-#div02_truyen_chuong_list_table tr:nth-child(even),
-#div02_chuong_list_table tr:nth-child(even) {
-    background-color: rgb(255, 255, 255);
-}
-
-#div02_theloai_list_table tr:nth-child(odd),
-#div02_tacgia_list_table tr:nth-child(odd),
-#div02_truyen_list_table tr:nth-child(odd),
-#div02_truyen_chuong_list_table tr:nth-child(odd),
-#div02_chuong_list_table tr:nth-child(odd) {
-    background-color: rgb(205, 233, 241);
-}
-
 #div02_theloai_list_table_td_id {
     width: 30px;
     text-align: center;
@@ -697,7 +728,7 @@ body {
 }
 
 
-/* TRUYỆN */
+/*-----------------------------------------------------------TRUYỆN---------------------------------------------*/
 
 
 /*Button Thêm truyện*/
@@ -852,7 +883,7 @@ body {
 }
 
 
-/* Chương của truyện */
+/*-------------------------------------------------------CHƯƠNG----------------------------------------------*/
 
 
 /*Button Thêm chương*/
@@ -1125,36 +1156,4 @@ body {
 #div02_chuong_list_table_td_congcu {
     width: 100px;
     text-align: center;
-}
-
-
-/* Thông báo thao tác thành công*/
-
-#divreport_success {
-    visibility: hidden;
-    background-color: rgb(21, 175, 80);
-    font-weight: bold;
-    color: white;
-    position: fixed;
-    left: 2%;
-    bottom: -10%;
-    transition: 1s;
-    border-radius: 5px;
-    padding: 20px;
-}
-
-
-/* Thông báo thao tác thất bại*/
-
-#divreport_failed {
-    visibility: hidden;
-    background-color: rgb(160, 26, 26);
-    font-weight: bold;
-    color: white;
-    position: fixed;
-    left: 2%;
-    bottom: -10%;
-    transition: 1s;
-    border-radius: 5px;
-    padding: 20px;
 }
