@@ -91,11 +91,6 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 }
                 ?>
                 <li>
-                    <a href="#" onclick="click_baoloi()">
-                        <p>Báo lỗi</p>
-                    </a>
-                </li>
-                <li>
                     <a href="dangxuat.php">
                         <p>Đăng xuất</p>
                     </a>
@@ -211,8 +206,6 @@ $row_admin_level = $result_admin_level->fetch_assoc();
                 <!-- 2.7.4) Danh sách Thành viên -->
                 <div id="div02_thanhvien_list"></div>
             </div>
-            <!-- 2.8) Phần nội dung Báo lỗi -->
-            <div></div>
         </div>
     </div>
     <!-- 3.1) Form ẩn: Thêm Thể loại -->
@@ -462,17 +455,6 @@ $row_admin_level = $result_admin_level->fetch_assoc();
             document.getElementById('div02_chuong').style.visibility = "hidden";
             document.getElementById('div02_thanhvien').style.visibility = "visible";
             div02_thanhvien_form_search_input_keyup("", 1);
-        }
-
-        function click_baoloi() {
-            div02_truyen_list_table_list_click(truyen_id);
-            document.getElementById('div02_thongtincanhan').style.visibility = "hidden";
-            document.getElementById('div02_theloai').style.visibility = "hidden";
-            document.getElementById('div02_tacgia').style.visibility = "hidden";
-            document.getElementById('div02_truyen').style.visibility = "hidden";
-            document.getElementById('div02_truyen_chuong').style.visibility = "hidden";
-            document.getElementById('div02_chuong').style.visibility = "hidden";
-            document.getElementById('div02_thanhvien').style.visibility = "hidden";
         }
 
         /////----------------------------------------------------/////

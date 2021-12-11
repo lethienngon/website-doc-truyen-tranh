@@ -21,7 +21,7 @@ $result = $conn->query($sql);
 // Nếu là thành viên thì thực hiện trong if
 if ($result->num_rows > 0) {
     // SQL lấy dữ liệu để liệt kê
-    $sql_chuong_list = "SELECT chuong.*, TRUYEN_NAME FROM chuong join truyen on chuong.TRUYEN_ID=truyen.TRUYEN_ID where CHUONG_NAME like'%$chuong_name%' ORDER BY TRUYEN_NAME, CHUONG_STT ASC";
+    $sql_chuong_list = "SELECT chuong.*, TRUYEN_NAME FROM chuong join truyen on chuong.TRUYEN_ID=truyen.TRUYEN_ID where CHUONG_NAME like'%$chuong_name%' ORDER BY CHUONG_TRANGTHAI DESC";
     $result_chuong_list = $conn->query($sql_chuong_list);
     // Liệt kê các chương vào bảng
     echo "<table border='1' id='div02_chuong_list_table'>";

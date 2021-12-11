@@ -12,6 +12,7 @@ body {
 #head {
     background-color: #00df9c;
     position: fixed;
+    z-index: 5;
     height: 50px;
     width: 6000px;
 }
@@ -19,6 +20,7 @@ body {
 #div01 {
     background-color: #00df9c;
     position: fixed;
+    z-index: 5;
     width: 1300px;
     left: 50%;
     transform: translateX(-50%);
@@ -44,7 +46,7 @@ a {
     right: 0px;
     display: inline-block;
     margin-top: 2px;
-    width: 300px;
+    width: 420px;
     height: 25px;
 }
 
@@ -54,72 +56,391 @@ a {
     margin: 0px;
 }
 
-#searchinput {
+#truyen_search_input {
     border: none;
     position: absolute;
     border-radius: 7px;
-    width: 277px;
+    width: 400px;
     height: 25px;
+    padding-left: 10px;
+}
+
+#truyen_search_kq {
+    background-color: white;
+    position: absolute;
+    right: 0px;
+    border-bottom-left-radius: 7px;
+    width: 400px;
+}
+
+#truyen_search_kq ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+#truyen_search_kq a {
+    display: block;
+    margin: auto;
+    height: auto;
+    padding: 5px;
+}
+
+#truyen_search_kq a:hover {
+    background-color: rgb(173, 173, 175);
+}
+
+#truyen_search_kq img {
+    display: inline-block;
+    margin-left: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+#truyen_search_kq p {
+    display: inline-block;
+    position: relative;
+    top: -20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(2, 70, 53);
+    margin-left: 5px;
+    width: 300px;
+    word-wrap: break-word;
 }
 
 #div02 {
-    padding-top: 80px;
+    padding-top: 50px;
     width: 1300px;
+    height: auto;
     margin: auto;
 }
 
-#div02a {
-    background-color: aqua;
-    width: 1300px;
-    height: 300px;
+.title_p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: rgb(85, 61, 61);
 }
 
+#div02a {
+    width: 1300px;
+    height: auto;
+    background-color: wheat;
+}
+
+#div02a a {
+    width: 250px;
+    height: auto;
+    word-wrap: break-word;
+    text-align: center;
+}
+
+#div02a img {
+    border: 1px solid black;
+    width: 250px;
+    height: 300px
+}
+
+#div02a img:hover {
+    border: 1px solid white;
+}
+
+#div02a a:hover p {
+    color: white;
+}
+
+#div02a a p {
+    color: rgb(78, 67, 67);
+    font-size: 18px;
+    margin: 5px;
+}
+
+
+/**/
+
 #div02b {
-    background-color: rgb(0, 255, 21);
-    margin-top: 30px;
     width: 850px;
-    height: 2000px;
+    height: auto;
     float: left;
 }
 
 #div02b1 {
-    background-color: rgb(165, 218, 169);
     width: 850px;
-    height: 1900px;
+    height: auto;
+}
+
+#div02b1 a {
+    border: 1px solid black;
+    background-color: rgb(177, 211, 208);
+    border-radius: 4px;
+    display: inline-block;
+    margin: 5px;
+    width: 200px;
+    height: auto;
+}
+
+#div02b1 a:hover {
+    border: 1px solid white;
+}
+
+#div02b1 a img {
+    width: 200px;
+    height: 250px;
+    border-radius: 4px;
+}
+
+#div02b1 a p {
+    top: 10px;
+    width: 190px;
+    height: auto;
+    margin-top: 5px;
+    word-wrap: break-word;
+    text-align: center;
+    color: rgb(97, 94, 97);
+    font-size: 18px;
+    padding: 5px;
 }
 
 #div02b2 {
     background-color: rgb(255, 0, 0);
-    margin-top: 30px;
     width: 1300px;
     height: 70px;
 }
 
 #div02c {
-    background-color: rgb(179, 15, 110);
-    margin-top: 30px;
+    background-color: rgb(219, 210, 216);
     width: 420px;
-    height: 1500px;
+    height: auto;
     float: right;
 }
 
-#div02c1 {
-    background-color: rgb(51, 15, 179);
-    margin-top: 0px;
-    width: 420px;
+#div03 {
+    visibility: hidden;
+    position: absolute;
+    width: 1000px;
+    height: auto;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#div03_truyen_thongtin {
+    border-radius: 8px;
+    width: 1000px;
+    height: auto;
+    padding-bottom: 20px;
+    background-color: rgb(219, 206, 193);
+}
+
+#div03_truyen_thongtin_image {
+    padding: 50px;
+    width: 300px;
     height: 400px;
 }
 
-#div02c2 {
-    background-color: rgb(179, 122, 15);
-    margin-top: 30px;
-    width: 420px;
-    height: 400px;
+#div03_truyen_thongtin_name {
+    width: 550px;
+    height: auto;
+    word-wrap: break-word;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(100, 74, 74);
 }
 
-#div02c3 {
-    background-color: rgb(15, 154, 179);
-    margin-top: 30px;
-    width: 420px;
-    height: 200px;
+.div03_truyen_thongtin_p {
+    width: 550px;
+    height: auto;
+    word-wrap: break-word;
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+#div03_truyen_thongtin_td02 {
+    padding-top: 10px;
+    width: 550px;
+    height: auto;
+    word-wrap: break-word;
+}
+
+#div03_truyen_thongtin_mota {
+    font-size: 20px;
+    margin-left: 50px;
+    width: 900px;
+    height: auto;
+    word-wrap: break-word;
+}
+
+#div03_truyen_list_chuong {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-radius: 8px;
+    width: 900px;
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: rgb(154, 179, 180);
+}
+
+#div03_truyen_list_chuong ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+.div03_truyen_list_chuong_li {
+    position: relative;
+    margin-top: 10px;
+    width: auto;
+    height: auto;
+}
+
+.div03_truyen_list_chuong_a {
+    display: block;
+    width: 900px;
+    height: 30px;
+    border-radius: 10px;
+}
+
+.div03_truyen_list_chuong_a:hover {
+    background-color: rgb(15, 104, 126);
+}
+
+.div03_truyen_list_chuong_a div {
+    position: relative;
+    display: inline-block;
+    width: 250px;
+    color: rgb(92, 85, 85);
+    font-size: 18px;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+#div04 {
+    visibility: hidden;
+    position: absolute;
+    width: 1000px;
+    height: auto;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#div04_chuong_list_chuong_button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#div04_chuong_list_chuong_button select {
+    display: inline-block;
+    background-color: rgb(62, 170, 85);
+    border: 1px solid black;
+    padding-left: 5px;
+    margin: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 140px;
+    height: 40px;
+}
+
+.div04_chuong_list_chuong_button_a {
+    display: inline-block;
+    background-color: rgb(62, 170, 85);
+    border: 1px solid black;
+    padding-left: 5px;
+    margin: 10px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100px;
+    height: 38px;
+}
+
+#chuong_baoloi {
+    display: inline-block;
+    background-color: rgb(190, 0, 0);
+    border: 1px solid black;
+    padding-left: 5px;
+    margin-left: 60px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100px;
+    height: 38px;
+}
+
+#divreport {
+    visibility: hidden;
+    background-color: rgb(21, 175, 80);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    top: -20%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+#div04_chuong_list_chuong_button a p {
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+    padding-left: 5px;
+}
+
+#div04_chuong_list_chuong_button select:hover,
+#div04_chuong_list_chuong_button a:hover {
+    border: 1px solid white;
+}
+
+#div04_chuong_list_chuong_button h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(58, 19, 19);
+    word-wrap: break-word;
+    width: 600px;
+    height: auto;
+}
+
+#div04_chuong_list_chuong_button h4 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: rgb(127, 160, 124);
+}
+
+#div04_chuong_list_hinhanh {
+    position: absolute;
+    height: auto;
+    top: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.button_scroll2top {
+    display: none;
+    width: 80px;
+    height: 70px;
+    padding-top: 20px;
+    padding-left: 10px;
+    position: fixed;
+    z-index: 999;
+    right: -30px;
+    top: 85%;
+    background: #fb3;
+    border-radius: 999px;
+    cursor: pointer;
+    opacity: 0.6;
+    color: #fff;
+    font-size: 2.0em;
+}
+
+.button_scroll2top:hover {
+    opacity: 1.0;
 }
