@@ -13,7 +13,7 @@ if ($truyen_name != "") {
         while ($row_truyen_search = $result_truyen_search->fetch_assoc()) {
             echo "<li>
                 <a href='#' onclick='page_truyen(".$row_truyen_search['TRUYEN_ID'].")'>
-                <img src='" . $row_truyen_search['TRUYEN_HINHANH'] . "'><p>" . $row_truyen_search['TRUYEN_NAME'] . "</p>
+                <img src='admin/" . $row_truyen_search['TRUYEN_HINHANH'] . "'><p>" . $row_truyen_search['TRUYEN_NAME'] . "</p>
                 </a>
                 </li>";
         }

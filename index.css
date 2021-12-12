@@ -31,14 +31,97 @@ a {
 }
 
 #atrang {
-    width: 110px;
+    margin-left: -25px;
+    padding-left: 25px;
+    width: 150px;
     height: 50px;
     display: inline-block;
+    border-top-right-radius: 20px;
 }
 
 #atrang:hover {
     background-color: rgb(74, 175, 54);
+    transition: ease-in 0.2s;
+    -moz-animation: ease-in 0.2s;
+    -webkit-animation: ease-in 0.2s;
 }
+
+
+/*-------------------------------------------------- Menu Thể loại và Tác giả --------------------------*/
+
+#menu {
+    position: absolute;
+    top: 0px;
+    left: 150px;
+    height: 50px;
+    width: 300px;
+    font-weight: bold;
+}
+
+#menu_ul>li {
+    list-style: none;
+    float: left;
+    position: relative;
+}
+
+#menu_ul>li>a {
+    margin-top: -16px;
+    text-decoration: none;
+    padding: 0px 15px 0px 15px;
+    line-height: 50px;
+    display: block;
+    color: rgb(9, 9, 41);
+    width: 80px;
+    height: 50px;
+    text-align: center;
+    border-top-left-radius: 20px;
+}
+
+#menu>ul>li>a:hover {
+    color: white;
+    background-color: rgb(59, 59, 11);
+    transition: ease-in 0.2s;
+    -moz-animation: ease-in 0.2s;
+    -webkit-animation: ease-in 0.2s;
+}
+
+.sub_menu_ul {
+    background-color: thistle;
+    width: 500px;
+    max-height: 500px;
+    overflow-y: scroll;
+    word-wrap: break-word;
+    display: none;
+    position: absolute;
+}
+
+.sub_menu_ul>li {
+    list-style: none;
+}
+
+.sub_menu_ul>li>a {
+    background-color: rgb(59, 59, 11);
+    color: white;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    display: block;
+    border-top: 1px solid rgb(110, 94, 126);
+    line-height: 50px;
+    margin-left: -40px;
+    padding-left: 10px;
+}
+
+.sub_menu_ul>li>a:hover {
+    background-color: rgb(110, 94, 126);
+}
+
+#menu_ul>li:hover .sub_menu_ul {
+    display: block;
+}
+
+
+/*--------------------------------------------------- Tìm kiếm truyện -----------------------------------*/
 
 #search {
     position: absolute;
@@ -108,6 +191,9 @@ a {
     word-wrap: break-word;
 }
 
+
+/*--------------------------------------------- Trang chủ ------------------------------------------------*/
+
 #div02 {
     padding-top: 50px;
     width: 1300px;
@@ -121,6 +207,9 @@ a {
     font-weight: bold;
     color: rgb(85, 61, 61);
 }
+
+
+/*---------- Truyện đề xuất -----------*/
 
 #div02a {
     width: 1300px;
@@ -156,7 +245,7 @@ a {
 }
 
 
-/**/
+/*---------Truyện mới cập nhật-------------*/
 
 #div02b {
     width: 850px;
@@ -169,43 +258,57 @@ a {
     height: auto;
 }
 
-#div02b1 a {
+.div02b1_a {
     border: 1px solid black;
-    background-color: rgb(177, 211, 208);
+    top: 100px;
+    left: 0px;
+    background-color: rgb(128, 196, 189);
     border-radius: 4px;
-    display: inline-block;
+    display: inline-table;
     margin: 5px;
     width: 200px;
+    min-height: 400;
     height: auto;
 }
 
-#div02b1 a:hover {
+.div02b1_a:hover {
     border: 1px solid white;
 }
 
-#div02b1 a img {
+.div02b1_img {
     width: 200px;
     height: 250px;
     border-radius: 4px;
 }
 
-#div02b1 a p {
+.div02b1_a p {
     top: 10px;
     width: 190px;
     height: auto;
     margin-top: 5px;
     word-wrap: break-word;
     text-align: center;
-    color: rgb(97, 94, 97);
+    color: rgb(36, 20, 26);
     font-size: 18px;
     padding: 5px;
 }
 
+
+/*---------- Div cuối trang chủ -------------*/
+
 #div02b2 {
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(126, 126, 126);
     width: 1300px;
-    height: 70px;
+    height: 50px;
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 1px;
 }
+
+
+/*------------------Truyện đã xem-----------*/
 
 #div02c {
     background-color: rgb(219, 210, 216);
@@ -214,15 +317,63 @@ a {
     float: right;
 }
 
+#div02c_truyendaxem {
+    position: relative;
+    right: 0px;
+    border-bottom-left-radius: 7px;
+    width: 400px;
+}
+
+#div02c_truyendaxem ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+#div02c_truyendaxem a {
+    display: block;
+    margin: auto;
+    height: auto;
+    padding: 5px;
+}
+
+#div02c_truyendaxem a:hover {
+    background-color: rgb(173, 173, 175);
+}
+
+#div02c_truyendaxem img {
+    display: inline-block;
+    margin-left: 5px;
+    width: 50px;
+    height: 50px;
+}
+
+#div02c_truyendaxem p {
+    display: inline-block;
+    position: relative;
+    top: -20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(2, 70, 53);
+    margin-left: 5px;
+    width: 300px;
+    word-wrap: break-word;
+}
+
+
+/* -------------------------------------------- Page Truyện và Page Chương-----------------------------------------*/
+
 #div03 {
     visibility: hidden;
     position: absolute;
     width: 1000px;
     height: auto;
-    top: 100px;
+    top: 50px;
     left: 50%;
     transform: translateX(-50%);
 }
+
+
+/*-------Page Truyện --------*/
 
 #div03_truyen_thongtin {
     border-radius: 8px;
@@ -317,15 +468,8 @@ a {
     padding-left: 5px;
 }
 
-#div04 {
-    visibility: hidden;
-    position: absolute;
-    width: 1000px;
-    height: auto;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+
+/*--------------Page chương----------------*/
 
 #div04_chuong_list_chuong_button {
     position: absolute;
@@ -350,10 +494,10 @@ a {
     display: inline-block;
     background-color: rgb(62, 170, 85);
     border: 1px solid black;
-    padding-left: 5px;
     margin: 10px;
     color: white;
     font-size: 18px;
+    text-align: center;
     font-weight: bold;
     width: 100px;
     height: 38px;
@@ -363,8 +507,7 @@ a {
     display: inline-block;
     background-color: rgb(190, 0, 0);
     border: 1px solid black;
-    padding-left: 5px;
-    margin-left: 60px;
+    margin-left: 70px;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -372,18 +515,12 @@ a {
     height: 38px;
 }
 
-#divreport {
-    visibility: hidden;
-    background-color: rgb(21, 175, 80);
-    font-weight: bold;
+.div04_chuong_list_chuong_button_a p,
+#chuong_baoloi p {
+    font-family: Arial, Helvetica, sans-serif;
     color: white;
-    position: fixed;
-    left: 2%;
-    top: -20%;
-    transition: 1s;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
 }
 
 #div04_chuong_list_chuong_button a p {
@@ -398,9 +535,23 @@ a {
     border: 1px solid white;
 }
 
-#div04_chuong_list_chuong_button h2 {
+#div04_chuong_list_chuong_button h1 {
     text-align: center;
     font-size: 30px;
+    font-weight: bold;
+    color: rgb(58, 19, 19);
+    word-wrap: break-word;
+    width: 600px;
+    height: auto;
+}
+
+#div04_chuong_list_chuong_button h1:hover {
+    color: cadetblue;
+}
+
+#div04_chuong_list_chuong_button h2 {
+    text-align: center;
+    font-size: 25px;
     font-weight: bold;
     color: rgb(58, 19, 19);
     word-wrap: break-word;
@@ -417,11 +568,15 @@ a {
 
 #div04_chuong_list_hinhanh {
     position: absolute;
+    text-align: center;
     height: auto;
     top: 500px;
     left: 50%;
     transform: translateX(-50%);
 }
+
+
+/*-------------------------------------------- Button scroll to top -------------------------------------------*/
 
 .button_scroll2top {
     display: none;
@@ -443,4 +598,34 @@ a {
 
 .button_scroll2top:hover {
     opacity: 1.0;
+}
+
+
+/*-------------------------------------------- Thông báo cám ơn ------------------------------------------*/
+
+#divreport {
+    visibility: hidden;
+    background-color: rgb(21, 175, 80);
+    font-weight: bold;
+    color: white;
+    position: fixed;
+    left: 2%;
+    top: -20%;
+    transition: 1s;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+}
+
+
+/*--------------------------------------------- List truyện -----------------------------------------------*/
+
+#div_list {
+    visibility: hidden;
+    position: absolute;
+    width: 1060px;
+    height: auto;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
 }

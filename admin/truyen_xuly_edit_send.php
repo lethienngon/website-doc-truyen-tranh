@@ -14,8 +14,14 @@ $pass = $_COOKIE['pass'];
 $truyen_name = $_POST['truyen_name'];
 $truyen_mota = $_POST['truyen_mota'];
 $truyen_trangthai = $_POST['truyen_trangthai'];
-$url = "hinhanhtruyen/" . $_FILES['truyen_hinhanh']['name'];
-move_uploaded_file($_FILES['truyen_hinhanh']['tmp_name'], $url);
+// Check xem hình ảnh tồn tại không, nếu không tự dùng ảnh mặc định
+if(!isset($_FILES['truyen_hinhanh']['name']) or $_FILES['truyen_hinhanh']['name']==""){
+    $url = "hinhanhtruyen/default.png";
+}
+else{
+    $url = "hinhanhtruyen/".$_FILES['truyen_hinhanh']['name'];
+    move_uploaded_file($_FILES['truyen_hinhanh']['tmp_name'],$url);
+}
 // Dữ liệu GET
 $truyen_id = $_GET['truyen_id'];
 // Connect Mysql
